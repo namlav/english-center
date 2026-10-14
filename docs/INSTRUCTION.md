@@ -20,7 +20,7 @@ Dự án môn học **Lập Trình Mã Nguồn Mở** – Hệ thống quản l�
 | Thành viên | Vai trò | Chức năng phụ trách | File Route riêng | Controllers sở hữu | Thư mục View sở hữu |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Thành viên 1** | Lập trình viên | Migration, Seeder, Eloquent Model; CRUD Khóa học, Lớp học; Tìm kiếm & lọc lớp theo khóa học hoặc giáo viên. | `routes/member1.php` | `CourseController`, `ClassRoomController` | `resources/views/courses/`, `resources/views/class_rooms/` |
-| **Thành viên 2 (Leader/Repo)** | Lập trình viên | Đăng nhập, đăng xuất; Phân quyền (`Admin`, `Giáo viên`, `Học viên`); Quản lý tài khoản, học viên và giáo viên. | `routes/member2.php` | `AuthController`, `UserController`, `TeacherController`, `StudentController` | `resources/views/auth/`, `resources/views/users/`, `resources/views/teachers/`, `resources/views/students/` |
+| **Thành viên 2 (Repo)** | Lập trình viên | Đăng nhập, đăng xuất; Phân quyền (`Admin`, `Giáo viên`, `Học viên`); Quản lý tài khoản, học viên và giáo viên. | `routes/member2.php` | `AuthController`, `UserController`, `TeacherController`, `StudentController` | `resources/views/auth/`, `resources/views/users/`, `resources/views/teachers/`, `resources/views/students/` |
 | **Thành viên 3** | Lập trình viên | Học viên đăng ký lớp; Danh sách học viên theo lớp; Điểm danh; Nhập điểm/kết quả học tập; Thống kê học viên, lớp, doanh thu học phí. | `routes/member3.php` | `EnrollmentController`, `AttendanceController`, `GradeController`, `ReportController` | `resources/views/enrollments/`, `resources/views/attendances/`, `resources/views/grades/`, `resources/views/reports/` |
 | **Thành viên 4** | Tổng hợp báo cáo Word | Soạn thảo báo cáo Word theo đề cương; thu thập sơ đồ, ảnh giao diện, kết quả kiểm thử; lập mục lục, tài liệu tham khảo, phụ lục. | N/A | Kiểm thử toàn hệ thống | Thư mục `docs/report/` |
 
@@ -111,7 +111,7 @@ Trong trường hợp nhóm ngồi chung phòng Lab/Wi-Fi hoặc dùng Radmin VP
 ## 📅 6. Lộ trình thực hiện 20 ngày (Sprint Plan)
 
 * **Giai đoạn 1 (Ngày 1 – Ngày 3): Khởi tạo Khung dự án & Cơ sở dữ liệu**
-  * **Thành viên 2 (Leader):** Khởi tạo khung Laravel bằng AI Agent từ file `docs/AGENT_SCAFFOLD_SPEC.md`, push lên nhánh `main`, tạo sẵn cấu trúc phân quyền và đăng nhập.
+  * **Thành viên 2:** Khởi tạo khung Laravel theo file `docs/SCAFFOLD.md`, push lên nhánh `main`, tạo sẵn cấu trúc phân quyền và đăng nhập.
   * **Thành viên 1:** Kiểm tra, hoàn thiện toàn bộ Migrations, Models, Relationships và Seeders.
   * **Thành viên 4:** Khởi tạo file báo cáo Word, viết Chương 1 (Tổng quan đề tài) và Chương 2 (Sơ đồ Use Case, ERD).
 * **Giai đoạn 2 (Ngày 4 – Ngày 9): Xây dựng các chức năng Quản trị & Danh mục cốt lõi**
