@@ -46,6 +46,7 @@
                 <button type="submit" class="btn btn-primary w-100"><i class="bi bi-search"></i> Lọc</button>
                 <a href="{{ route('class_rooms.index') }}" class="btn btn-outline-secondary"><i class="bi bi-arrow-counterclockwise"></i></a>
             </div>
+            <div class="col-md-3"><label for="class-status" class="form-label fw-semibold">Trạng thái lớp</label><select id="class-status" name="status" class="form-select"><option value="">Tất cả trạng thái</option>@foreach($statuses as $value => $label)<option value="{{ $value }}" @selected(request('status') === $value)>{{ $label }}</option>@endforeach</select></div>
         </form>
     </div>
 </div>
@@ -94,7 +95,7 @@
                                         <span class="badge bg-secondary">Kết thúc</span>
                                         @break
                                     @default
-                                        <span class="badge bg-dark">{{ $class->status }}</span>
+                                        <span class="badge bg-dark">{{ $statuses[$class->status] ?? $class->status }}</span>
                                 @endswitch
                             </td>
                             <td class="text-center">
@@ -128,6 +129,10 @@
                                         <a href="{{ route('class_rooms.edit', $class) }}" class="btn btn-outline-warning ms-1" title="Sửa">
                                             <i class="bi bi-pencil"></i>
                                         </a>
+                                        <form method="POST" action="{{ route('class_rooms.destroy', $class) }}" class="d-inline" onsubmit="return confirm('Xác nhận xóa lớp học này?');">
+                                            @csrf @method('DELETE')
+                                            <button type="submit" class="btn btn-outline-danger ms-1" title="Xóa lớp"><i class="bi bi-trash"></i><span class="visually-hidden">Xóa lớp {{ $class->code }}</span></button>
+                                        </form>
                                     @endif
                                 </div>
                             </td>
@@ -145,7 +150,7 @@
     </div>
     @if($classRooms->hasPages())
         <div class="card-footer bg-white">
-            {{ $classRooms->withQueryString()->links() }}
+            {{ $classRooms->withQueryString()->links('pagination::bootstrap-5') }}
         </div>
     @endif
 </div>
