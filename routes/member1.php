@@ -1,17 +1,20 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ClassRoomController;
+use App\Http\Controllers\CourseController;
+use Illuminate\Support\Facades\Route;
 
-// Xem danh sách lớp & Tìm kiếm/Lọc lớp học (Ai đã đăng nhập cũng xem được)
-Route::middleware(['auth'])->group(function () {
+Route::pattern('course', '[0-9]+');
+Route::pattern('classRoom', '[0-9]+');
+
+Route::middleware('auth')->group(function (): void {
     Route::get('/class-rooms', [ClassRoomController::class, 'index'])->name('class_rooms.index');
     Route::get('/class-rooms/{classRoom}', [ClassRoomController::class, 'show'])->name('class_rooms.show');
 });
 
-// CRUD Khóa học & Lớp học (Chỉ Admin)
-Route::middleware(['auth', 'role:admin'])->group(function () {
+Route::middleware(['auth', 'role:admin'])->group(function (): void {
     Route::resource('courses', CourseController::class);
-    Route::resource('class-rooms', ClassRoomController::class)->except(['index', 'show'])->names('class_rooms');
+    Route::resource('class-rooms', ClassRoomController::class)
+        ->parameters(['class-rooms' => 'classRoom'])
+        ->except(['index', 'show'])->names('class_rooms');
 });

@@ -12,6 +12,13 @@
     @endif
 </div>
 
+<form method="GET" action="{{ route('courses.index') }}" class="card shadow-sm mb-4">
+    <div class="card-body row g-3 align-items-end">
+        <div class="col-md-7"><label for="keyword" class="form-label">Tìm mã hoặc tên khóa học</label><input id="keyword" name="keyword" type="search" maxlength="100" class="form-control" value="{{ $keyword }}"></div>
+        <div class="col-md-3"><label for="status" class="form-label">Trạng thái</label><select id="status" name="status" class="form-select"><option value="">Tất cả</option><option value="1" @selected($status === '1')>Hoạt động</option><option value="0" @selected($status === '0')>Ngừng hoạt động</option></select></div>
+        <div class="col-md-2 d-flex gap-2"><button class="btn btn-primary" type="submit">Lọc</button><a class="btn btn-outline-secondary" href="{{ route('courses.index') }}">Đặt lại</a></div>
+    </div>
+</form>
 <div class="card shadow-sm">
     <div class="card-body p-0">
         <div class="table-responsive">
@@ -22,7 +29,7 @@
                         <th>Tên khóa học</th>
                         <th>Cấp độ</th>
                         <th>Thời lượng (giờ)</th>
-                        <th>Số lớp đang mở</th>
+                        <th>Số lớp</th>
                         <th>Trạng thái</th>
                         <th class="text-center">Thao tác</th>
                     </tr>
@@ -75,7 +82,7 @@
     </div>
     @if($courses->hasPages())
         <div class="card-footer bg-white">
-            {{ $courses->links() }}
+            {{ $courses->links('pagination::bootstrap-5') }}
         </div>
     @endif
 </div>
