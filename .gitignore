@@ -1,0 +1,57 @@
+# Laravel Core
+/vendor
+/node_modules
+/public/build
+/public/hot
+/public/storage
+
+# Environment & Keys
+.env
+.env.backup
+.env.somefile
+.env.production
+/storage/*.key
+/storage/oauth-*.key
+
+# Application Storage & Framework Cache
+/storage/app/public/*
+!/storage/app/public/.gitkeep
+/storage/app/private/*
+!/storage/app/private/.gitkeep
+/storage/framework/cache/*
+!/storage/framework/cache/.gitkeep
+/storage/framework/sessions/*
+!/storage/framework/sessions/.gitkeep
+/storage/framework/testing/*
+!/storage/framework/testing/.gitkeep
+/storage/framework/views/*
+!/storage/framework/views/.gitkeep
+/storage/logs/*
+!/storage/logs/.gitkeep
+
+# Bootstrap Cache
+/bootstrap/cache/*
+!/bootstrap/cache/.gitkeep
+
+# Testing & Tools Cache
+.phpunit.result.cache
+npm-debug.log
+yarn-error.log
+
+# IDE & Editor Files
+/.fleet
+/.idea
+/.vscode
+*.sublime-project
+*.sublime-workspace
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+[Dd]esktop.ini
+
+# Project-Specific & AI Agent Files
+agent/
+.codegraph/
+*.bak
