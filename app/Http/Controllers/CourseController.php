@@ -3,50 +3,92 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class CourseController extends Controller
 {
-    public function index()
+    public function index(Request $request): View
     {
-        // TODO: [Thành viên 1] Hiển thị danh sách khóa học với withCount('classRooms')
-        $courses = Course::withCount('classRooms')->orderBy('created_at', 'desc')->paginate(10);
-        return view('courses.index', compact('courses'));
+        $filters = $request->validate([
+            'keyword' => ['nullable', 'string', 'max:100'],
+            'status' => ['nullable', Rule::in(['0', '1'])],
+        ]);
+        $keyword = trim($filters['keyword'] ?? '');
+        $status = $filters['status'] ?? '';
+        $courses = Course::withCount('classRooms')
+            ->when($keyword !== '', fn (Builder $query): Builder => $query->where(function (Builder $search) use ($keyword): void {
+                $search->where('code', 'like', '%'.$keyword.'%')->orWhere('name', 'like', '%'.$keyword.'%');
+            }))
+            ->when($status !== '', fn (Builder $query): Builder => $query->where('is_active', (int) $status))
+            ->latest('id')->paginate(10)->withQueryString();
+
+        return view('courses.index', compact('courses', 'keyword', 'status'));
     }
 
-    public function create()
+    public function create(): View
     {
-        // TODO: [Thành viên 1] Form thêm khóa học
-        return view('courses.create');
+        return view('courses.form', ['course' => new Course(['is_active' => true, 'duration_hours' => 48])]);
     }
 
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
-        // TODO: [Thành viên 1] Validate & lưu khóa học mới
-        abort(501, 'Chức năng đang được phát triển bởi Thành viên 1.');
+        $course = Course::create($this->validated($request));
+
+        return to_route('courses.show', $course)->with('success', 'Thêm khóa học thành công.');
     }
 
-    public function show(Course $course)
+    public function show(Course $course): View
     {
-        // TODO: [Thành viên 1] Xem chi tiết khóa học
-        return view('courses.show', compact('course'));
+        $course->loadCount('classRooms');
+        $classRooms = $course->classRooms()->with('teacher.user')->latest('id')->paginate(10);
+
+        return view('courses.show', compact('course', 'classRooms'));
     }
 
-    public function edit(Course $course)
+    public function edit(Course $course): View
     {
-        // TODO: [Thành viên 1] Form sửa khóa học
-        return view('courses.edit', compact('course'));
+        return view('courses.form', compact('course'));
     }
 
-    public function update(Request $request, Course $course)
+    public function update(Request $request, Course $course): RedirectResponse
     {
-        // TODO: [Thành viên 1] Validate & cập nhật khóa học
-        abort(501, 'Chức năng đang được phát triển bởi Thành viên 1.');
+        $course->update($this->validated($request, $course));
+
+        return to_route('courses.show', $course)->with('success', 'Cập nhật khóa học thành công.');
     }
 
-    public function destroy(Course $course)
+    public function destroy(Course $course): RedirectResponse
     {
-        // TODO: [Thành viên 1] Kiểm tra classRooms trước khi xóa
-        abort(501, 'Chức năng đang được phát triển bởi Thành viên 1.');
+        return DB::transaction(function () use ($course): RedirectResponse {
+            $course = Course::query()->lockForUpdate()->findOrFail($course->id);
+            if ($course->classRooms()->exists()) {
+                return to_route('courses.index')->with('error', 'Khóa học đã có lớp. Hãy ngừng hoạt động khóa học để giữ lịch sử.');
+            }
+            $course->delete();
+
+            return to_route('courses.index')->with('success', 'Xóa khóa học thành công.');
+        }, 5);
+    }
+
+    private function validated(Request $request, ?Course $course = null): array
+    {
+        return $request->validate([
+            'code' => ['required', 'string', 'max:30', 'regex:/^[A-Za-z0-9_-]+$/', Rule::unique('courses', 'code')->ignore($course)],
+            'name' => ['required', 'string', 'max:255'],
+            'level' => ['nullable', 'string', 'max:255'],
+            'duration_hours' => ['required', 'integer', 'between:1,2147483647'],
+            'description' => ['nullable', 'string', 'max:5000'],
+            'is_active' => ['required', 'boolean'],
+        ], [
+            'required' => 'Vui lòng nhập :attribute.',
+            'code.unique' => 'Mã khóa học đã tồn tại.',
+            'code.regex' => 'Mã chỉ gồm chữ không dấu, số, dấu gạch ngang hoặc gạch dưới.',
+            'duration_hours.between' => 'Thời lượng phải là số giờ nguyên lớn hơn 0.',
+        ], ['code' => 'mã khóa học', 'name' => 'tên khóa học', 'duration_hours' => 'thời lượng', 'is_active' => 'trạng thái']);
     }
 }
