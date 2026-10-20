@@ -137,6 +137,7 @@ class ClassRoomController extends Controller
                 });
             })],
             'start_date' => ['required', 'date_format:Y-m-d'],
+            'expected_end_date' => ['required', 'date_format:Y-m-d', 'after_or_equal:start_date'],
             'schedule' => ['required', 'string', 'max:255'],
             'tuition_fee' => ['required', 'numeric', 'min:0', 'max:9999999999.99', 'decimal:0,2'],
             'max_students' => ['required', 'integer', 'between:1,65535'],
@@ -147,9 +148,10 @@ class ClassRoomController extends Controller
             'code.regex' => 'Mã chỉ gồm chữ không dấu, số, dấu gạch ngang hoặc gạch dưới.',
             'course_id.exists' => 'Khóa học không tồn tại hoặc đã ngừng hoạt động.',
             'teacher_id.exists' => 'Giáo viên không tồn tại hoặc tài khoản đã bị khóa.',
+            'expected_end_date.after_or_equal' => 'Ngày kết thúc dự kiến phải bằng hoặc sau ngày bắt đầu.',
             'tuition_fee.min' => 'Học phí không được âm.',
             'tuition_fee.decimal' => 'Học phí có tối đa 2 chữ số thập phân.',
             'max_students.between' => 'Sĩ số tối đa phải từ 1 đến 65535.',
-        ], ['code' => 'mã lớp', 'name' => 'tên lớp', 'course_id' => 'khóa học', 'teacher_id' => 'giáo viên', 'start_date' => 'ngày bắt đầu', 'schedule' => 'lịch học', 'tuition_fee' => 'học phí', 'max_students' => 'sĩ số tối đa', 'status' => 'trạng thái']);
+        ], ['code' => 'mã lớp', 'name' => 'tên lớp', 'course_id' => 'khóa học', 'teacher_id' => 'giáo viên', 'start_date' => 'ngày bắt đầu', 'expected_end_date' => 'ngày kết thúc dự kiến', 'schedule' => 'lịch học', 'tuition_fee' => 'học phí', 'max_students' => 'sĩ số tối đa', 'status' => 'trạng thái']);
     }
 }

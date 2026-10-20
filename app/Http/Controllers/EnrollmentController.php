@@ -41,7 +41,7 @@ class EnrollmentController extends Controller
                 'result_status' => 'studying',
             ]);
 
-            return 'Đăng ký lớp học thành công.';
+            return 'Đăng ký thành công. Hệ thống đã ghi nhận thanh toán học phí '.number_format((float) $lockedClass->tuition_fee, 0, ',', '.').' ₫.';
         }, 3);
 
         return redirect()->route('enrollments.my_classes')->with('success', $message);
@@ -60,7 +60,7 @@ class EnrollmentController extends Controller
         $attendanceCounts = Attendance::query()
             ->where('student_id', $student->id)
             ->whereIn('class_room_id', $enrollments->pluck('class_room_id'))
-            ->selectRaw("class_room_id, SUM(CASE WHEN status = 'present' THEN 1 ELSE 0 END) as present_count, SUM(CASE WHEN status = 'absent' THEN 1 ELSE 0 END) as absent_count")
+            ->selectRaw("class_room_id, SUM(CASE WHEN status = 'present' THEN 1 ELSE 0 END) as present_count, SUM(CASE WHEN status = 'absent' THEN 1 ELSE 0 END) as absent_count, COUNT(*) as attendance_count")
             ->groupBy('class_room_id')
             ->get()
             ->keyBy('class_room_id');
@@ -69,9 +69,59 @@ class EnrollmentController extends Controller
             $counts = $attendanceCounts->get($enrollment->class_room_id);
             $enrollment->present_count = (int) ($counts?->present_count ?? 0);
             $enrollment->absent_count = (int) ($counts?->absent_count ?? 0);
+            $enrollment->attendance_count = (int) ($counts?->attendance_count ?? 0);
         }
 
         return view('enrollments.my_classes', compact('enrollments'));
+    }
+
+    public function cancelEnrollment(Enrollment $enrollment)
+    {
+        $student = Auth::user()->student;
+        abort_unless($student, 403, 'Tài khoản chưa được liên kết với hồ sơ học viên.');
+
+        $refundDetails = DB::transaction(function () use ($enrollment, $student) {
+            $lockedEnrollment = Enrollment::query()
+                ->whereKey($enrollment->id)
+                ->where('student_id', $student->id)
+                ->lockForUpdate()
+                ->firstOrFail();
+
+            $classRoom = ClassRoom::query()->lockForUpdate()->findOrFail($lockedEnrollment->class_room_id);
+
+            if ($classRoom->status !== 'upcoming') {
+                return false;
+            }
+
+            if (Attendance::query()
+                ->where('class_room_id', $classRoom->id)
+                ->where('student_id', $student->id)
+                ->exists()) {
+                return false;
+            }
+
+            $refundDetails = $lockedEnrollment->payment_status === 'paid'
+                ? ['class_name' => $classRoom->name, 'amount' => (float) $lockedEnrollment->paid_tuition]
+                : null;
+
+            $lockedEnrollment->delete();
+
+            return $refundDetails;
+        }, 3);
+
+        if ($refundDetails === false) {
+            return redirect()->route('enrollments.my_classes')
+                ->with('error', 'Không thể hủy đăng ký vì lớp đã bắt đầu học hoặc đã có điểm danh.');
+        }
+
+        $redirect = redirect()->route('enrollments.my_classes')
+            ->with('success', 'Đã hủy đăng ký lớp học thành công.');
+
+        if ($refundDetails !== null) {
+            $redirect->with('refund_details', $refundDetails);
+        }
+
+        return $redirect;
     }
 
     public function teacherClasses()

@@ -76,7 +76,7 @@
                             <td>{{ $class->name }}</td>
                             <td><span class="badge bg-info text-dark">{{ $class->course->name ?? 'N/A' }}</span></td>
                             <td>{{ $class->teacher->user->name ?? 'N/A' }}</td>
-                            <td><small>{{ $class->schedule }}</small></td>
+                            <td><small>{{ $class->schedule }}</small><div class="small text-secondary">{{ $class->start_date->format('d/m/Y') }} – {{ $class->expected_end_date?->format('d/m/Y') ?? 'Chưa có ngày kết thúc' }}</div></td>
                             <td class="text-success fw-bold">{{ number_format($class->tuition_fee, 0, ',', '.') }} đ</td>
                             <td>
                                 <span class="badge {{ $class->enrollments_count >= $class->max_students ? 'bg-danger' : 'bg-success' }}">
@@ -105,7 +105,7 @@
                                     </a>
 
                                     @if(auth()->check() && auth()->user()->isStudent())
-                                        <form action="{{ route('enrollments.enroll', $class) }}" method="POST" class="d-inline" onsubmit="return confirm('Bạn có chắc chắn muốn đăng ký lớp học này?');">
+                                        <form action="{{ route('enrollments.enroll', $class) }}" method="POST" class="d-inline" onsubmit="return confirm('Đăng ký lớp này với học phí {{ number_format($class->tuition_fee, 0, ',', '.') }} đ và ghi nhận thanh toán ngay?');">
                                             @csrf
                                             <button type="submit" class="btn btn-success btn-sm ms-1" title="Đăng ký học">
                                                 <i class="bi bi-pencil-square"></i> Đăng ký

@@ -50,7 +50,7 @@ class DatabaseSeeder extends Seeder
                 });
                 $classRoom = ClassRoom::firstOrCreate(['code' => $code], [
                     'name' => $courses[$i % 3]->name.' — Lớp '.($i + 1), 'course_id' => $courses[$i % 3]->id,
-                    'teacher_id' => $teachers[$i % 3]->id, 'start_date' => $start->toDateString(), 'schedule' => 'Thứ 2, 4, 6 — 18:00–19:30',
+                    'teacher_id' => $teachers[$i % 3]->id, 'start_date' => $start->toDateString(), 'expected_end_date' => $start->copy()->addMonths(2)->toDateString(), 'schedule' => 'Thứ 2, 4, 6 — 18:00–19:30',
                     'tuition_fee' => [4500000, 2800000, 2200000][$i % 3], 'max_students' => 25, 'status' => $status,
                 ]);
                 if ($classRoom->status === 'cancelled') {
@@ -60,12 +60,15 @@ class DatabaseSeeder extends Seeder
                     $student = $students[($i * 4 + $j) % 24];
                     $enrollment = Enrollment::firstOrCreate(['class_room_id' => $classRoom->id, 'student_id' => $student->id], [
                         'enrollment_date' => $classRoom->start_date->copy()->subWeek()->toDateString(),
-                        'paid_tuition' => $j % 3 === 0 ? $classRoom->tuition_fee : 0,
-                        'payment_status' => $j % 3 === 0 ? 'paid' : 'unpaid',
+                        'paid_tuition' => $classRoom->tuition_fee,
+                        'payment_status' => 'paid',
                         'midterm_score' => $status === 'completed' ? ($j === 0 ? 4 : 7) : null,
                         'final_score' => $status === 'completed' ? ($j === 0 ? 4 : 7.5) : null,
                         'result_status' => $status === 'completed' ? ($j === 0 ? 'failed' : 'passed') : 'studying',
                     ]);
+                    if ($enrollment->payment_status !== 'paid' || (float) $enrollment->paid_tuition !== (float) $classRoom->tuition_fee) {
+                        $enrollment->update(['paid_tuition' => $classRoom->tuition_fee, 'payment_status' => 'paid']);
+                    }
                     foreach ([0, 2, 4] as $k => $offset) {
                         $date = $classRoom->start_date->copy()->addDays($offset);
                         if ($date->gt($today)) {
