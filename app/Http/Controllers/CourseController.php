@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -12,10 +13,11 @@ use Illuminate\Validation\Rule;
 
 class CourseController extends Controller
 {
-    public function index(Request $request): View
+    public function index(Request $request): View|JsonResponse
     {
         $filters = $request->validate([
             'keyword' => ['nullable', 'string', 'max:100'],
+            'page' => ['nullable', 'integer', 'min:1'],
             'status' => ['nullable', Rule::in(['0', '1'])],
         ]);
         $keyword = trim($filters['keyword'] ?? '');
@@ -26,6 +28,13 @@ class CourseController extends Controller
             }))
             ->when($status !== '', fn (Builder $query): Builder => $query->where('is_active', (int) $status))
             ->latest('id')->paginate(10)->withQueryString();
+
+        if ($request->expectsJson()) {
+            return response()->json([
+                'html' => view('courses._results', compact('courses'))->render(),
+                'total' => $courses->total(),
+            ]);
+        }
 
         return view('courses.index', compact('courses', 'keyword', 'status'));
     }

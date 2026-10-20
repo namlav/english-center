@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\Builder as QueryBuilder;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -17,10 +18,11 @@ use Illuminate\Validation\ValidationException;
 
 class ClassRoomController extends Controller
 {
-    public function index(Request $request): View
+    public function index(Request $request): View|JsonResponse
     {
         $filters = $request->validate([
             'keyword' => ['nullable', 'string', 'max:100'],
+            'page' => ['nullable', 'integer', 'min:1'],
             'course_id' => ['nullable', 'integer', 'exists:courses,id'],
             'teacher_id' => ['nullable', 'integer', 'exists:teachers,id'],
             'status' => ['nullable', Rule::in(array_keys(ClassRoom::STATUSES))],
@@ -28,6 +30,13 @@ class ClassRoomController extends Controller
         $filters['keyword'] = trim($filters['keyword'] ?? '');
         $classRooms = ClassRoom::with(['course', 'teacher.user'])->withCount('enrollments')
             ->filter($filters)->latest('id')->paginate(10)->withQueryString();
+        if ($request->expectsJson()) {
+            return response()->json([
+                'html' => view('class_rooms._results', ['classRooms' => $classRooms, 'statuses' => ClassRoom::STATUSES])->render(),
+                'total' => $classRooms->total(),
+            ]);
+        }
+
         $courses = Course::orderBy('name')->get();
         $teachers = Teacher::with('user')->orderBy('teacher_code')->get();
         $statuses = ClassRoom::STATUSES;

@@ -1,0 +1,71 @@
+<p class="small text-secondary" data-result-summary>
+    Hiển thị {{ $courses->firstItem() ?? 0 }}–{{ $courses->lastItem() ?? 0 }}
+    trong {{ $courses->total() }} khóa học.
+</p>
+<div class="card shadow-sm">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover table-striped mb-0 align-middle">
+                <thead class="table-primary">
+                    <tr>
+                        <th>Mã khóa</th>
+                        <th>Tên khóa học</th>
+                        <th>Cấp độ</th>
+                        <th>Thời lượng (giờ)</th>
+                        <th>Số lớp</th>
+                        <th>Trạng thái</th>
+                        <th class="text-center">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($courses as $course)
+                        <tr>
+                            <td class="fw-bold">{{ $course->code }}</td>
+                            <td>{{ $course->name }}</td>
+                            <td><span class="badge bg-info text-dark">{{ $course->level ?? '—' }}</span></td>
+                            <td>{{ $course->duration_hours }} giờ</td>
+                            <td>
+                                <span class="badge bg-secondary">{{ $course->class_rooms_count }} lớp</span>
+                            </td>
+                            <td>
+                                @if($course->is_active)
+                                    <span class="badge bg-success">Đang mở</span>
+                                @else
+                                    <span class="badge bg-danger">Tạm đóng</span>
+                                @endif
+                            </td>
+                            <td class="text-center">
+                                <div class="btn-group btn-group-sm">
+                                    <a href="{{ route('courses.show', $course) }}" class="btn btn-outline-primary" title="Xem">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                    @if(auth()->check() && auth()->user()->isAdmin())
+                                        <a href="{{ route('courses.edit', $course) }}" class="btn btn-outline-warning ms-1" title="Sửa">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                        <form action="{{ route('courses.destroy', $course) }}" method="POST" class="d-inline" onsubmit="return confirm('Bạn có chắc chắn muốn xóa khóa học này?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-outline-danger ms-1" title="Xóa">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </form>
+                                    @endif
+                                </div>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="7" class="text-center py-4 text-muted">Không có khóa học nào.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
+    @if($courses->hasPages())
+        <div class="card-footer bg-white">
+            {{ $courses->links('pagination::bootstrap-5') }}
+        </div>
+    @endif
+</div>
