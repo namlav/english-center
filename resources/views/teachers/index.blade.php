@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('title', 'Quản lý Giáo viên')
+@section('title', 'Quản lý Giảng viên')
 
 @section('content')
 <div class="d-flex justify-content-between align-items-center mb-3">
-    <h3 class="fw-bold mb-0"><i class="bi bi-person-badge"></i> Quản lý Giáo viên</h3>
+    <h3 class="fw-bold mb-0"><i class="bi bi-person-badge"></i> Quản lý Giảng viên</h3>
     <a href="{{ route('teachers.create') }}" class="btn btn-primary">
-        <i class="bi bi-plus-circle"></i> Thêm giáo viên
+        <i class="bi bi-plus-circle"></i> Thêm giảng viên
     </a>
 </div>
 
@@ -40,7 +40,7 @@
                                     <a href="{{ route('teachers.edit', $teacher) }}" class="btn btn-outline-warning ms-1" title="Sửa">
                                         <i class="bi bi-pencil"></i>
                                     </a>
-                                    <form action="{{ route('teachers.destroy', $teacher) }}" method="POST" class="d-inline" onsubmit="return confirm('Bạn có chắc chắn muốn xóa giáo viên này?');">
+                                    <form action="{{ route('teachers.destroy', $teacher) }}" method="POST" class="d-inline" onsubmit="return confirm('Bạn có chắc chắn muốn xóa giảng viên này?');">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-outline-danger ms-1" title="Xóa">
@@ -52,7 +52,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="text-center py-4 text-muted">Không có giáo viên nào.</td>
+                            <td colspan="6" class="text-center py-4 text-muted">Chưa có giảng viên nào.</td>
                         </tr>
                     @endforelse
                 </tbody>
