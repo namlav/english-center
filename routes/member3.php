@@ -10,6 +10,7 @@ use App\Http\Controllers\ReportController;
 Route::middleware(['auth', 'role:student'])->group(function () {
     Route::post('/class-rooms/{classRoom}/enroll', [EnrollmentController::class, 'enroll'])->name('enrollments.enroll');
     Route::get('/my-classes', [EnrollmentController::class, 'myClasses'])->name('enrollments.my_classes');
+    Route::delete('/my-classes/{enrollment}', [EnrollmentController::class, 'cancelEnrollment'])->name('enrollments.cancel');
 });
 
 // Chức năng dành cho Giáo viên & Admin: Xem DS học viên theo lớp, Điểm danh, Nhập điểm

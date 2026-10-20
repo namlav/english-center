@@ -16,7 +16,7 @@ class ClassRoom extends Model
     public const STATUSES = ['upcoming' => 'Sắp khai giảng', 'ongoing' => 'Đang học', 'completed' => 'Đã kết thúc', 'cancelled' => 'Đã hủy'];
 
     protected $fillable = [
-        'code', 'name', 'course_id', 'teacher_id', 'start_date',
+        'code', 'name', 'course_id', 'teacher_id', 'start_date', 'expected_end_date',
         'schedule', 'tuition_fee', 'max_students', 'status',
     ];
 
@@ -70,6 +70,6 @@ class ClassRoom extends Model
 
     protected function casts(): array
     {
-        return ['start_date' => 'date:Y-m-d', 'tuition_fee' => 'decimal:2', 'max_students' => 'integer'];
+        return ['start_date' => 'date:Y-m-d', 'expected_end_date' => 'date:Y-m-d', 'tuition_fee' => 'decimal:2', 'max_students' => 'integer'];
     }
 }

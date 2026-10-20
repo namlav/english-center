@@ -38,7 +38,7 @@
                                         <span class="badge bg-danger">Admin</span>
                                         @break
                                     @case('teacher')
-                                        <span class="badge bg-primary">Giáo viên</span>
+                                        <span class="badge bg-primary">Giảng viên</span>
                                         @break
                                     @default
                                         <span class="badge bg-success">Học viên</span>

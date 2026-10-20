@@ -15,7 +15,7 @@
 </div>
 <div class="card border-0 shadow-sm mb-4"><div class="card-body p-4"><h3 class="h5 mb-3">Mô tả chương trình</h3><p class="mb-0 text-secondary" style="white-space:pre-wrap">{{ $course->description ?: 'Chưa có mô tả.' }}</p></div></div>
 <div class="card border-0 shadow-sm"><div class="card-header bg-white py-3"><h3 class="h5 mb-0">Các lớp thuộc khóa học ({{ $course->class_rooms_count }})</h3></div>
-    <div class="table-responsive"><table class="table mb-0 align-middle"><thead><tr><th>Mã lớp</th><th>Tên lớp</th><th>Giáo viên</th><th>Học phí</th></tr></thead><tbody>
+    <div class="table-responsive"><table class="table mb-0 align-middle"><thead><tr><th>Mã lớp</th><th>Tên lớp</th><th>Giảng viên</th><th>Học phí</th></tr></thead><tbody>
         @forelse($classRooms as $classRoom)
             <tr><td><a href="{{ route('class_rooms.show', $classRoom) }}">{{ $classRoom->code }}</a></td><td>{{ $classRoom->name }}</td><td>{{ $classRoom->teacher?->user?->name ?? 'Chưa cập nhật' }}</td><td>{{ number_format($classRoom->tuition_fee, 0, ',', '.') }} đ</td></tr>
         @empty <tr><td colspan="4" class="text-center text-secondary py-4">Khóa học chưa có lớp.</td></tr> @endforelse

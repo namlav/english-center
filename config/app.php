@@ -54,6 +54,12 @@ return [
 
     'url' => env('APP_URL', 'http://localhost'),
 
+    'management_contact_name' => env('MANAGEMENT_CONTACT_NAME', 'Ngô Tiến Thành'),
+
+    'management_contact_email' => env('MANAGEMENT_CONTACT_EMAIL', 'english_center@englishcenter.vn'),
+
+    'management_contact_phone' => env('MANAGEMENT_CONTACT_PHONE', '0903818173'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Timezone
