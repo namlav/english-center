@@ -19,7 +19,7 @@ class StudentController extends Controller
 
     public function create()
     {
-        return view('students.create');
+        return view('students.form', ['student' => new Student]);
     }
 
     public function store(Request $request)
@@ -66,7 +66,7 @@ class StudentController extends Controller
     public function edit(Student $student)
     {
         $student->load('user');
-        return view('students.edit', compact('student'));
+        return view('students.form', compact('student'));
     }
 
     public function update(Request $request, Student $student)

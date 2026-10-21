@@ -19,7 +19,7 @@ class TeacherController extends Controller
 
     public function create()
     {
-        return view('teachers.create');
+        return view('teachers.form', ['teacher' => new Teacher]);
     }
 
     public function store(Request $request)
@@ -66,7 +66,7 @@ class TeacherController extends Controller
     public function edit(Teacher $teacher)
     {
         $teacher->load('user');
-        return view('teachers.edit', compact('teacher'));
+        return view('teachers.form', compact('teacher'));
     }
 
     public function update(Request $request, Teacher $teacher)
