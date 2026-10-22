@@ -1,0 +1,5 @@
+@extends('layouts.learning')
+@section('title','Quản lý khóa học & bán hàng')
+@section('content')
+<section class="shell admin-page"><h1>Khóa học, bài học & bán hàng</h1>@include('learning.admin.nav')<div class="page-section-heading"><h2>Khóa học trên website</h2><a class="button" href="{{ route('shop_admin.courses.create') }}">Thêm khóa học</a></div><p>Nội dung này nằm trong database của English Center. Mỗi khóa có bài học, đề luyện và quyền truy cập sau khi mua.</p><div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Khóa học</th><th>Bài học</th><th>Giá</th><th>Trạng thái</th><th>Sửa</th></tr></thead><tbody>@foreach($courses as $course)<tr><td>{{ $course->name }}</td><td>{{ $course->lessons_count }}</td><td>{{ number_format($course->sale_price??$course->price,0,',','.') }}đ</td><td>{{ $course->is_for_sale?'Đang mở bán':'Chưa mở bán' }}</td><td><a href="{{ route('shop_admin.courses.edit',$course) }}">Chỉnh sửa</a></td></tr>@endforeach</tbody></table></div><p><a class="text-link" href="{{ route('shop_admin.upgrade') }}">Tải file cập nhật QR ngân hàng và cửa hàng khóa học →</a></p></section>
+@endsection

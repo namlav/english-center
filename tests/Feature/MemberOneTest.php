@@ -327,6 +327,7 @@ class MemberOneTest extends TestCase
         return [
             'code' => $classRoom->code, 'name' => $classRoom->name, 'course_id' => $classRoom->course_id, 'teacher_id' => $classRoom->teacher_id,
             'start_date' => $classRoom->start_date->format('Y-m-d'), 'schedule' => $classRoom->schedule,
+            'expected_end_date' => $classRoom->expected_end_date->format('Y-m-d'),
             'tuition_fee' => $classRoom->tuition_fee, 'max_students' => $classRoom->max_students, 'status' => $classRoom->status,
         ];
     }

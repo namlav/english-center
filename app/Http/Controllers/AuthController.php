@@ -9,7 +9,7 @@ class AuthController extends Controller
 {
     public function showLoginForm()
     {
-        return view('auth.login');
+        return view('learning.login');
     }
 
     public function login(Request $request)
@@ -28,6 +28,15 @@ class AuthController extends Controller
             }
 
             $request->session()->regenerate();
+            if($courseId=$request->session()->pull('pending_cart_course')) {
+                $shop=app(\App\Services\CourseShop::class);
+                $course=$shop->available()->whereKey($courseId)->first();
+                if($course&&!$shop->owned($user,$course->id)){
+                    \Illuminate\Support\Facades\DB::table('cart_items')->insertOrIgnore(['user_id'=>$user->id,'course_id'=>$course->id,'created_at'=>now(),'updated_at'=>now()]);
+                    $request->session()->put('checkout_token',(string)\Illuminate\Support\Str::uuid());
+                    return redirect()->route('cart.index')->with('success','Đã thêm khóa học bạn chọn vào giỏ hàng.');
+                }
+            }
             return redirect()->intended(route('class_rooms.index'))
                              ->with('success', 'Đăng nhập thành công! Xin chào ' . $user->name);
         }

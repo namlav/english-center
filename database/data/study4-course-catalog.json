@@ -1,0 +1,1399 @@
+[
+    {
+        "provider": "study4",
+        "source_key": "series-7",
+        "source_url": "https://study4.com/courses/series/7/combo-toeic-4kn/",
+        "content_type": "course",
+        "title": "Combo TOEIC 4 kỹ năng [Tặng TED Talks]",
+        "summary": "Lộ trình kết hợp nghe, đọc, nói và viết TOEIC trong cùng một nhóm khóa học.",
+        "captured_at": "2026-10-22 03:48:14",
+        "metadata": {
+            "catalog_group": "combo",
+            "catalog_group_label": "Combo đặc biệt",
+            "kind": "combo",
+            "price": 1650000,
+            "list_price": 3956000,
+            "currency": "VND",
+            "source_statistics": {
+                "rating": 5,
+                "review_count": 328,
+                "learner_count": 207285
+            },
+            "facts": [
+                "207,285 học viên đã đăng ký",
+                "20 chủ đề, 282 bài học",
+                "825 bài tập thực hành",
+                "Combo 2 khoá học có giá trị 12 tháng",
+                "Có thể học trên điện thoại và máy tính"
+            ],
+            "curriculum_topics": [
+                "[Complete TOEIC] Chiến lược làm bài - Từ vựng - Ngữ pháp - Luyện nghe với Dictation [Tặng TED Talks]",
+                "[TOEIC SW] TOEIC Speaking and Writing [Tặng TED Talks]"
+            ],
+            "included_courses": [
+                "course-28",
+                "course-36"
+            ],
+            "highlights": [
+                "Lộ trình kết hợp nghe, đọc, nói và viết TOEIC trong cùng một nhóm khóa học.",
+                "Xem các chủ đề và thông tin chương trình được công bố ở bên dưới."
+            ],
+            "intro_video_url": null,
+            "full_lessons_imported": false
+        },
+        "images": [
+            {
+                "role": "cover",
+                "source_url": "https://study4.com/media/courses/CourseSeries/files/2025/08/18/combo_toeic_4kn_1_nPdqv5h.webp",
+                "local_path": "images/catalog/study4/series-7.webp",
+                "alt_text": "Combo TOEIC 4 kỹ năng [Tặng TED Talks]",
+                "mime_type": "image/webp",
+                "width": 800,
+                "height": 300,
+                "file_size": 22344,
+                "content_sha256": "fcd9def098d9cea7dcf2bbf6fbae3bba63c5d387065063a07c585dc014bd7b65"
+            }
+        ]
+    },
+    {
+        "provider": "study4",
+        "source_key": "series-2",
+        "source_url": "https://study4.com/courses/series/2/combo-ielts-intensive/",
+        "content_type": "course",
+        "title": "Combo 4 kỹ năng IELTS Intensive [Tặng TED Talks]",
+        "summary": "Nhóm khóa IELTS Intensive bao quát bốn kỹ năng nghe, đọc, nói và viết.",
+        "captured_at": "2026-10-22 03:48:14",
+        "metadata": {
+            "catalog_group": "combo",
+            "catalog_group_label": "Combo đặc biệt",
+            "kind": "combo",
+            "price": 1650000,
+            "list_price": 3956000,
+            "currency": "VND",
+            "source_statistics": {
+                "rating": 4.9,
+                "review_count": 630,
+                "learner_count": 284085
+            },
+            "facts": [
+                "284,085 học viên đã đăng ký",
+                "29 chủ đề, 1,223 bài học",
+                "4,064 bài tập thực hành",
+                "Combo 4 khoá học có giá trị 12 tháng",
+                "Có thể học trên điện thoại và máy tính"
+            ],
+            "curriculum_topics": [
+                "[IELTS Intensive Listening] Chiến lược làm bài - Chữa đề - Luyện nghe IELTS Listening theo phương pháp Dictation",
+                "[IELTS Intensive Reading] Chiến lược làm bài - Chữa đề - Từ vựng IELTS Reading",
+                "[IELTS Intensive Speaking] Thực hành luyện tập IELTS Speaking",
+                "[IELTS Intensive Writing] Thực hành luyện tập IELTS Writing"
+            ],
+            "included_courses": [
+                "course-15",
+                "course-22",
+                "course-27",
+                "course-25"
+            ],
+            "highlights": [
+                "Nhóm khóa IELTS Intensive bao quát bốn kỹ năng nghe, đọc, nói và viết.",
+                "Xem các chủ đề và thông tin chương trình được công bố ở bên dưới."
+            ],
+            "intro_video_url": null,
+            "full_lessons_imported": false
+        },
+        "images": [
+            {
+                "role": "cover",
+                "source_url": "https://study4.com/media/courses/CourseSeries/files/2023/10/11/combo_intensive.webp",
+                "local_path": "images/catalog/study4/series-2.webp",
+                "alt_text": "Combo 4 kỹ năng IELTS Intensive [Tặng TED Talks]",
+                "mime_type": "image/webp",
+                "width": 800,
+                "height": 300,
+                "file_size": 19764,
+                "content_sha256": "bcfd6d8b83b9b71e0f1b4f1c88bf7a4b742b8427302c468124f1d50fc35c1256"
+            }
+        ]
+    },
+    {
+        "provider": "study4",
+        "source_key": "series-8",
+        "source_url": "https://study4.com/courses/series/8/combo-ielts-fundamentals-intensive/",
+        "content_type": "course",
+        "title": "Combo IELTS Fundamentals + Intensive [Tặng TED Talks]",
+        "summary": "Kết hợp phần kiến thức nền tảng với nhóm khóa IELTS Intensive bốn kỹ năng.",
+        "captured_at": "2026-10-22 03:48:14",
+        "metadata": {
+            "catalog_group": "combo",
+            "catalog_group_label": "Combo đặc biệt",
+            "kind": "combo",
+            "price": 1950000,
+            "list_price": 4945000,
+            "currency": "VND",
+            "source_statistics": {
+                "rating": 4.9,
+                "review_count": 841,
+                "learner_count": 327685
+            },
+            "facts": [
+                "327,685 học viên đã đăng ký",
+                "34 chủ đề, 1,273 bài học",
+                "4,241 bài tập thực hành",
+                "Combo 5 khoá học có giá trị 12 tháng",
+                "Có thể học trên điện thoại và máy tính"
+            ],
+            "curriculum_topics": [
+                "[IELTS Fundamentals] Từ vựng và ngữ pháp cơ bản IELTS",
+                "[IELTS Intensive Listening] Chiến lược làm bài - Chữa đề - Luyện nghe IELTS Listening theo phương pháp Dictation",
+                "[IELTS Intensive Reading] Chiến lược làm bài - Chữa đề - Từ vựng IELTS Reading",
+                "[IELTS Intensive Speaking] Thực hành luyện tập IELTS Speaking",
+                "[IELTS Intensive Writing] Thực hành luyện tập IELTS Writing"
+            ],
+            "included_courses": [
+                "course-26",
+                "course-15",
+                "course-22",
+                "course-27",
+                "course-25"
+            ],
+            "highlights": [
+                "Kết hợp phần kiến thức nền tảng với nhóm khóa IELTS Intensive bốn kỹ năng.",
+                "Xem các chủ đề và thông tin chương trình được công bố ở bên dưới."
+            ],
+            "intro_video_url": null,
+            "full_lessons_imported": false
+        },
+        "images": [
+            {
+                "role": "cover",
+                "source_url": "https://study4.com/media/courses/CourseSeries/files/2025/11/18/combo_fun_intensive_YTzyMDg.webp",
+                "local_path": "images/catalog/study4/series-8.webp",
+                "alt_text": "Combo IELTS Fundamentals + Intensive [Tặng TED Talks]",
+                "mime_type": "image/webp",
+                "width": 800,
+                "height": 300,
+                "file_size": 18552,
+                "content_sha256": "9e7bea9feba29fe43a08df57a60c01b25b6190435a2b3087d02215bf46d2fa9b"
+            }
+        ]
+    },
+    {
+        "provider": "study4",
+        "source_key": "series-1",
+        "source_url": "https://study4.com/courses/series/1/tron-bo-3-khoa-hoc-tieng-anh-online-practical-english/",
+        "content_type": "course",
+        "title": "Combo Practical English - Thực hành tiếng Anh online [Tặng TED Talks]",
+        "summary": "Nhóm khóa thực hành tiếng Anh, kết hợp từ vựng, ngữ pháp và hoạt động nghe nói.",
+        "captured_at": "2026-10-22 03:48:14",
+        "metadata": {
+            "catalog_group": "combo",
+            "catalog_group_label": "Combo đặc biệt",
+            "kind": "combo",
+            "price": 1050000,
+            "list_price": 2097000,
+            "currency": "VND",
+            "source_statistics": {
+                "rating": 4.8,
+                "review_count": 252,
+                "learner_count": 26045
+            },
+            "facts": [
+                "26,045 học viên đã đăng ký",
+                "47 chủ đề, 393 bài học",
+                "1,176 bài tập thực hành",
+                "Combo 3 khoá học có giá trị 12 tháng",
+                "Có thể học trên điện thoại và máy tính"
+            ],
+            "curriculum_topics": [
+                "[Practical English] 3600 từ vựng tiếng Anh thông dụng",
+                "[Practical English] Ngữ pháp tiếng Anh từ A-Z",
+                "[Practical English] Học phát âm và thực hành giao tiếp tiếng Anh"
+            ],
+            "included_courses": [
+                "course-12",
+                "course-13",
+                "course-14"
+            ],
+            "highlights": [
+                "Nhóm khóa thực hành tiếng Anh, kết hợp từ vựng, ngữ pháp và hoạt động nghe nói.",
+                "Xem các chủ đề và thông tin chương trình được công bố ở bên dưới."
+            ],
+            "intro_video_url": null,
+            "full_lessons_imported": false
+        },
+        "images": [
+            {
+                "role": "cover",
+                "source_url": "https://study4.com/media/courses/CourseSeries/files/2023/10/19/combo_practical.webp",
+                "local_path": "images/catalog/study4/series-1.webp",
+                "alt_text": "Combo Practical English - Thực hành tiếng Anh online [Tặng TED Talks]",
+                "mime_type": "image/webp",
+                "width": 800,
+                "height": 300,
+                "file_size": 20898,
+                "content_sha256": "ba2057bfab1552e0a0b4807da81fde2598b537ebed831e581adb2bd6905125ef"
+            }
+        ]
+    },
+    {
+        "provider": "study4",
+        "source_key": "series-6",
+        "source_url": "https://study4.com/courses/series/6/combo-hsk-13/",
+        "content_type": "course",
+        "title": "Combo HSK 1-3",
+        "summary": "Lộ trình tiếng Trung từ phần nhập môn HSK 1–2 đến nội dung HSK 3.",
+        "captured_at": "2026-10-22 03:48:14",
+        "metadata": {
+            "catalog_group": "combo",
+            "catalog_group_label": "Combo đặc biệt",
+            "kind": "combo",
+            "price": 1050000,
+            "list_price": 1978000,
+            "currency": "VND",
+            "source_statistics": {
+                "rating": 4.9,
+                "review_count": 56,
+                "learner_count": 50988
+            },
+            "facts": [
+                "50,988 học viên đã đăng ký",
+                "19 chủ đề, 300 bài học",
+                "595 bài tập thực hành",
+                "Combo 2 khoá học có giá trị 12 tháng",
+                "Có thể học trên điện thoại và máy tính"
+            ],
+            "curriculum_topics": [
+                "HSK 1+2 - Tiếng Trung cơ bản",
+                "Chinh phục HSK 3"
+            ],
+            "included_courses": [
+                "course-31",
+                "course-32"
+            ],
+            "highlights": [
+                "Lộ trình tiếng Trung từ phần nhập môn HSK 1–2 đến nội dung HSK 3.",
+                "Xem các chủ đề và thông tin chương trình được công bố ở bên dưới."
+            ],
+            "intro_video_url": null,
+            "full_lessons_imported": false
+        },
+        "images": [
+            {
+                "role": "cover",
+                "source_url": "https://study4.com/media/courses/CourseSeries/files/2025/04/17/combo_hsk1-3_1.webp",
+                "local_path": "images/catalog/study4/series-6.webp",
+                "alt_text": "Combo HSK 1-3",
+                "mime_type": "image/webp",
+                "width": 800,
+                "height": 300,
+                "file_size": 15878,
+                "content_sha256": "0f3e0e125b3c92e635dd267b500cd52c89f2c09d85aee09b9a8401cae7fbad4d"
+            }
+        ]
+    },
+    {
+        "provider": "study4",
+        "source_key": "course-28",
+        "source_url": "https://study4.com/courses/28/complete-toeic/",
+        "content_type": "course",
+        "title": "[Complete TOEIC] Chiến lược làm bài - Từ vựng - Ngữ pháp - Luyện nghe với Dictation [Tặng TED Talks]",
+        "summary": "Ôn TOEIC nghe và đọc theo từng phần thi, kết hợp từ vựng, ngữ pháp và luyện nghe chép chính tả.",
+        "captured_at": "2026-10-22 03:48:14",
+        "metadata": {
+            "catalog_group": "toeic",
+            "catalog_group_label": "TOEIC",
+            "kind": "course",
+            "price": 1050000,
+            "list_price": 1800000,
+            "currency": "VND",
+            "source_statistics": {
+                "rating": 5,
+                "review_count": 260,
+                "learner_count": 194637
+            },
+            "facts": [
+                "194,637 học viên đã đăng ký",
+                "50.0 giờ bài học",
+                "10 chủ đề, 228 bài học",
+                "675 bài tập thực hành",
+                "Khóa học có giá trị trong 12 tháng."
+            ],
+            "curriculum_topics": [
+                "Từ vựng TOEIC 23 bài",
+                "Ngữ pháp TOEIC 18 bài",
+                "Part 1: Photographs - Nghe tranh 5 bài",
+                "Part 2: Question - Response - Hỏi - đáp 13 bài",
+                "Part 3: Conversations - Nghe hiểu đối thoại 11 bài",
+                "Part 4: Talks - Nghe hiểu bài nói 15 bài",
+                "Part 5: Incomplete Sentences - Điền từ vào câu 25 bài",
+                "Part 6: Text Completion - Điền từ vào đoạn văn 7 bài",
+                "Part 7: Reading Comprehension - Đọc hiểu văn bản 16 bài",
+                "Luyện nghe chép chính tả TOEIC 95 bài"
+            ],
+            "included_courses": [],
+            "highlights": [
+                "Ôn các phần nghe và đọc của TOEIC.",
+                "Kết hợp ngữ pháp, từ vựng và luyện nghe.",
+                "Làm quen chiến lược xử lý từng dạng câu hỏi."
+            ],
+            "intro_video_url": "https://youtu.be/QV-X5DpteLk",
+            "full_lessons_imported": false
+        },
+        "images": [
+            {
+                "role": "cover",
+                "source_url": "https://study4.com/media/courses/Course/files/2025/08/11/toeic_1_1.webp",
+                "local_path": "images/catalog/study4/course-28.webp",
+                "alt_text": "[Complete TOEIC] Chiến lược làm bài - Từ vựng - Ngữ pháp - Luyện nghe với Dictation [Tặng TED Talks]",
+                "mime_type": "image/webp",
+                "width": 800,
+                "height": 300,
+                "file_size": 19068,
+                "content_sha256": "169dae1f2f657b50cd352fd0be56760b0f56277677cb47fbd782856c0117c1b7"
+            }
+        ]
+    },
+    {
+        "provider": "study4",
+        "source_key": "course-36",
+        "source_url": "https://study4.com/courses/36/toeic-sw/",
+        "content_type": "course",
+        "title": "[TOEIC SW] TOEIC Speaking and Writing [Tặng TED Talks]",
+        "summary": "Làm quen yêu cầu bài nói và bài viết TOEIC qua hướng dẫn dạng bài và hoạt động thực hành.",
+        "captured_at": "2026-10-22 03:48:14",
+        "metadata": {
+            "catalog_group": "toeic",
+            "catalog_group_label": "TOEIC",
+            "kind": "course",
+            "price": 1050000,
+            "list_price": 1800000,
+            "currency": "VND",
+            "source_statistics": {
+                "rating": 4.9,
+                "review_count": 68,
+                "learner_count": 12648
+            },
+            "facts": [
+                "12,648 học viên đã đăng ký",
+                "50.0 giờ bài học",
+                "10 chủ đề, 54 bài học",
+                "150 bài tập thực hành",
+                "Khóa học có giá trị trong 12 tháng."
+            ],
+            "curriculum_topics": [
+                "Tổng quan TOEIC Speaking & Writing 2 bài",
+                "[Speaking] Questions 1-2: Read a text aloud 5 bài",
+                "[Speaking] Questions 3-4: Describe a picture 5 bài",
+                "[Speaking] Questions 5-7: Respond to questions 4 bài",
+                "[Speaking] Questions 8-10: Respond to questions using information provided 5 bài",
+                "[Speaking] Question 11: Express an opinion 6 bài",
+                "[Writing] Questions 1-5: Describe a picture 4 bài",
+                "[Writing] Questions 6-7: Respond to an email 10 bài",
+                "[Writing] Question 8: Write an opinion essay 12 bài",
+                "PRACTICE ZONE 1 bài"
+            ],
+            "included_courses": [],
+            "highlights": [
+                "Tìm hiểu yêu cầu bài nói và bài viết TOEIC.",
+                "Thực hành diễn đạt ý và tổ chức câu trả lời.",
+                "Luyện các dạng bài theo từng phần thi."
+            ],
+            "intro_video_url": null,
+            "full_lessons_imported": false
+        },
+        "images": [
+            {
+                "role": "cover",
+                "source_url": "https://study4.com/media/courses/Course/files/2025/08/11/toeic_sw_1.webp",
+                "local_path": "images/catalog/study4/course-36.webp",
+                "alt_text": "[TOEIC SW] TOEIC Speaking and Writing [Tặng TED Talks]",
+                "mime_type": "image/webp",
+                "width": 800,
+                "height": 300,
+                "file_size": 21334,
+                "content_sha256": "cbb77970bd17b499f0f3e9f793b676c83efa3aa04ace2a3f2a1d44b07c8daaa1"
+            }
+        ]
+    },
+    {
+        "provider": "study4",
+        "source_key": "course-26",
+        "source_url": "https://study4.com/courses/26/ielts-fundamentals/",
+        "content_type": "course",
+        "title": "[IELTS Fundamentals] Từ vựng và ngữ pháp cơ bản IELTS",
+        "summary": "Củng cố từ vựng và ngữ pháp nền tảng trước khi luyện sâu các kỹ năng IELTS.",
+        "captured_at": "2026-10-22 03:48:14",
+        "metadata": {
+            "catalog_group": "ielts-academic",
+            "catalog_group_label": "IELTS Academic",
+            "kind": "course",
+            "price": 799000,
+            "list_price": 989000,
+            "currency": "VND",
+            "source_statistics": {
+                "rating": 5,
+                "review_count": 211,
+                "learner_count": 43600
+            },
+            "facts": [
+                "43,600 học viên đã đăng ký",
+                "15.0 giờ bài học",
+                "5 chủ đề, 50 bài học",
+                "177 bài tập thực hành",
+                "Khóa học có giá trị trong 12 tháng."
+            ],
+            "curriculum_topics": [
+                "[Vocabulary] Từ vựng theo chủ đề 20 bài",
+                "[Grammar] Parts of speech - Từ loại 8 bài",
+                "[Grammar] Tenses - Thì 9 bài",
+                "[Grammar] Clauses - Mệnh đề 5 bài",
+                "[Grammar] in Writing - Văn viết 8 bài"
+            ],
+            "included_courses": [],
+            "highlights": [
+                "Củng cố từ vựng và ngữ pháp nền tảng trước khi luyện sâu các kỹ năng IELTS.",
+                "Xem các chủ đề và thông tin chương trình được công bố ở bên dưới."
+            ],
+            "intro_video_url": "https://youtu.be/fAstAgLJCsU",
+            "full_lessons_imported": false
+        },
+        "images": [
+            {
+                "role": "cover",
+                "source_url": "https://study4.com/media/courses/Course/files/2023/10/11/ielts_funda.webp",
+                "local_path": "images/catalog/study4/course-26.webp",
+                "alt_text": "[IELTS Fundamentals] Từ vựng và ngữ pháp cơ bản IELTS",
+                "mime_type": "image/webp",
+                "width": 800,
+                "height": 300,
+                "file_size": 20300,
+                "content_sha256": "a3a73412746955e4f21bd80c8e15a7b3341da5109b14adc06ccc25039bea92ab"
+            }
+        ]
+    },
+    {
+        "provider": "study4",
+        "source_key": "course-15",
+        "source_url": "https://study4.com/courses/15/ielts-intensive-listening/",
+        "content_type": "course",
+        "title": "[IELTS Intensive Listening] Chiến lược làm bài - Chữa đề - Luyện nghe IELTS Listening theo phương pháp Dictation",
+        "summary": "Luyện nghe IELTS theo dạng câu hỏi, kết hợp nghe chép chính tả, ôn từ vựng và chữa đề.",
+        "captured_at": "2026-10-22 03:48:14",
+        "metadata": {
+            "catalog_group": "ielts-academic",
+            "catalog_group_label": "IELTS Academic",
+            "kind": "course",
+            "price": 799000,
+            "list_price": 989000,
+            "currency": "VND",
+            "source_statistics": {
+                "rating": 4.9,
+                "review_count": 222,
+                "learner_count": 101575
+            },
+            "facts": [
+                "101,575 học viên đã đăng ký",
+                "210.0 giờ bài học",
+                "8 chủ đề, 198 bài học",
+                "739 bài tập thực hành",
+                "Khóa học có giá trị trong 12 tháng."
+            ],
+            "curriculum_topics": [
+                "Bài học thử 2 bài",
+                "Hướng dẫn làm các dạng câu hỏi trong IELTS Listening 12 bài",
+                "Luyện nghe chính tả từ vựng 15 bài",
+                "Luyện nghe chính tả theo chủ đề (cơ bản - nâng cao) 26 bài",
+                "Luyện nghe chính tả đề IELTS 83 bài",
+                "PRACTICE ZONE 1 bài",
+                "Chữa đề IELTS chi tiết 49 bài",
+                "Tổng hợp từ vựng theo chủ đề 10 bài"
+            ],
+            "included_courses": [],
+            "highlights": [
+                "Luyện nghe bằng phương pháp chép chính tả.",
+                "Làm quen các nhóm câu hỏi IELTS Listening.",
+                "Ôn từ vựng và nhận diện thông tin trong bài nghe.",
+                "Kết hợp luyện tập với phần hướng dẫn chữa bài."
+            ],
+            "intro_video_url": "https://youtu.be/__nzODTNbjM",
+            "full_lessons_imported": false
+        },
+        "images": [
+            {
+                "role": "cover",
+                "source_url": "https://study4.com/media/courses/Course/files/2023/11/30/intensive_listen.webp",
+                "local_path": "images/catalog/study4/course-15.webp",
+                "alt_text": "[IELTS Intensive Listening] Chiến lược làm bài - Chữa đề - Luyện nghe IELTS Listening theo phương pháp Dictation",
+                "mime_type": "image/webp",
+                "width": 800,
+                "height": 300,
+                "file_size": 23874,
+                "content_sha256": "37ab239641c3b5122acf1e08c6c06e2096de6873a772f4e06ac3e17db2c63412"
+            }
+        ]
+    },
+    {
+        "provider": "study4",
+        "source_key": "course-22",
+        "source_url": "https://study4.com/courses/22/ielts-intensive-vocabulary-reading/",
+        "content_type": "course",
+        "title": "[IELTS Intensive Reading] Chiến lược làm bài - Chữa đề - Từ vựng IELTS Reading",
+        "summary": "Rèn kỹ năng đọc IELTS qua hướng dẫn dạng câu hỏi, phân tích đề và học từ vựng.",
+        "captured_at": "2026-10-22 03:48:14",
+        "metadata": {
+            "catalog_group": "ielts-academic",
+            "catalog_group_label": "IELTS Academic",
+            "kind": "course",
+            "price": 799000,
+            "list_price": 989000,
+            "currency": "VND",
+            "source_statistics": {
+                "rating": 4.9,
+                "review_count": 136,
+                "learner_count": 107175
+            },
+            "facts": [
+                "107,175 học viên đã đăng ký",
+                "210.0 giờ bài học",
+                "6 chủ đề, 228 bài học",
+                "1,955 bài tập thực hành",
+                "Khóa học có giá trị trong 12 tháng."
+            ],
+            "curriculum_topics": [
+                "Bài học thử 2 bài",
+                "Phương pháp làm các dạng câu hỏi trong IELTS Reading 16 bài",
+                "Từ vựng IELTS Academic Reading 150 bài",
+                "PRACTICE ZONE 1 bài",
+                "Chữa đề IELTS chi tiết 49 bài",
+                "Tổng hợp từ vựng theo chủ đề 10 bài"
+            ],
+            "included_courses": [],
+            "highlights": [
+                "Rèn kỹ năng đọc IELTS qua hướng dẫn dạng câu hỏi, phân tích đề và học từ vựng.",
+                "Xem các chủ đề và thông tin chương trình được công bố ở bên dưới."
+            ],
+            "intro_video_url": "https://youtu.be/Bjb5i-tfAMk",
+            "full_lessons_imported": false
+        },
+        "images": [
+            {
+                "role": "cover",
+                "source_url": "https://study4.com/media/courses/Course/files/2023/11/30/intensive_read_2.webp",
+                "local_path": "images/catalog/study4/course-22.webp",
+                "alt_text": "[IELTS Intensive Reading] Chiến lược làm bài - Chữa đề - Từ vựng IELTS Reading",
+                "mime_type": "image/webp",
+                "width": 800,
+                "height": 300,
+                "file_size": 23466,
+                "content_sha256": "b8ce5143ac6d51d92f3eba5ecb7e62980e7bb4b570598c871fbc3d9b74fc00d6"
+            }
+        ]
+    },
+    {
+        "provider": "study4",
+        "source_key": "course-27",
+        "source_url": "https://study4.com/courses/27/ielts-intensive-speaking/",
+        "content_type": "course",
+        "title": "[IELTS Intensive Speaking] Thực hành luyện tập IELTS Speaking",
+        "summary": "Thực hành phần thi nói IELTS, kết hợp cách xây dựng câu trả lời và luyện phát âm.",
+        "captured_at": "2026-10-22 03:48:14",
+        "metadata": {
+            "catalog_group": "ielts-academic",
+            "catalog_group_label": "IELTS Academic",
+            "kind": "course",
+            "price": 799000,
+            "list_price": 989000,
+            "currency": "VND",
+            "source_statistics": {
+                "rating": 5,
+                "review_count": 96,
+                "learner_count": 37728
+            },
+            "facts": [
+                "37,728 học viên đã đăng ký",
+                "20.0 giờ bài học",
+                "9 chủ đề, 736 bài học",
+                "1,153 bài tập thực hành",
+                "Khóa học có giá trị trong 12 tháng."
+            ],
+            "curriculum_topics": [
+                "Nguyên âm (Vowels) và phụ âm (Consonants) 51 bài",
+                "Trọng âm (Stress) 5 bài",
+                "Nhịp điệu (Rhythm) và cụm từ diễn tả ý tưởng (Thought groups) 10 bài",
+                "Ngữ điệu (Intonation) 7 bài",
+                "Liên kết (Linking) và nối âm (Connected speech) 5 bài",
+                "Hướng dẫn làm bài IELTS Speaking Test 4 bài",
+                "Part 1 topics 298 bài",
+                "Part 2+3 topics 355 bài",
+                "PRACTICE ZONE 1 bài"
+            ],
+            "included_courses": [],
+            "highlights": [
+                "Thực hành phần thi nói IELTS, kết hợp cách xây dựng câu trả lời và luyện phát âm.",
+                "Xem các chủ đề và thông tin chương trình được công bố ở bên dưới."
+            ],
+            "intro_video_url": "https://youtu.be/aY4SkdYwRt8",
+            "full_lessons_imported": false
+        },
+        "images": [
+            {
+                "role": "cover",
+                "source_url": "https://study4.com/media/courses/Course/files/2023/10/11/intensive_speak.webp",
+                "local_path": "images/catalog/study4/course-27.webp",
+                "alt_text": "[IELTS Intensive Speaking] Thực hành luyện tập IELTS Speaking",
+                "mime_type": "image/webp",
+                "width": 800,
+                "height": 300,
+                "file_size": 22346,
+                "content_sha256": "f62d1a5ab0db08bae2cf7611fdce6b968db922f2043e78c66b649050dca708a9"
+            }
+        ]
+    },
+    {
+        "provider": "study4",
+        "source_key": "course-25",
+        "source_url": "https://study4.com/courses/25/ielts-intensive-writing/",
+        "content_type": "course",
+        "title": "[IELTS Intensive Writing] Thực hành luyện tập IELTS Writing",
+        "summary": "Tìm hiểu cách triển khai bài viết IELTS và luyện tập theo các dạng đề.",
+        "captured_at": "2026-10-22 03:48:14",
+        "metadata": {
+            "catalog_group": "ielts-academic",
+            "catalog_group_label": "IELTS Academic",
+            "kind": "course",
+            "price": 799000,
+            "list_price": 989000,
+            "currency": "VND",
+            "source_statistics": {
+                "rating": 5,
+                "review_count": 176,
+                "learner_count": 37607
+            },
+            "facts": [
+                "37,607 học viên đã đăng ký",
+                "30.0 giờ bài học",
+                "6 chủ đề, 61 bài học",
+                "217 bài tập thực hành",
+                "Khóa học có giá trị trong 12 tháng."
+            ],
+            "curriculum_topics": [
+                "Hướng dẫn làm Task 1 8 bài",
+                "Hướng dẫn làm Task 2 13 bài",
+                "TASK 1: Các dạng câu hỏi 7 bài",
+                "TASK 2: Các dạng câu hỏi 6 bài",
+                "TASK 2: Chủ đề thường gặp 26 bài",
+                "PRACTICE ZONE 1 bài"
+            ],
+            "included_courses": [],
+            "highlights": [
+                "Tìm hiểu cách triển khai bài viết IELTS và luyện tập theo các dạng đề.",
+                "Xem các chủ đề và thông tin chương trình được công bố ở bên dưới."
+            ],
+            "intro_video_url": "https://youtu.be/_g5DYZApjYc",
+            "full_lessons_imported": false
+        },
+        "images": [
+            {
+                "role": "cover",
+                "source_url": "https://study4.com/media/courses/Course/files/2023/10/11/intensive_write.webp",
+                "local_path": "images/catalog/study4/course-25.webp",
+                "alt_text": "[IELTS Intensive Writing] Thực hành luyện tập IELTS Writing",
+                "mime_type": "image/webp",
+                "width": 800,
+                "height": 300,
+                "file_size": 22348,
+                "content_sha256": "21f408d6406cbb963bec8fbc268c6b379b734e3a16a7dd339cd3661d7366742d"
+            }
+        ]
+    },
+    {
+        "provider": "study4",
+        "source_key": "course-29",
+        "source_url": "https://study4.com/courses/29/ielts-general-intensive-reading/",
+        "content_type": "course",
+        "title": "[IELTS General Training] Intensive Reading: Từ Vựng - Chiến Lược Làm Bài - Chữa đề chi tiết",
+        "summary": "Tập trung kỹ năng đọc của IELTS General Training với từ vựng, dạng bài và phần giải thích đề.",
+        "captured_at": "2026-10-22 03:48:14",
+        "metadata": {
+            "catalog_group": "ielts-general",
+            "catalog_group_label": "IELTS General",
+            "kind": "course",
+            "price": 799000,
+            "list_price": 989000,
+            "currency": "VND",
+            "source_statistics": {
+                "rating": 4.9,
+                "review_count": 64,
+                "learner_count": 7508
+            },
+            "facts": [
+                "7,508 học viên đã đăng ký",
+                "160.0 giờ bài học",
+                "5 chủ đề, 227 bài học",
+                "1,530 bài tập thực hành",
+                "Khóa học có giá trị trong 12 tháng."
+            ],
+            "curriculum_topics": [
+                "Bài học thử 2 bài",
+                "Phương pháp làm các dạng câu hỏi trong IELTS General Reading 16 bài",
+                "Từ vựng IELTS GT Reading 144 bài",
+                "PRACTICE ZONE 1 bài",
+                "Chữa đề IELTS chi tiết 64 bài"
+            ],
+            "included_courses": [],
+            "highlights": [
+                "Tập trung kỹ năng đọc của IELTS General Training với từ vựng, dạng bài và phần giải thích đề.",
+                "Xem các chủ đề và thông tin chương trình được công bố ở bên dưới."
+            ],
+            "intro_video_url": "https://youtu.be/XAsOYTDA3A8",
+            "full_lessons_imported": false
+        },
+        "images": [
+            {
+                "role": "cover",
+                "source_url": "https://study4.com/media/courses/Course/files/2023/12/12/gt_reading-min.webp",
+                "local_path": "images/catalog/study4/course-29.webp",
+                "alt_text": "[IELTS General Training] Intensive Reading: Từ Vựng - Chiến Lược Làm Bài - Chữa đề chi tiết",
+                "mime_type": "image/webp",
+                "width": 800,
+                "height": 300,
+                "file_size": 22038,
+                "content_sha256": "0787c64471879c003c1c51c112e24b33515fbd4909109bbf02ccad892ddafbd5"
+            }
+        ]
+    },
+    {
+        "provider": "study4",
+        "source_key": "course-30",
+        "source_url": "https://study4.com/courses/30/ielts-general-intensive-writing/",
+        "content_type": "course",
+        "title": "[IELTS General Training] Intensive Writing: Thực hành luyện tập Writing GT",
+        "summary": "Thực hành viết thư và bài luận theo yêu cầu của IELTS General Training.",
+        "captured_at": "2026-10-22 03:48:14",
+        "metadata": {
+            "catalog_group": "ielts-general",
+            "catalog_group_label": "IELTS General",
+            "kind": "course",
+            "price": 799000,
+            "list_price": 989000,
+            "currency": "VND",
+            "source_statistics": {
+                "rating": 4.8,
+                "review_count": 69,
+                "learner_count": 3569
+            },
+            "facts": [
+                "3,569 học viên đã đăng ký",
+                "20.0 giờ bài học",
+                "7 chủ đề, 56 bài học",
+                "178 bài tập thực hành",
+                "Khóa học có giá trị trong 12 tháng."
+            ],
+            "curriculum_topics": [
+                "Bài học thử 3 bài",
+                "Hướng dẫn làm Task 1 5 bài",
+                "Hướng dẫn làm Task 2 13 bài",
+                "TASK 1: Các dạng câu hỏi 2 bài",
+                "TASK 2: Các dạng câu hỏi 6 bài",
+                "TASK 2: Chủ đề thường gặp 26 bài",
+                "PRACTICE ZONE 1 bài"
+            ],
+            "included_courses": [],
+            "highlights": [
+                "Thực hành viết thư và bài luận theo yêu cầu của IELTS General Training.",
+                "Xem các chủ đề và thông tin chương trình được công bố ở bên dưới."
+            ],
+            "intro_video_url": "https://youtu.be/oyeqBYuVWfo",
+            "full_lessons_imported": false
+        },
+        "images": [
+            {
+                "role": "cover",
+                "source_url": "https://study4.com/media/courses/Course/files/2023/12/12/gt_writing-min.webp",
+                "local_path": "images/catalog/study4/course-30.webp",
+                "alt_text": "[IELTS General Training] Intensive Writing: Thực hành luyện tập Writing GT",
+                "mime_type": "image/webp",
+                "width": 800,
+                "height": 300,
+                "file_size": 20038,
+                "content_sha256": "8b8eaf659c44fb6d2f0541dfdae3269a2ce216fd4e1aa93ea9d745828e09fd70"
+            }
+        ]
+    },
+    {
+        "provider": "study4",
+        "source_key": "course-16",
+        "source_url": "https://study4.com/courses/16/practical-english-ted/",
+        "content_type": "course",
+        "title": "[Practical English] Luyện nghe nói tiếng Anh cùng TED Talks",
+        "summary": "Luyện nghe và nói với các nội dung TED Talks được giới thiệu trong chương trình.",
+        "captured_at": "2026-10-22 03:48:14",
+        "metadata": {
+            "catalog_group": "english-foundation",
+            "catalog_group_label": "Tiếng Anh cơ bản",
+            "kind": "course",
+            "price": 599000,
+            "list_price": 699000,
+            "currency": "VND",
+            "source_statistics": {
+                "rating": 5,
+                "review_count": 5,
+                "learner_count": 64624
+            },
+            "facts": [
+                "64,624 học viên đã đăng ký",
+                "2 chủ đề, 202 bài học",
+                "202 bài tập thực hành",
+                "Khóa học có giá trị trong 12 tháng."
+            ],
+            "curriculum_topics": [
+                "TED - Short videos (0-6 min) 104 bài",
+                "TED - Long videos (6+ min) 98 bài"
+            ],
+            "included_courses": [],
+            "highlights": [
+                "Luyện nghe và nói với các nội dung TED Talks được giới thiệu trong chương trình.",
+                "Xem các chủ đề và thông tin chương trình được công bố ở bên dưới."
+            ],
+            "intro_video_url": null,
+            "full_lessons_imported": false
+        },
+        "images": [
+            {
+                "role": "cover",
+                "source_url": "https://study4.com/media/courses/Course/files/2023/10/19/Ted_talk_1.webp",
+                "local_path": "images/catalog/study4/course-16.webp",
+                "alt_text": "[Practical English] Luyện nghe nói tiếng Anh cùng TED Talks",
+                "mime_type": "image/webp",
+                "width": 800,
+                "height": 300,
+                "file_size": 28946,
+                "content_sha256": "897a6e7e1b821ce662ceca156347eff7bd779bd92c1c53624f1cae2c8746cda9"
+            }
+        ]
+    },
+    {
+        "provider": "study4",
+        "source_key": "course-12",
+        "source_url": "https://study4.com/courses/12/practical-english-3600-tu-vung-tieng-anh/",
+        "content_type": "course",
+        "title": "[Practical English] 3600 từ vựng tiếng Anh thông dụng",
+        "summary": "Học nhóm từ vựng tiếng Anh thông dụng, kết hợp nhận diện nghĩa và ôn tập.",
+        "captured_at": "2026-10-22 03:48:14",
+        "metadata": {
+            "catalog_group": "english-foundation",
+            "catalog_group_label": "Tiếng Anh cơ bản",
+            "kind": "course",
+            "price": 599000,
+            "list_price": 699000,
+            "currency": "VND",
+            "source_statistics": {
+                "rating": 4.8,
+                "review_count": 60,
+                "learner_count": 10026
+            },
+            "facts": [
+                "10,026 học viên đã đăng ký",
+                "23 chủ đề, 115 bài học",
+                "663 bài tập thực hành",
+                "Khóa học có giá trị trong 12 tháng."
+            ],
+            "curriculum_topics": [
+                "Basic words (Từ vựng cơ bản) 6 bài",
+                "Pronouns (Đại từ) 1 bài",
+                "General verbs (Động từ cơ bản) 7 bài",
+                "Adjectives (Tính từ) 4 bài",
+                "Adverb (Trạng từ) 5 bài",
+                "Phrasal verbs (Cụm động từ) 3 bài",
+                "People (Mọi người) 8 bài",
+                "Thematic verbs (Động từ chuyên đề) 3 bài",
+                "From the life (Cuộc sống) 10 bài",
+                "School, work, money (Trường học, công việc, tiền bạc) 6 bài",
+                "Food (Món ăn) 3 bài",
+                "Travel (Du lịch) 9 bài"
+            ],
+            "included_courses": [],
+            "highlights": [
+                "Học nhóm từ vựng tiếng Anh thông dụng, kết hợp nhận diện nghĩa và ôn tập.",
+                "Xem các chủ đề và thông tin chương trình được công bố ở bên dưới."
+            ],
+            "intro_video_url": null,
+            "full_lessons_imported": false
+        },
+        "images": [
+            {
+                "role": "cover",
+                "source_url": "https://study4.com/media/courses/Course/files/2023/10/19/3600.webp",
+                "local_path": "images/catalog/study4/course-12.webp",
+                "alt_text": "[Practical English] 3600 từ vựng tiếng Anh thông dụng",
+                "mime_type": "image/webp",
+                "width": 800,
+                "height": 300,
+                "file_size": 26718,
+                "content_sha256": "4ce21028cdb5632e004caa1f9ff40ed1a947f06dacf11c71b11a4b74b8601327"
+            }
+        ]
+    },
+    {
+        "provider": "study4",
+        "source_key": "course-13",
+        "source_url": "https://study4.com/courses/13/practical-english-ngu-phap-tieng-anh/",
+        "content_type": "course",
+        "title": "[Practical English] Ngữ pháp tiếng Anh từ A-Z",
+        "summary": "Ôn các chủ điểm ngữ pháp tiếng Anh theo một chương trình có hệ thống.",
+        "captured_at": "2026-10-22 03:48:14",
+        "metadata": {
+            "catalog_group": "english-foundation",
+            "catalog_group_label": "Tiếng Anh cơ bản",
+            "kind": "course",
+            "price": 599000,
+            "list_price": 699000,
+            "currency": "VND",
+            "source_statistics": {
+                "rating": 4.8,
+                "review_count": 65,
+                "learner_count": 6896
+            },
+            "facts": [
+                "6,896 học viên đã đăng ký",
+                "20 chủ đề, 89 bài học",
+                "248 bài tập thực hành",
+                "Khóa học có giá trị trong 12 tháng."
+            ],
+            "curriculum_topics": [
+                "Talking about the present (Nói về hiện tại) 6 bài",
+                "Talking about the past (Nói về quá khứ) 11 bài",
+                "Talking about the future (Nói về tương lai) 3 bài",
+                "To be, to have, to do (là / có / làm) 7 bài",
+                "Tenses: mix (Các thì: Tổng hợp) 1 bài",
+                "Parts of speech (Từ loại) 1 bài",
+                "Plurals (Số nhiều) 2 bài",
+                "Articles (Mạo từ) 4 bài",
+                "Prepositions (Giới từ) 6 bài",
+                "Modal verbs (Động từ khuyết thiếu) 7 bài",
+                "Pronouns (Đại từ) 4 bài",
+                "Adjectives and adverbs (Tính từ và trạng từ) 7 bài"
+            ],
+            "included_courses": [],
+            "highlights": [
+                "Ôn các chủ điểm ngữ pháp tiếng Anh theo một chương trình có hệ thống.",
+                "Xem các chủ đề và thông tin chương trình được công bố ở bên dưới."
+            ],
+            "intro_video_url": null,
+            "full_lessons_imported": false
+        },
+        "images": [
+            {
+                "role": "cover",
+                "source_url": "https://study4.com/media/courses/Course/files/2023/10/19/ngu_phap_az.webp",
+                "local_path": "images/catalog/study4/course-13.webp",
+                "alt_text": "[Practical English] Ngữ pháp tiếng Anh từ A-Z",
+                "mime_type": "image/webp",
+                "width": 800,
+                "height": 300,
+                "file_size": 22810,
+                "content_sha256": "ed85da5b5baac5041dc62784f329dd65fe195f82fc17dc7002f4507578bc0e8b"
+            }
+        ]
+    },
+    {
+        "provider": "study4",
+        "source_key": "course-14",
+        "source_url": "https://study4.com/courses/14/practical-english-phat-am-va-giao-tiep-tieng-anh/",
+        "content_type": "course",
+        "title": "[Practical English] Học phát âm và thực hành giao tiếp tiếng Anh",
+        "summary": "Luyện phát âm và thực hành giao tiếp với các tình huống trong chương trình.",
+        "captured_at": "2026-10-22 03:48:14",
+        "metadata": {
+            "catalog_group": "english-foundation",
+            "catalog_group_label": "Tiếng Anh cơ bản",
+            "kind": "course",
+            "price": 599000,
+            "list_price": 699000,
+            "currency": "VND",
+            "source_statistics": {
+                "rating": 4.8,
+                "review_count": 127,
+                "learner_count": 9123
+            },
+            "facts": [
+                "9,123 học viên đã đăng ký",
+                "4 chủ đề, 189 bài học",
+                "265 bài tập thực hành",
+                "Khóa học có giá trị trong 12 tháng."
+            ],
+            "curriculum_topics": [
+                "Unit 1: Những âm cơ bản trong tiếng Anh 50 bài",
+                "Unit 2: Các cách diễn đạt thông dụng trong giao tiếp tiếng Anh 50 bài",
+                "Unit 3: Thực hành hội thoại tiếng Anh trình độ cơ bản 14 bài",
+                "Unit 4: Thực hành 75 đoạn hội thoại theo chủ đề trình độ nâng cao 75 bài"
+            ],
+            "included_courses": [],
+            "highlights": [
+                "Luyện phát âm và thực hành giao tiếp với các tình huống trong chương trình.",
+                "Xem các chủ đề và thông tin chương trình được công bố ở bên dưới."
+            ],
+            "intro_video_url": null,
+            "full_lessons_imported": false
+        },
+        "images": [
+            {
+                "role": "cover",
+                "source_url": "https://study4.com/media/courses/Course/files/2023/10/19/phat_am_giao_tiep_1.webp",
+                "local_path": "images/catalog/study4/course-14.webp",
+                "alt_text": "[Practical English] Học phát âm và thực hành giao tiếp tiếng Anh",
+                "mime_type": "image/webp",
+                "width": 800,
+                "height": 300,
+                "file_size": 25074,
+                "content_sha256": "18113a489ee4147ef989eb6cfb4eef64576087dda7498d29b18644d3c7ce694d"
+            }
+        ]
+    },
+    {
+        "provider": "study4",
+        "source_key": "course-21",
+        "source_url": "https://study4.com/courses/21/practical-english-music/",
+        "content_type": "course",
+        "title": "[Practical English] Học tiếng Anh qua bài hát",
+        "summary": "Khám phá từ vựng và cách diễn đạt tiếng Anh qua bài hát.",
+        "captured_at": "2026-10-22 03:48:14",
+        "metadata": {
+            "catalog_group": "english-foundation",
+            "catalog_group_label": "Tiếng Anh cơ bản",
+            "kind": "course",
+            "price": 599000,
+            "list_price": 699000,
+            "currency": "VND",
+            "source_statistics": {
+                "rating": 5,
+                "review_count": 7,
+                "learner_count": 2937
+            },
+            "facts": [
+                "2,937 học viên đã đăng ký",
+                "3 chủ đề, 779 bài học",
+                "779 bài tập thực hành",
+                "Khóa học có giá trị trong 12 tháng."
+            ],
+            "curriculum_topics": [
+                "Music videos (Beginner) 231 bài",
+                "Music videos (Intermediate) 502 bài",
+                "Music videos (Advanced) 46 bài"
+            ],
+            "included_courses": [],
+            "highlights": [
+                "Khám phá từ vựng và cách diễn đạt tiếng Anh qua bài hát.",
+                "Xem các chủ đề và thông tin chương trình được công bố ở bên dưới."
+            ],
+            "intro_video_url": null,
+            "full_lessons_imported": false
+        },
+        "images": [
+            {
+                "role": "cover",
+                "source_url": "https://study4.com/media/courses/Course/files/2023/10/19/songs.webp",
+                "local_path": "images/catalog/study4/course-21.webp",
+                "alt_text": "[Practical English] Học tiếng Anh qua bài hát",
+                "mime_type": "image/webp",
+                "width": 800,
+                "height": 300,
+                "file_size": 34970,
+                "content_sha256": "95f1fb8182c4c08a02e70bd75fc9355ac5822d352be2c5710b38fc7d108c311f"
+            }
+        ]
+    },
+    {
+        "provider": "study4",
+        "source_key": "course-31",
+        "source_url": "https://study4.com/courses/31/hsk-12/",
+        "content_type": "course",
+        "title": "HSK 1+2 - Tiếng Trung cơ bản",
+        "summary": "Khởi đầu học tiếng Trung với nội dung căn bản của HSK 1 và HSK 2.",
+        "captured_at": "2026-10-22 03:48:14",
+        "metadata": {
+            "catalog_group": "hsk",
+            "catalog_group_label": "HSK",
+            "kind": "course",
+            "price": 799000,
+            "list_price": 989000,
+            "currency": "VND",
+            "source_statistics": {
+                "rating": 4.9,
+                "review_count": 33,
+                "learner_count": 38667
+            },
+            "facts": [
+                "38,667 học viên đã đăng ký",
+                "11 chủ đề, 174 bài học",
+                "355 bài tập thực hành",
+                "Khóa học có giá trị trong 12 tháng."
+            ],
+            "curriculum_topics": [
+                "Ngữ Âm 5 bài",
+                "Chữ Hán 1 bài",
+                "[HSK 1] Các chủ điểm 14 bài",
+                "[HSK 1] Ngữ Pháp (cập nhật HSK 3.0) 18 bài",
+                "[HSK 1] Luyện chép chính tả 47 bài",
+                "[HSK 1] Từ vựng bổ sung New HSK 3.0 5 bài",
+                "[HSK 2] Các chủ điểm 15 bài",
+                "[HSK 2] Ngữ Pháp (cập nhật HSK 3.0) 15 bài",
+                "[HSK 2] Luyện chép chính tả 45 bài",
+                "[HSK 2] Từ vựng bổ sung New HSK 3.0 7 bài",
+                "PRACTICE ZONE 2 bài"
+            ],
+            "included_courses": [],
+            "highlights": [
+                "Khởi đầu học tiếng Trung với nội dung căn bản của HSK 1 và HSK 2.",
+                "Xem các chủ đề và thông tin chương trình được công bố ở bên dưới."
+            ],
+            "intro_video_url": "https://youtu.be/DG9cejvxlqc",
+            "full_lessons_imported": false
+        },
+        "images": [
+            {
+                "role": "cover",
+                "source_url": "https://study4.com/media/courses/Course/files/2025/03/31/xruu3owgbcrvoxifasod.webp",
+                "local_path": "images/catalog/study4/course-31.webp",
+                "alt_text": "HSK 1+2 - Tiếng Trung cơ bản",
+                "mime_type": "image/webp",
+                "width": 800,
+                "height": 300,
+                "file_size": 25408,
+                "content_sha256": "f1173b863118c03dc761a1adb781c0471a897fe9f21b03f31911696ccf400bd4"
+            }
+        ]
+    },
+    {
+        "provider": "study4",
+        "source_key": "course-32",
+        "source_url": "https://study4.com/courses/32/hsk-3/",
+        "content_type": "course",
+        "title": "Chinh phục HSK 3",
+        "summary": "Ôn kiến thức và làm quen yêu cầu bài thi HSK 3.",
+        "captured_at": "2026-10-22 03:48:14",
+        "metadata": {
+            "catalog_group": "hsk",
+            "catalog_group_label": "HSK",
+            "kind": "course",
+            "price": 799000,
+            "list_price": 989000,
+            "currency": "VND",
+            "source_statistics": {
+                "rating": 4.9,
+                "review_count": 23,
+                "learner_count": 12321
+            },
+            "facts": [
+                "12,321 học viên đã đăng ký",
+                "8 chủ đề, 126 bài học",
+                "240 bài tập thực hành",
+                "Khóa học có giá trị trong 12 tháng."
+            ],
+            "curriculum_topics": [
+                "Các bộ chữ Hán 1 bài",
+                "[HSK 3] Các chủ điểm 20 bài",
+                "[HSK 3] Ngữ Pháp (cập nhật HSK 3.0) 19 bài",
+                "[HSK 3] Chinh phục Nghe hiểu 7 bài",
+                "[HSK 3] Chinh phục Đọc Hiểu 9 bài",
+                "[HSK 3] Chinh phục Viết 3 bài",
+                "[HSK 3] Luyện chép chính tả 60 bài",
+                "[HSK 3] Từ vựng bổ sung New HSK 3.0 7 bài"
+            ],
+            "included_courses": [],
+            "highlights": [
+                "Ôn kiến thức và làm quen yêu cầu bài thi HSK 3.",
+                "Xem các chủ đề và thông tin chương trình được công bố ở bên dưới."
+            ],
+            "intro_video_url": "https://youtu.be/Ug0HicTVHDA",
+            "full_lessons_imported": false
+        },
+        "images": [
+            {
+                "role": "cover",
+                "source_url": "https://study4.com/media/courses/Course/files/2025/04/01/hs758hylu9v9d0yw9e13.webp",
+                "local_path": "images/catalog/study4/course-32.webp",
+                "alt_text": "Chinh phục HSK 3",
+                "mime_type": "image/webp",
+                "width": 800,
+                "height": 300,
+                "file_size": 27062,
+                "content_sha256": "727de861f99affe73039c8af6c3432d1c2aa1ab6578de3d864853038287e0b1c"
+            }
+        ]
+    },
+    {
+        "provider": "study4",
+        "source_key": "course-33",
+        "source_url": "https://study4.com/courses/33/hsk-4/",
+        "content_type": "course",
+        "title": "Chinh phục HSK 4",
+        "summary": "Củng cố tiếng Trung và luyện tập theo nội dung HSK 4.",
+        "captured_at": "2026-10-22 03:48:14",
+        "metadata": {
+            "catalog_group": "hsk",
+            "catalog_group_label": "HSK",
+            "kind": "course",
+            "price": 799000,
+            "list_price": 989000,
+            "currency": "VND",
+            "source_statistics": {
+                "rating": 4.9,
+                "review_count": 35,
+                "learner_count": 11906
+            },
+            "facts": [
+                "11,906 học viên đã đăng ký",
+                "8 chủ đề, 125 bài học",
+                "247 bài tập thực hành",
+                "Khóa học có giá trị trong 12 tháng."
+            ],
+            "curriculum_topics": [
+                "Các bộ chữ Hán 1 bài",
+                "[HSK 4] Các chủ điểm 20 bài",
+                "[HSK 4] Ngữ Pháp (cập nhật HSK 3.0) 15 bài",
+                "[HSK 4] Chinh phục Nghe hiểu 7 bài",
+                "[HSK 4] Chinh phục Đọc Hiểu 9 bài",
+                "[HSK 4] Chinh phục Viết 4 bài",
+                "[HSK 4] Luyện chép chính tả 60 bài",
+                "[HSK 4] Từ vựng bổ sung New HSK 3.0 9 bài"
+            ],
+            "included_courses": [],
+            "highlights": [
+                "Củng cố tiếng Trung và luyện tập theo nội dung HSK 4.",
+                "Xem các chủ đề và thông tin chương trình được công bố ở bên dưới."
+            ],
+            "intro_video_url": "https://youtu.be/AOYhvdREc7s",
+            "full_lessons_imported": false
+        },
+        "images": [
+            {
+                "role": "cover",
+                "source_url": "https://study4.com/media/courses/Course/files/2025/04/01/xxbu0aax5gyiwdbzuz3z.webp",
+                "local_path": "images/catalog/study4/course-33.webp",
+                "alt_text": "Chinh phục HSK 4",
+                "mime_type": "image/webp",
+                "width": 800,
+                "height": 300,
+                "file_size": 21988,
+                "content_sha256": "2f795fe0994ec048f1174c9accb82ef1f05305713a0e7f186b4797b0af570d02"
+            }
+        ]
+    },
+    {
+        "provider": "study4",
+        "source_key": "course-34",
+        "source_url": "https://study4.com/courses/34/hsk-5/",
+        "content_type": "course",
+        "title": "Chinh phục HSK 5",
+        "summary": "Luyện kiến thức và kỹ năng tiếng Trung theo chương trình HSK 5.",
+        "captured_at": "2026-10-22 03:48:14",
+        "metadata": {
+            "catalog_group": "hsk",
+            "catalog_group_label": "HSK",
+            "kind": "course",
+            "price": 799000,
+            "list_price": 989000,
+            "currency": "VND",
+            "source_statistics": {
+                "rating": 4.9,
+                "review_count": 40,
+                "learner_count": 9185
+            },
+            "facts": [
+                "9,185 học viên đã đăng ký",
+                "8 chủ đề, 143 bài học",
+                "269 bài tập thực hành",
+                "Khóa học có giá trị trong 12 tháng."
+            ],
+            "curriculum_topics": [
+                "Các bộ chữ Hán 1 bài",
+                "[HSK 5] Các chủ điểm 36 bài",
+                "[HSK 5] Ngữ Pháp (cập nhật HSK 3.0) 18 bài",
+                "[HSK 5] Chinh phục Nghe hiểu 5 bài",
+                "[HSK 5] Chinh phục Đọc Hiểu 5 bài",
+                "[HSK 5] Chinh phục Viết 6 bài",
+                "[HSK 5] Luyện chép chính tả 60 bài",
+                "[HSK 5] Từ vựng bổ sung New HSK 3.0 12 bài"
+            ],
+            "included_courses": [],
+            "highlights": [
+                "Luyện kiến thức và kỹ năng tiếng Trung theo chương trình HSK 5.",
+                "Xem các chủ đề và thông tin chương trình được công bố ở bên dưới."
+            ],
+            "intro_video_url": "https://youtu.be/wjYWatGeiCg",
+            "full_lessons_imported": false
+        },
+        "images": [
+            {
+                "role": "cover",
+                "source_url": "https://study4.com/media/courses/Course/files/2025/03/31/mntlqtapxnmeh4yb2otw.webp",
+                "local_path": "images/catalog/study4/course-34.webp",
+                "alt_text": "Chinh phục HSK 5",
+                "mime_type": "image/webp",
+                "width": 800,
+                "height": 300,
+                "file_size": 24110,
+                "content_sha256": "d617d6bef07b58718226bc295575758f3c272af89a009c7c24bc286bb55d0b24"
+            }
+        ]
+    },
+    {
+        "provider": "study4",
+        "source_key": "course-35",
+        "source_url": "https://study4.com/courses/35/hsk-6/",
+        "content_type": "course",
+        "title": "Chinh phục HSK 6",
+        "summary": "Học và luyện tập tiếng Trung ở cấp độ HSK 6.",
+        "captured_at": "2026-10-22 03:48:14",
+        "metadata": {
+            "catalog_group": "hsk",
+            "catalog_group_label": "HSK",
+            "kind": "course",
+            "price": 799000,
+            "list_price": 989000,
+            "currency": "VND",
+            "source_statistics": {
+                "rating": 4.9,
+                "review_count": 27,
+                "learner_count": 5122
+            },
+            "facts": [
+                "5,122 học viên đã đăng ký",
+                "8 chủ đề, 144 bài học",
+                "291 bài tập thực hành",
+                "Khóa học có giá trị trong 12 tháng."
+            ],
+            "curriculum_topics": [
+                "Các bộ chữ Hán 1 bài",
+                "[HSK 6] Các chủ điểm 40 bài",
+                "[HSK 6] Ngữ Pháp (cập nhật HSK 3.0) 16 bài",
+                "[HSK 6] Chinh phục Nghe hiểu 6 bài",
+                "[HSK 6] Chinh phục Đọc Hiểu 11 bài",
+                "[HSK 6] Chinh phục Viết 2 bài",
+                "[HSK 6] Luyện chép chính tả 50 bài",
+                "[HSK 6] Từ vựng bổ sung New HSK 3.0 18 bài"
+            ],
+            "included_courses": [],
+            "highlights": [
+                "Học và luyện tập tiếng Trung ở cấp độ HSK 6.",
+                "Xem các chủ đề và thông tin chương trình được công bố ở bên dưới."
+            ],
+            "intro_video_url": "https://youtu.be/C_u1byYj6oA",
+            "full_lessons_imported": false
+        },
+        "images": [
+            {
+                "role": "cover",
+                "source_url": "https://study4.com/media/courses/Course/files/2025/03/31/iuia2izwjsmvlnithqo7.webp",
+                "local_path": "images/catalog/study4/course-35.webp",
+                "alt_text": "Chinh phục HSK 6",
+                "mime_type": "image/webp",
+                "width": 800,
+                "height": 300,
+                "file_size": 25700,
+                "content_sha256": "f5d2ac75c03b62eb767029f5cdf01ee55d04d5f9924ea5d169386f17b90c34ae"
+            }
+        ]
+    }
+]

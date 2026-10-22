@@ -1,0 +1,118 @@
+{
+  "collection": {"slug": "bc-reads-english-practice", "title": "BC Reads — 5 bộ luyện ngữ pháp và từ vựng", "publication_year": 2015},
+  "source": {
+    "title": "BC Reads: Adult Literacy Fundamental English – Course Pack 6",
+    "author": "Shantel Ivits",
+    "publisher": "BCcampus",
+    "year": 2015,
+    "url": "https://opentextbc.ca/abealf6/",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+    "download_notice": "Download for free from the B.C. Open Collection: https://collection.bccampus.ca/",
+    "attribution": "BC Reads: Adult Literacy Fundamental English – Course Pack 6 by Shantel Ivits (2015), BCcampus, is used under CC BY 4.0. Download for free from the B.C. Open Collection: https://collection.bccampus.ca/",
+    "adaptation": "Selected exercises and published answer keys from Chapters 1–2. Converted to blanks and choice questions; instructions and explanations in Vietnamese added. Original source item numbers are retained. No official IELTS/TOEIC or CEFR score conversion.",
+    "checked_on": "2026-10-22"
+  },
+  "sets": [
+    {
+      "slug": "bc-reads-01-pronouns", "title": "Bộ 01 — Đại từ chủ ngữ và tân ngữ", "duration_seconds": 900,
+      "source_url": "https://opentextbc.ca/abealf6/chapter/chapter-1/", "source_exercise": "Pronoun Reference",
+      "instructions": "Điền một đại từ vào mỗi chỗ trống. Câu 1–7 thay chủ ngữ; câu 8–13 dùng đại từ tân ngữ. Không phân biệt chữ hoa và chữ thường.",
+      "lesson": "Đại từ chủ ngữ: he, she, it, we, they. Đại từ tân ngữ: me, him, her, it, us, them. Chọn đại từ dựa vào người hoặc vật được nhắc đến và vị trí trong câu.",
+      "questions": [
+        {"source_item": 1, "prompt": "Tanya Tagaq is a singer from Nunavut. ___ performs a style of music called Inuit throat singing.", "answers": ["she"], "explanation": "Theo đáp án gốc, She thay cho Tanya ở vị trí chủ ngữ."},
+        {"source_item": 2, "prompt": "Taté BlackBear is from the Lakota Nation. ___ knows seven words in the Lakota language.", "answers": ["he"], "explanation": "Theo đáp án gốc, He thay cho Taté ở vị trí chủ ngữ."},
+        {"source_item": 3, "prompt": "Evan Adams and Adam Beach starred in a movie called Smoke Signals. ___ are both actors from Canada.", "answers": ["they"], "explanation": "Hai người được thay bằng đại từ chủ ngữ They."},
+        {"source_item": 4, "prompt": "Thomas King and I have something in common. ___ are both writers.", "answers": ["we"], "explanation": "Thomas King and I gồm cả người nói nên dùng We."},
+        {"source_item": 5, "prompt": "Louis Riel was the father of Manitoba. ___ was also the leader of the Métis people on the Canadian prairies.", "answers": ["he"], "explanation": "Theo đáp án gốc, He thay cho Louis Riel."},
+        {"source_item": 6, "prompt": "Coyote and Raven are found in many Aboriginal stories. ___ are famous for playing tricks on others.", "answers": ["they"], "explanation": "Coyote and Raven là hai nhân vật nên dùng They."},
+        {"source_item": 7, "prompt": "Sweetgrass is a sacred plant in First Nations cultures. ___ is known for its ability to heal and get rid of negative thoughts.", "answers": ["it"], "explanation": "It thay cho danh từ số ít Sweetgrass."},
+        {"source_item": 8, "prompt": "Jack ate the apple, even though it did not belong to ___.", "answers": ["him"], "explanation": "Sau giới từ to cần đại từ tân ngữ; him chỉ Jack."},
+        {"source_item": 9, "prompt": "The kids had to go to bed by 8:00 p.m. Their parents would not let ___ stay up any later.", "answers": ["them"], "explanation": "Them là tân ngữ của let, thay cho the kids."},
+        {"source_item": 10, "prompt": "The shirt fits me, but I probably won’t wear ___.", "answers": ["it"], "explanation": "It thay cho the shirt và làm tân ngữ của wear."},
+        {"source_item": 11, "prompt": "Billie and I are going to the movies. Do you want to come with ___?", "answers": ["us"], "explanation": "Sau with dùng đại từ tân ngữ us, thay cho Billie and I."},
+        {"source_item": 12, "prompt": "I want to know how to get to Nanaimo. Will you tell ___?", "answers": ["me"], "explanation": "Me là đại từ tân ngữ tương ứng với I."},
+        {"source_item": 13, "prompt": "Sue just got an iPhone. Sam gave it to ___.", "answers": ["her"], "explanation": "Theo đáp án gốc, her thay cho Sue sau giới từ to."}
+      ]
+    },
+    {
+      "slug": "bc-reads-02-sentence-fragments", "title": "Bộ 02 — Câu hoàn chỉnh và câu thiếu thành phần", "duration_seconds": 900,
+      "source_url": "https://opentextbc.ca/abealf6/chapter/whats-your-story/", "source_exercise": "Sentence Fragments",
+      "instructions": "Câu 1–9: chọn câu hoàn chỉnh hay câu chưa hoàn chỉnh. Câu 10–14: chọn thành phần còn thiếu.",
+      "lesson": "Một câu hoàn chỉnh cần có chủ ngữ, động từ và ý trọn vẹn. Cụm từ riêng lẻ hoặc mệnh đề phụ đứng một mình thường chưa tạo thành câu hoàn chỉnh.",
+      "questions": [
+        {"source_item": 1, "prompt": "The photo on the wall.", "options": {"A": "Complete sentence — Câu hoàn chỉnh", "B": "Fragment — Câu chưa hoàn chỉnh"}, "answers": ["B"], "explanation": "Cụm danh từ này chưa có động từ chính."},
+        {"source_item": 2, "prompt": "The car had a flat tire.", "options": {"A": "Complete sentence — Câu hoàn chỉnh", "B": "Fragment — Câu chưa hoàn chỉnh"}, "answers": ["A"], "explanation": "The car là chủ ngữ, had là động từ và câu diễn đạt ý trọn vẹn."},
+        {"source_item": 3, "prompt": "In a hurry.", "options": {"A": "Complete sentence — Câu hoàn chỉnh", "B": "Fragment — Câu chưa hoàn chỉnh"}, "answers": ["B"], "explanation": "Đây là cụm giới từ, chưa có chủ ngữ và động từ chính."},
+        {"source_item": 4, "prompt": "Sleeping until noon.", "options": {"A": "Complete sentence — Câu hoàn chỉnh", "B": "Fragment — Câu chưa hoàn chỉnh"}, "answers": ["B"], "explanation": "Cụm này thiếu chủ ngữ và động từ chia thì hoàn chỉnh."},
+        {"source_item": 5, "prompt": "I think I lost a $50.00 bill.", "options": {"A": "Complete sentence — Câu hoàn chỉnh", "B": "Fragment — Câu chưa hoàn chỉnh"}, "answers": ["A"], "explanation": "Câu có chủ ngữ, động từ và diễn đạt ý trọn vẹn."},
+        {"source_item": 6, "prompt": "On Tuesday morning.", "options": {"A": "Complete sentence — Câu hoàn chỉnh", "B": "Fragment — Câu chưa hoàn chỉnh"}, "answers": ["B"], "explanation": "Đây chỉ là cụm chỉ thời gian."},
+        {"source_item": 7, "prompt": "A sale on tomatoes.", "options": {"A": "Complete sentence — Câu hoàn chỉnh", "B": "Fragment — Câu chưa hoàn chỉnh"}, "answers": ["B"], "explanation": "Đây là cụm danh từ, chưa có động từ chính."},
+        {"source_item": 8, "prompt": "Sofia’s ice cream melted in the sun.", "options": {"A": "Complete sentence — Câu hoàn chỉnh", "B": "Fragment — Câu chưa hoàn chỉnh"}, "answers": ["A"], "explanation": "Sofia’s ice cream là chủ ngữ, melted là động từ."},
+        {"source_item": 9, "prompt": "We are cheering for the Toronto Blue Jays.", "options": {"A": "Complete sentence — Câu hoàn chỉnh", "B": "Fragment — Câu chưa hoàn chỉnh"}, "answers": ["A"], "explanation": "We là chủ ngữ, are cheering là cụm động từ hoàn chỉnh."},
+        {"source_item": 10, "prompt": "What is missing? If you have a sunburn.", "options": {"A": "Subject — Chủ ngữ", "B": "Verb — Động từ", "C": "Complete thought — Ý trọn vẹn"}, "answers": ["C"], "explanation": "Mệnh đề bắt đầu bằng If cần mệnh đề chính để có ý trọn vẹn."},
+        {"source_item": 11, "prompt": "What is missing? Will send you an email.", "options": {"A": "Subject — Chủ ngữ", "B": "Verb — Động từ", "C": "Complete thought — Ý trọn vẹn"}, "answers": ["A"], "explanation": "Chưa biết ai thực hiện hành động gửi email."},
+        {"source_item": 12, "prompt": "What is missing? Since it is a holiday.", "options": {"A": "Subject — Chủ ngữ", "B": "Verb — Động từ", "C": "Complete thought — Ý trọn vẹn"}, "answers": ["C"], "explanation": "Mệnh đề phụ bắt đầu bằng Since cần mệnh đề chính."},
+        {"source_item": 13, "prompt": "What is missing? The tiger at the zoo.", "options": {"A": "Subject — Chủ ngữ", "B": "Verb — Động từ", "C": "Complete thought — Ý trọn vẹn"}, "answers": ["B"], "explanation": "Cụm danh từ đã có chủ ngữ nhưng thiếu động từ."},
+        {"source_item": 14, "prompt": "What is missing? When we walk the dog.", "options": {"A": "Subject — Chủ ngữ", "B": "Verb — Động từ", "C": "Complete thought — Ý trọn vẹn"}, "answers": ["C"], "explanation": "Mệnh đề bắt đầu bằng When cần thêm mệnh đề chính."}
+      ]
+    },
+    {
+      "slug": "bc-reads-03-word-formation", "title": "Bộ 03 — Cấu tạo từ với tiền tố và hậu tố", "duration_seconds": 600,
+      "source_url": "https://opentextbc.ca/abealf6/", "source_exercise": "Word Patterns, Chapters 1–2",
+      "instructions": "Điền từ được tạo từ gợi ý trong ngoặc. Dùng tiền tố hoặc hậu tố phù hợp với nghĩa. Không phân biệt chữ hoa và chữ thường.",
+      "lesson": "extra- diễn đạt vượt mức thông thường; -or chỉ người thực hiện; -tion thường tạo danh từ chỉ hành động hoặc quá trình; -al tạo tính từ; -ize tạo động từ.",
+      "questions": [
+        {"source_item": "Chapter 1, Vocabulary 11", "source_url": "https://opentextbc.ca/abealf6/chapter/chapter-1/", "prompt": "One who invents (invent): ___", "answers": ["inventor"], "explanation": "Thêm -or vào invent để tạo inventor: nhà phát minh."},
+        {"source_item": "Chapter 1, Vocabulary 12", "source_url": "https://opentextbc.ca/abealf6/chapter/chapter-1/", "prompt": "Related to a virus (virus): ___", "answers": ["viral"], "explanation": "Viral là tính từ mang nghĩa liên quan đến virus."},
+        {"source_item": "Chapter 1, Vocabulary 13", "source_url": "https://opentextbc.ca/abealf6/chapter/chapter-1/", "prompt": "The act of combining (combine): ___", "answers": ["combination"], "explanation": "Combination là danh từ chỉ sự kết hợp."},
+        {"source_item": "Chapter 1, Vocabulary 14", "source_url": "https://opentextbc.ca/abealf6/chapter/chapter-1/", "prompt": "Beyond ordinary (ordinary): ___", "answers": ["extraordinary"], "explanation": "Tiền tố extra- tạo extraordinary: khác thường hoặc phi thường."},
+        {"source_item": "Chapter 2, Vocabulary 11", "source_url": "https://opentextbc.ca/abealf6/chapter/whats-your-story/", "prompt": "The act of participating (participate): ___", "answers": ["participation"], "explanation": "Participation là danh từ chỉ sự tham gia."},
+        {"source_item": "Chapter 2, Vocabulary 12", "source_url": "https://opentextbc.ca/abealf6/chapter/whats-your-story/", "prompt": "To make categories (category): ___", "answers": ["categorize", "categorise"], "explanation": "Đáp án gốc: categorize. Chấp nhận thêm cách viết categorise."},
+        {"source_item": "Chapter 2, Vocabulary 13", "source_url": "https://opentextbc.ca/abealf6/chapter/whats-your-story/", "prompt": "The act of identifying (identify): ___", "answers": ["identification"], "explanation": "Identification là danh từ chỉ sự nhận diện hoặc xác định."},
+        {"source_item": "Chapter 2, Vocabulary 14", "source_url": "https://opentextbc.ca/abealf6/chapter/whats-your-story/", "prompt": "To make a drama (drama): ___", "answers": ["dramatize", "dramatise"], "explanation": "Đáp án gốc: dramatize. Chấp nhận thêm cách viết dramatise."}
+      ]
+    },
+    {
+      "slug": "bc-reads-04-subject-verb-agreement", "title": "Bộ 04 — Hòa hợp chủ ngữ và động từ", "duration_seconds": 900,
+      "source_url": "https://opentextbc.ca/abealf6/chapter/whats-your-story/", "source_exercise": "Subject Verb Agreement (selected items)",
+      "instructions": "Chọn động từ phù hợp với chủ ngữ. Bộ này chọn 15 câu từ bài gốc; số câu nguồn được lưu riêng để đối chiếu.",
+      "lesson": "Ở hiện tại đơn, chủ ngữ ngôi ba số ít thường đi với động từ thêm -s. Danh từ không đếm được thường dùng động từ số ít. Xác định danh từ chính trong cụm, ví dụ pair hoặc book.",
+      "questions": [
+        {"source_item": 1, "prompt": "This coffee ___ very strong.", "options": {"A": "looks", "B": "look"}, "answers": ["A"], "explanation": "Coffee là danh từ không đếm được nên dùng looks."},
+        {"source_item": 3, "prompt": "We ___ to get married this summer.", "options": {"A": "plans", "B": "plan"}, "answers": ["B"], "explanation": "We đi với động từ nguyên thể plan ở hiện tại đơn."},
+        {"source_item": 5, "prompt": "Juan and Ted ___ two cats.", "options": {"A": "has", "B": "have"}, "answers": ["B"], "explanation": "Juan and Ted là chủ ngữ số nhiều nên dùng have."},
+        {"source_item": 7, "prompt": "My new pair of shoes ___ gone missing.", "options": {"A": "have", "B": "has"}, "answers": ["B"], "explanation": "Danh từ chính là pair ở số ít nên dùng has."},
+        {"source_item": 8, "prompt": "The water ___ so warm, I jumped right in.", "options": {"A": "was", "B": "were"}, "answers": ["A"], "explanation": "Water là danh từ không đếm được, dùng was trong quá khứ."},
+        {"source_item": 9, "prompt": "The fruit ___ ripe and ready to eat.", "options": {"A": "is", "B": "are"}, "answers": ["A"], "explanation": "Trong câu nguồn, fruit được dùng như danh từ không đếm được nên dùng is."},
+        {"source_item": 11, "prompt": "The caves ___ fun to explore.", "options": {"A": "is", "B": "are"}, "answers": ["B"], "explanation": "Caves là danh từ số nhiều nên dùng are."},
+        {"source_item": 13, "prompt": "Each chapter ___ better than the one before it.", "options": {"A": "was", "B": "were"}, "answers": ["A"], "explanation": "Each chapter là chủ ngữ số ít nên dùng was."},
+        {"source_item": 15, "prompt": "One of these tickets ___ the winner.", "options": {"A": "is", "B": "are"}, "answers": ["A"], "explanation": "Danh từ chính là One, không phải tickets, nên dùng is."},
+        {"source_item": 16, "prompt": "The buses ___ very crowded at around 5:00 p.m.", "options": {"A": "get", "B": "gets"}, "answers": ["A"], "explanation": "Buses là chủ ngữ số nhiều nên dùng get."},
+        {"source_item": 17, "prompt": "No one ___ sitting next to me on the plane.", "options": {"A": "is", "B": "are"}, "answers": ["A"], "explanation": "No one đi với động từ số ít is."},
+        {"source_item": 18, "prompt": "Somebody ___ left me a phone message.", "options": {"A": "have", "B": "has"}, "answers": ["B"], "explanation": "Somebody đi với trợ động từ số ít has."},
+        {"source_item": 19, "prompt": "Everybody ___ late for the party.", "options": {"A": "was", "B": "were"}, "answers": ["A"], "explanation": "Everybody đi với động từ số ít was."},
+        {"source_item": 20, "prompt": "Stamps ___ expensive now.", "options": {"A": "is", "B": "are"}, "answers": ["B"], "explanation": "Stamps là danh từ số nhiều nên dùng are."},
+        {"source_item": 21, "prompt": "A book of stamps ___ $10.00.", "options": {"A": "is", "B": "are"}, "answers": ["A"], "explanation": "Danh từ chính là book ở số ít nên dùng is."}
+      ]
+    },
+    {
+      "slug": "bc-reads-05-vocabulary", "title": "Bộ 05 — Từ vựng theo định nghĩa", "duration_seconds": 900,
+      "source_url": "https://opentextbc.ca/abealf6/chapter/chapter-1/", "source_exercise": "Vocabulary 1–10",
+      "instructions": "Chọn từ hoặc cụm từ trong ngân hàng từ để điền theo định nghĩa. Mỗi từ dùng một lần. Không phân biệt chữ hoa và chữ thường.",
+      "lesson": "Ngân hàng từ: point of view; virus; online; ordinary; professional; invention; role; combine; recite; honour. Ngân hàng từ được bổ sung để làm bài độc lập, không cần mở bài đọc gốc.",
+      "questions": [
+        {"source_item": 1, "prompt": "A way of seeing and understanding the world: ___", "answers": ["point of view"], "explanation": "Point of view nghĩa là quan điểm hoặc cách nhìn nhận thế giới."},
+        {"source_item": 2, "prompt": "An extremely small living thing that can spread from one animal to another and can cause illness: ___", "answers": ["virus"], "explanation": "Đáp án nguồn là virus. Đây là bài nhận diện từ vựng theo định nghĩa của tài liệu."},
+        {"source_item": 3, "prompt": "Connected to the Internet: ___", "answers": ["online"], "explanation": "Online nghĩa là trực tuyến, có kết nối Internet."},
+        {"source_item": 4, "prompt": "Normal or usual: ___", "answers": ["ordinary"], "explanation": "Ordinary nghĩa là thông thường hoặc bình thường."},
+        {"source_item": 5, "prompt": "Someone who has a lot of experience using a skill for their job: ___", "answers": ["professional"], "explanation": "Professional trong định nghĩa này chỉ người có chuyên môn nghề nghiệp."},
+        {"source_item": 6, "prompt": "Something that is created by people: ___", "answers": ["invention"], "explanation": "Trong ngân hàng từ, invention là từ chỉ phát minh."},
+        {"source_item": 7, "prompt": "The part or job someone has in a family, community, or group: ___", "answers": ["role"], "explanation": "Role nghĩa là vai trò của một người trong tập thể."},
+        {"source_item": 8, "prompt": "To cause two or more things to be together: ___", "answers": ["combine"], "explanation": "Combine nghĩa là kết hợp hai hoặc nhiều thứ."},
+        {"source_item": 9, "prompt": "To say something out loud for an audience: ___", "answers": ["recite"], "explanation": "Recite nghĩa là đọc hoặc kể thành tiếng trước người nghe."},
+        {"source_item": 10, "prompt": "To show respect for someone or something: ___", "answers": ["honour", "honor"], "explanation": "Đáp án gốc là honour; chấp nhận thêm cách viết Mỹ honor."}
+      ]
+    }
+  ]
+}

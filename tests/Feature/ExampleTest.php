@@ -17,12 +17,12 @@ class ExampleTest extends TestCase
     }
 
     /**
-     * Test root redirects to class rooms.
+     * The public homepage is available without signing in.
      */
-    public function test_root_redirects_to_class_rooms(): void
+    public function test_root_shows_public_homepage(): void
     {
         $response = $this->get('/');
-        $response->assertRedirect(route('class_rooms.index'));
+        $response->assertOk()->assertSee('Học tiếng Anh,')->assertSee('Khám phá khóa học');
     }
 
     /**

@@ -1,0 +1,5 @@
+@extends('layouts.learning')
+@section('title','Trang cá nhân — English Center')
+@section('content')
+<div class="shell account-layout">@include('learning.account.nav')<section class="account-content"><span class="eyebrow">TÀI KHOẢN CỦA BẠN</span><h1>Trang cá nhân</h1><p>Cập nhật thông tin để trung tâm hỗ trợ việc học của bạn.</p><form class="portal-form" action="{{ route('account.update') }}" method="POST">@csrf @method('PATCH')<label for="profile-name">Họ và tên</label><input id="profile-name" name="name" value="{{ old('name',$user->name) }}" required maxlength="255"><label for="profile-email">Email đăng nhập</label><input id="profile-email" type="email" value="{{ $user->email }}" readonly><label for="profile-phone">Số điện thoại</label><input id="profile-phone" name="phone" type="tel" maxlength="20" value="{{ old('phone',$user->phone) }}"><label for="profile-occupation">Nghề nghiệp / Bạn đang là</label><input id="profile-occupation" name="occupation" maxlength="100" value="{{ old('occupation',$user->learnerProfile?->occupation) }}" placeholder="Ví dụ: Sinh viên"><button class="button" type="submit">Lưu thay đổi</button></form></section></div>
+@endsection
