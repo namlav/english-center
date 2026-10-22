@@ -76,7 +76,7 @@ class CourseShopTest extends TestCase {
  }
  public function test_unupgraded_store_has_a_clear_setup_screen(){
   Schema::drop('payments');Schema::drop('order_items');Schema::drop('orders');
-  $this->actingAs(User::factory()->admin()->create())->get(route('shop_admin.index'))->assertOk()->assertSee('Cửa hàng đang được cập nhật');$this->get(route('orders.index'))->assertOk()->assertSee('45 bảng');$this->get(route('shop_admin.upgrade'))->assertDownload('CAP_NHAT_ANH_VIDEO_KHOA_HOC.sql');
+  $this->actingAs(User::factory()->admin()->create())->get(route('shop_admin.index'))->assertOk()->assertSee('Cửa hàng đang được cập nhật');$this->get(route('orders.index'))->assertOk()->assertSee('45 bảng');$this->get(route('shop_admin.upgrade'))->assertDownload('CAP_NHAT_QR_NGAN_HANG.sql');
  }
 }
 
