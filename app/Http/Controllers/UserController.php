@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Validation\Rule;
 
 class UserController extends Controller
@@ -74,7 +76,20 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
-        $user->delete();
-        return redirect()->route('users.index')->with('success', 'Đã xóa tài khoản.');
+        return DB::transaction(function () use ($user) {
+            $user = User::query()->lockForUpdate()->findOrFail($user->id);
+            if ((Schema::hasTable('orders') && DB::table('orders')->where('user_id',$user->id)->exists())
+                || (Schema::hasTable('payments') && DB::table('payments')->where('confirmed_by',$user->id)->exists())) {
+                return redirect()->route('users.index')->with('error','Tài khoản có đơn hàng hoặc lịch sử xác nhận thanh toán mô phỏng. Hãy khóa tài khoản để giữ lịch sử.');
+            }
+            foreach (['courseEnrollments', 'lessonProgress', 'examAttempts', 'authoredExamPapers', 'flashcardDecks', 'flashcardReviews', 'courseReviews', 'examComments', 'courseLearningProfiles', 'taughtOnlineCourses'] as $relation) {
+                if ($user->{$relation}()->exists()) {
+                    return redirect()->route('users.index')->with('error', 'Tài khoản có nội dung hoặc lịch sử học online. Hãy khóa tài khoản để giữ dữ liệu.');
+                }
+            }
+            $user->delete();
+
+            return redirect()->route('users.index')->with('success', 'Đã xóa tài khoản.');
+        });
     }
 }

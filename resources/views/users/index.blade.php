@@ -77,7 +77,7 @@
     </div>
     @if($users->hasPages())
         <div class="card-footer bg-white">
-            {{ $users->links() }}
+            {{ $users->links('pagination::bootstrap-5') }}
         </div>
     @endif
 </div>

@@ -1,0 +1,11 @@
+@extends('layouts.learning')
+@section('title','Chương trình học — English Center')
+@section('content')
+<section class="shell page-heading"><span class="eyebrow">CHƯƠNG TRÌNH HỌC</span><h1>Chọn lộ trình cho mục tiêu của bạn</h1><p>Tìm hiểu chương trình, xem video giới thiệu và học ngay trong tài khoản của bạn.</p><form class="course-finder" action="{{ route('catalog.index') }}" method="GET"><x-study-icon name="search"/><label class="visually-hidden" for="shop-search">Tìm khóa học</label><input id="shop-search" name="q" type="search" maxlength="120" value="{{ $keyword }}" placeholder="Tìm khóa học, chủ đề..."><input type="hidden" name="category" value="{{ $category }}"><button class="button">Tìm kiếm</button></form>
+<nav class="course-category-tabs" aria-label="Danh mục chương trình"><a href="{{ route('catalog.index',['q'=>$keyword]) }}" @if(!$category)aria-current="page"@endif>Tất cả</a>@foreach($categories as $item)<a href="{{ route('catalog.index',['category'=>$item->slug,'q'=>$keyword]) }}" @if($categoryName===$item->name)aria-current="page"@endif>{{ $item->name }}</a>@endforeach</nav></section>
+<section class="shell home-feature course-catalog-sections">
+@forelse($courses->getCollection()->groupBy(fn($c)=>$c->learningCategory?->name??'Chương trình khác')->sortBy(fn($group,$label)=>array_search($label,['Combo đặc biệt','TOEIC','IELTS Academic','IELTS General','Tiếng Anh cơ bản','Tiếng Anh nền tảng','HSK'],true)===false?99:array_search($label,['Combo đặc biệt','TOEIC','IELTS Academic','IELTS General','Tiếng Anh cơ bản','Tiếng Anh nền tảng','HSK'],true)) as $label=>$group)<section class="course-catalog-group"><h2>{{ $label }}</h2><div class="course-grid">@foreach($group as $course)@include('learning.shop.card')@endforeach</div></section>
+@empty<div class="empty-state"><h2>Chưa có khóa học phù hợp</h2><p>Thử từ khóa khác hoặc quay lại sau khi chương trình được cập nhật.</p></div>@endforelse
+@if($courses->hasPages())<nav class="catalog-pagination">@if($courses->previousPageUrl())<a href="{{ $courses->previousPageUrl() }}">← Trang trước</a>@endif<span>Trang {{ $courses->currentPage() }}/{{ $courses->lastPage() }}</span>@if($courses->nextPageUrl())<a href="{{ $courses->nextPageUrl() }}">Trang sau →</a>@endif</nav>@endif</section>
+@endsection
+

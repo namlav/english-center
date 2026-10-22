@@ -43,7 +43,7 @@
 <body class="bg-light">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="{{ route('class_rooms.index') }}">
+            <a class="navbar-brand fw-bold" href="{{ route('home') }}">
                 <i class="bi bi-mortarboard-fill me-1"></i> ENGLISH CENTER
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
@@ -57,6 +57,7 @@
                     </li>
 
                     @if(auth()->user()->isAdmin())
+                        <li class="nav-item"><a class="nav-link" href="{{ route('website.index') }}">Quản lý website</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('courses.index') }}">Khóa học</a></li>
         <li class="nav-item"><a class="nav-link" href="{{ route('teachers.index') }}">Giảng viên</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('students.index') }}">Học viên</a></li>

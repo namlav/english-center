@@ -1,0 +1,132 @@
+[
+    {
+        "provider": "study4",
+        "source_key": "course-36",
+        "source_url": "https://study4.com/courses/36/toeic-sw/",
+        "content_type": "course",
+        "title": "[TOEIC SW] TOEIC Speaking and Writing [Tặng TED Talks]",
+        "summary": "Khóa học giới thiệu các dạng bài nói và viết TOEIC, kết hợp hướng dẫn, bài mẫu và thực hành.",
+        "metadata": {
+            "skills": [
+                "speaking",
+                "writing"
+            ],
+            "curriculum_topics": [
+                "Đọc thành tiếng",
+                "Mô tả tranh",
+                "Hỏi đáp",
+                "Sử dụng thông tin cho trước",
+                "Trình bày quan điểm",
+                "Viết câu",
+                "Trả lời email",
+                "Viết bài luận"
+            ],
+            "full_lessons_imported": false
+        },
+        "captured_at": "2026-10-22 02:20:09",
+        "images": [
+            {
+                "role": "cover",
+                "source_url": "https://study4.com/media/courses/Course/files/2025/08/11/toeic_sw_1.webp",
+                "local_path": "images/references/study4/toeic-sw-cover.webp",
+                "alt_text": "Bìa toeic-sw"
+            }
+        ]
+    },
+    {
+        "provider": "study4",
+        "source_key": "course-28",
+        "source_url": "https://study4.com/courses/28/complete-toeic/",
+        "content_type": "course",
+        "title": "[Complete TOEIC] Chiến lược làm bài - Từ vựng - Ngữ pháp - Luyện nghe với Dictation [Tặng TED Talks]",
+        "summary": "Khóa học tập trung vào TOEIC nghe và đọc, có nội dung từ vựng, ngữ pháp và luyện nghe chép chính tả.",
+        "metadata": {
+            "skills": [
+                "listening",
+                "reading"
+            ],
+            "curriculum_topics": [
+                "Từ vựng",
+                "Ngữ pháp",
+                "Nghe tranh",
+                "Hỏi đáp",
+                "Hội thoại",
+                "Bài nói",
+                "Điền câu",
+                "Điền đoạn",
+                "Đọc hiểu",
+                "Chép chính tả"
+            ],
+            "full_lessons_imported": false
+        },
+        "captured_at": "2026-10-22 02:20:09",
+        "images": [
+            {
+                "role": "cover",
+                "source_url": "https://study4.com/media/courses/Course/files/2025/08/11/toeic_1_1.webp",
+                "local_path": "images/references/study4/complete-toeic-cover.webp",
+                "alt_text": "Bìa complete-toeic"
+            },
+            {
+                "role": "illustration",
+                "source_url": "https://study4.com/media/uploads/editor/study4/2023/06/05/untitled-design-1-min.webp",
+                "local_path": "images/references/study4/complete-toeic-illustration-1.webp",
+                "alt_text": "Ảnh minh họa 1"
+            },
+            {
+                "role": "illustration",
+                "source_url": "https://study4.com/media/uploads/editor/study4/2023/06/05/untitled-design-2-min.webp",
+                "local_path": "images/references/study4/complete-toeic-illustration-2.webp",
+                "alt_text": "Ảnh minh họa 2"
+            },
+            {
+                "role": "illustration",
+                "source_url": "https://study4.com/media/uploads/editor/study4/2023/06/05/untitled-design-3-min.webp",
+                "local_path": "images/references/study4/complete-toeic-illustration-3.webp",
+                "alt_text": "Ảnh minh họa 3"
+            },
+            {
+                "role": "illustration",
+                "source_url": "https://study4.com/media/uploads/editor/study4/2023/06/05/untitled-design-4-min.webp",
+                "local_path": "images/references/study4/complete-toeic-illustration-4.webp",
+                "alt_text": "Ảnh minh họa 4"
+            },
+            {
+                "role": "illustration",
+                "source_url": "https://study4.com/media/uploads/editor/study4/2023/06/05/untitled-design-5-min.webp",
+                "local_path": "images/references/study4/complete-toeic-illustration-5.webp",
+                "alt_text": "Ảnh minh họa 5"
+            },
+            {
+                "role": "illustration",
+                "source_url": "https://study4.com/media/uploads/editor/study4/2023/06/05/untitled-design-6-min.webp",
+                "local_path": "images/references/study4/complete-toeic-illustration-6.webp",
+                "alt_text": "Ảnh minh họa 6"
+            }
+        ]
+    },
+    {
+        "provider": "study4",
+        "source_key": "test-6842",
+        "source_url": "https://study4.com/tests/6842/ielts-collection-1-listening-test-1/",
+        "content_type": "exam",
+        "title": "IELTS Collection 1 Listening Test 1",
+        "summary": "Trang giới thiệu đề luyện nghe IELTS cho phép chọn từng phần hoặc làm toàn bài với giới hạn thời gian.",
+        "metadata": {
+            "category": "IELTS Academic",
+            "skill": "listening",
+            "duration_seconds": 2400,
+            "section_count": 4,
+            "question_count_on_source": 40,
+            "questions_imported": 0,
+            "question_types": [
+                "Note/Form Completion",
+                "Table Completion",
+                "Matching",
+                "Map/Plan/Diagram Labelling"
+            ]
+        },
+        "captured_at": "2026-10-22 02:20:09",
+        "images": []
+    }
+]

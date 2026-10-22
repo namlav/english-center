@@ -75,8 +75,11 @@ class CourseController extends Controller
     {
         return DB::transaction(function () use ($course): RedirectResponse {
             $course = Course::query()->lockForUpdate()->findOrFail($course->id);
-            if ($course->classRooms()->exists()) {
-                return to_route('courses.index')->with('error', 'Khóa học đã có lớp. Hãy ngừng hoạt động khóa học để giữ lịch sử.');
+            if ($course->classRooms()->exists() || $course->sections()->exists()
+                || $course->onlineEnrollments()->exists() || $course->reviews()->exists()
+                || $course->flashcardDecks()->exists() || $course->learningProfiles()->exists()
+                || $course->instructors()->exists()) {
+                return to_route('courses.index')->with('error', 'Khóa học đã có lớp hoặc dữ liệu học online. Hãy ngừng hoạt động khóa học để giữ lịch sử.');
             }
             $course->delete();
 

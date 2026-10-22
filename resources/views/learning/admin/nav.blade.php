@@ -1,0 +1,2 @@
+<nav class="admin-tabs" aria-label="Quản lý website"><a href="{{ route('website.index') }}">Giáo viên & nội dung</a><a href="{{ route('website.home.edit') }}">Banner & trang chủ</a><a href="{{ route('class_rooms.index') }}">Quản lý trung tâm ↗</a><a href="{{ route('shop_admin.index') }}">Khóa học & video</a><a href="{{ route('exam_admin.index') }}">Đề thi & đáp án</a><a href="{{ route('shop_admin.orders.index') }}">Đơn hàng & thanh toán</a><a href="{{ route('shop_admin.bank.edit') }}">QR ngân hàng</a></nav>
+
