@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4"><div><a class="small text-decoration-none" href="{{ route('enrollments.class_students', $classRoom) }}">← Danh sách học viên</a><h1 class="h3 fw-bold mt-2 mb-1">Điểm danh · {{ $classRoom->name }}</h1><div class="text-secondary">{{ $classRoom->code }} · {{ $classRoom->course->name }}</div></div>
-    <form method="GET" action="{{ route('attendances.index', $classRoom) }}" class="d-flex gap-2 align-items-end"><div><label class="form-label small fw-semibold" for="attendance_date">Ngày điểm danh</label><input class="form-control" type="date" id="attendance_date" name="attendance_date" value="{{ $date }}" required></div><button class="btn btn-outline-primary">Xem ngày</button></form></div>
+    <div class="d-flex flex-wrap gap-2 align-items-end"><form method="GET" action="{{ route('attendances.index', $classRoom) }}" class="d-flex gap-2 align-items-end"><div><label class="form-label small fw-semibold" for="attendance_date">Ngày điểm danh</label><input class="form-control" type="date" id="attendance_date" name="attendance_date" value="{{ $date }}" required></div><button class="btn btn-outline-primary">Xem ngày</button></form><a class="btn btn-outline-success" href="{{ route('attendances.export', ['classRoom' => $classRoom, 'attendance_date' => $date]) }}"><i class="bi bi-file-earmark-excel me-1"></i>Xuất Excel</a></div></div>
 <form method="POST" action="{{ route('attendances.store', $classRoom) }}">
     @csrf<input type="hidden" name="attendance_date" value="{{ $date }}">
     <div class="card border-0 shadow-sm"><div class="table-responsive"><table class="table table-hover align-middle mb-0">

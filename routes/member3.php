@@ -21,13 +21,17 @@ Route::middleware(['auth', 'role:admin,teacher'])->group(function () {
     // Điểm danh
     Route::get('/class-rooms/{classRoom}/attendances', [AttendanceController::class, 'index'])->name('attendances.index');
     Route::post('/class-rooms/{classRoom}/attendances', [AttendanceController::class, 'store'])->name('attendances.store');
+    Route::get('/class-rooms/{classRoom}/attendances/export', [AttendanceController::class, 'exportCsv'])->name('attendances.export');
 
     // Nhập điểm / kết quả học tập
     Route::get('/class-rooms/{classRoom}/grades', [GradeController::class, 'index'])->name('grades.index');
     Route::post('/class-rooms/{classRoom}/grades', [GradeController::class, 'updateAll'])->name('grades.update_all');
+    Route::get('/class-rooms/{classRoom}/grades/export', [GradeController::class, 'exportCsv'])->name('grades.export');
+    Route::get('/class-rooms/{classRoom}/grades/print', [GradeController::class, 'print'])->name('grades.print');
 });
 
 // Chức năng Thống kê số học viên, số lớp, doanh thu học phí (Chỉ Admin)
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/reports/dashboard', [ReportController::class, 'index'])->name('reports.index');
+    Route::get('/reports/export', [ReportController::class, 'exportCsv'])->name('reports.export');
 });

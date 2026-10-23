@@ -10,25 +10,27 @@
             <div class="hero-actions"><a class="button" href="#practice">Khám phá bài luyện <x-study-icon name="arrow" /></a><a class="text-link" href="#how-it-works">Bắt đầu như thế nào? <span>↗</span></a></div>
             <div class="hero-assurances"><span><x-study-icon name="check" /> Học theo nhịp của bạn</span><span><x-study-icon name="check" /> Tự kiểm tra với lời giải</span></div>
         </div>
-        <div class="hero-art" aria-label="Minh họa sách tiếng Anh và góc học tập">
-            <div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div><span class="art-spark spark-one">✦</span><span class="art-spark spark-two">✦</span>
-            <div class="art-note art-note-top"><span class="note-icon"><x-study-icon name="spark" /></span><div><strong>Một chút mỗi ngày</strong><span>Tạo nên thay đổi lớn</span></div></div>
-            <svg class="study-illustration" viewBox="0 0 520 420" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <ellipse cx="265" cy="365" rx="192" ry="24" fill="#CCDCD3" fill-opacity=".65"/>
-                <path d="M84 293 293 250 438 294 235 347Z" fill="#155E50"/><path d="m84 293 151 54v23L84 316Z" fill="#0F4D42"/><path d="m235 347 203-53v23l-203 53Z" fill="#F8F2DF"/><path d="m247 355 174-45m-174 52 174-45" stroke="#D9D1BA" stroke-width="2"/>
-                <path d="m112 262 195-33 110 38-194 43Z" fill="#EAB94E"/><path d="m112 262 111 48v19l-111-45Z" fill="#D4A33C"/><path d="m223 310 194-43v20l-194 42Z" fill="#FFF9E9"/>
-                <path d="m107 139 145 34 163-38-8 124-156 38-152-38Z" fill="#106F5B"/>
-                <path d="m111 128 140 35 156-37-6 121-149 38-144-36Z" fill="#FFFDF4"/>
-                <path d="M251 163v122M111 128l140 35 156-37" stroke="#DED9C8" stroke-width="2"/>
-                <path d="M111 128c51-14 92-5 140 16v19l-140-35Z" fill="#F1EDD9"/><path d="M251 144c60-27 106-32 156-18l-156 37v-19Z" fill="#FFFDF4"/>
-                <path d="m132 165 92 23m-92-8 92 23m-92-8 92 23m-92-8 63 16" stroke="#D0D5C5" stroke-width="4" stroke-linecap="round"/>
-                <path d="m280 180 94-23m-94 40 94-23m-94 40 94-23m-94 40 65-16" stroke="#D0D5C5" stroke-width="4" stroke-linecap="round"/>
-                <path d="m329 145 22-5-1 69-11-7-10 12v-69Z" fill="#E7B348"/>
-                <path d="M76 308c-28-18-40-45-25-65 25 4 43 31 25 65Z" fill="#77A989"/><path d="M76 309c-6-30 0-55 22-62 16 25 6 51-22 62Z" fill="#397C61"/><path d="M76 292v41" stroke="#155E50" stroke-width="4"/><path d="M53 316h49l-7 43H61Z" fill="#F8F2E2"/><path d="M53 316h49v9H53Z" fill="#E4DDCB"/>
-                <path d="m411 186 20 5-29 117-13-3Z" fill="#E3AF44"/><path d="m389 305 13 3-10 17Z" fill="#F2D7AA"/><path d="m392 325-3-8 6 2Z" fill="#183F36"/>
-                <path d="M169 95c2-29 22-48 46-48s44 19 46 48" stroke="#174E43" stroke-width="10"/><rect x="159" y="85" width="19" height="37" rx="9" fill="#174E43"/><rect x="251" y="85" width="19" height="37" rx="9" fill="#174E43"/>
-            </svg>
-            <div class="art-note art-note-bottom"><span class="note-icon note-yellow"><x-study-icon name="book" /></span><div><strong>Thêm kiến thức mới</strong><span>Ngữ pháp · Từ vựng · Bài luyện</span></div><span class="note-check"><x-study-icon name="check" /></span></div>
+        <div class="hero-art" aria-label="Hình ảnh học viên English Center" style="position: relative; display: flex; justify-content: center; align-items: center;">
+            <div style="position: relative; width: 100%; max-width: 480px; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 35px -10px rgba(0,0,0,0.18), 0 10px 15px -5px rgba(0,0,0,0.1); border: 4px solid #ffffff;">
+                <img src="{{ asset('images/banners/banner-home-hero.jpg') }}" alt="Học viên tiếng Anh tại English Center" style="width: 100%; height: 360px; object-fit: cover; display: block;">
+                <div style="position: absolute; inset: 0; background: linear-gradient(180deg, transparent 60%, rgba(15,23,42,0.6) 100%);"></div>
+            </div>
+            
+            <div class="art-note art-note-top" style="position: absolute; top: -10px; right: -15px; z-index: 5; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 10px 16px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.08); display: flex; align-items: center; gap: 10px;">
+                <span class="note-icon" style="background: #eff6ff; color: #2563eb; width: 34px; height: 34px; border-radius: 8px; display: grid; place-items: center;"><x-study-icon name="spark" /></span>
+                <div>
+                    <strong style="font-size: 14px; color: #0f172a; display: block;">Học mỗi ngày</strong>
+                    <span style="font-size: 12px; color: #64748b;">Tiến bộ vững vàng</span>
+                </div>
+            </div>
+
+            <div class="art-note art-note-bottom" style="position: absolute; bottom: -15px; left: -15px; z-index: 5; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 10px 16px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.08); display: flex; align-items: center; gap: 10px;">
+                <span class="note-icon note-yellow" style="background: #ecfdf5; color: #059669; width: 34px; height: 34px; border-radius: 8px; display: grid; place-items: center;"><x-study-icon name="check" /></span>
+                <div>
+                    <strong style="font-size: 14px; color: #0f172a; display: block;">Chuẩn Study4</strong>
+                    <span style="font-size: 12px; color: #64748b;">Chép chính tả & Luyện đề</span>
+                </div>
+            </div>
         </div>
     </div>
 </section>

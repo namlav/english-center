@@ -3,7 +3,7 @@
 @section('title', 'Bảng điểm lớp học')
 
 @section('content')
-<div class="d-flex flex-wrap justify-content-between align-items-end gap-2 mb-4"><div><a class="small text-decoration-none" href="{{ route('enrollments.class_students', $classRoom) }}">← Danh sách học viên</a><h1 class="h3 fw-bold mt-2 mb-1">Bảng điểm · {{ $classRoom->name }}</h1><div class="text-secondary">{{ $classRoom->code }} · {{ $classRoom->course->name }}</div></div><div class="small text-secondary">Thang điểm 10</div></div>
+<div class="d-flex flex-wrap justify-content-between align-items-end gap-2 mb-4"><div><a class="small text-decoration-none" href="{{ route('enrollments.class_students', $classRoom) }}">← Danh sách học viên</a><h1 class="h3 fw-bold mt-2 mb-1">Bảng điểm · {{ $classRoom->name }}</h1><div class="text-secondary">{{ $classRoom->code }} · {{ $classRoom->course->name }}</div></div><div class="d-flex align-items-center gap-2"><span class="small text-secondary me-2">Thang điểm 10</span><a class="btn btn-outline-success btn-sm" href="{{ route('grades.export', $classRoom) }}"><i class="bi bi-file-earmark-excel me-1"></i>Xuất Excel</a><a class="btn btn-outline-secondary btn-sm" href="{{ route('grades.print', $classRoom) }}" target="_blank"><i class="bi bi-printer me-1"></i>In / Xuất PDF</a></div></div>
 <form method="POST" action="{{ route('grades.update_all', $classRoom) }}">@csrf
     <div class="card border-0 shadow-sm"><div class="table-responsive"><table class="table table-hover align-middle mb-0">
         <thead class="table-light"><tr><th>Học viên</th><th style="min-width:130px">Giữa kỳ</th><th style="min-width:130px">Cuối kỳ</th><th style="min-width:160px">Kết quả</th><th style="min-width:240px">Nhận xét</th></tr></thead><tbody>

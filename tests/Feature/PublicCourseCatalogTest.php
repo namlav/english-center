@@ -15,8 +15,8 @@ class PublicCourseCatalogTest extends TestCase
 
     public function test_catalog_has_real_covers_local_links_and_groups_without_outgoing_provider_links():void
     {
-        $this->assertDatabaseCount('courses',27);
-        $this->get(route('catalog.index'))->assertOk()->assertSee('Combo đặc biệt')->assertSee('IELTS Academic')->assertSee('HSK')
+        $this->assertDatabaseCount('courses',21);
+        $this->get(route('catalog.index'))->assertOk()->assertSee('Combo đặc biệt')->assertSee('IELTS Academic')->assertSee('TOEIC')
             ->assertSee('images/catalog/study4/course-15.webp')->assertDontSee('href="https://study4.com',false)->assertDontSee('tham khảo');
         foreach(app(Study4CourseCatalog::class)->all() as $record){
             $path=public_path($record['images'][0]['local_path']);
@@ -32,17 +32,15 @@ class PublicCourseCatalogTest extends TestCase
     {
         $course=Course::where('catalog_key','course-15')->sole();
         $this->get(route('shop.show',$course->slug))->assertOk()->assertSee('youtube-nocookie.com/embed/__nzODTNbjM',false)
-            ->assertSee('799.000đ')->assertSee('0 bài học đã công bố')->assertSee('Đang chuẩn bị nội dung')
-            ->assertDontSee('198 bài học')->assertDontSee('101,575')->assertDontSee('Thêm vào giỏ hàng');
-        $this->assertFalse(app(CourseShop::class)->available()->whereKey($course->id)->exists());
-        $this->actingAs(User::factory()->student()->create())->post(route('cart.add',$course))->assertNotFound();
-        $this->assertDatabaseCount('course_enrollments',0);
+            ->assertSee('799.000đ')->assertSee($course->lessons()->count().' bài học đã công bố')
+            ->assertDontSee('198 bài học')->assertDontSee('101,575');
+        $this->assertTrue(app(CourseShop::class)->available()->whereKey($course->id)->exists());
     }
 
     public function test_search_category_visibility_and_database_edits_control_public_content():void
     {
         $this->get('/courses/online?q='.urlencode('IELTS Intensive Listening'))->assertOk()->assertSee('IELTS Intensive Listening')->assertDontSee('Combo TOEIC 4 kỹ năng');
-        $this->get('/courses/online?category=catalog-hsk')->assertOk()->assertSee('Chinh phục HSK 3')->assertDontSee('IELTS Intensive Listening');
+        $this->get('/courses/online?category=catalog-toeic')->assertOk()->assertSee('Complete TOEIC')->assertDontSee('IELTS Intensive Listening');
         $this->get('/courses/online?q='.urlencode('<script>alert(1)</script>'))->assertOk()->assertDontSee('<script>alert(1)</script>',false);
         $this->get('/reference-courses?catalog_q=IELTS')->assertRedirect(route('catalog.index',['q'=>'IELTS']));
         $course=Course::where('catalog_key','course-15')->sole();$course->update(['name'=>'Nội dung mới trong database','intro_video_url'=>null]);
@@ -54,7 +52,8 @@ class PublicCourseCatalogTest extends TestCase
     public function test_import_is_repeatable_and_preserves_admin_edits():void
     {
         $course=Course::where('catalog_key','course-15')->sole();$course->update(['name'=>'Tên admin sửa','price'=>123000,'sale_price'=>null,'intro_video_url'=>null,'is_active'=>false]);
-        $this->seed(CoursePresentationSeeder::class);$this->assertDatabaseCount('courses',27);$this->assertDatabaseCount('lessons',9);$this->assertDatabaseCount('questions',18);
+        $initialLessons = \App\Models\Lesson::count();
+        $this->seed(CoursePresentationSeeder::class);$this->assertDatabaseCount('courses',21);$this->assertSame($initialLessons, \App\Models\Lesson::count());$this->assertDatabaseCount('questions',18);
         $this->assertSame('Tên admin sửa',$course->fresh()->name);$this->assertSame('123000.00',$course->fresh()->price);$this->assertNull($course->fresh()->intro_video_url);
         $this->assertFalse($course->fresh()->is_active);$this->assertDatabaseCount('course_enrollments',0);
         $sample=Course::where('code','EC-TOEIC-READ')->sole();$sample->update(['intro_video_url'=>null]);

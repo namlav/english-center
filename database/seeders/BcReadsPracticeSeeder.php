@@ -21,7 +21,8 @@ class BcReadsPracticeSeeder extends Seeder
                 'description' => $data['source']['attribution'].' '.$data['source']['license_url'],
             ]);
 
-            foreach ($data['sets'] as $set) {
+            $baseTime = now()->startOfMinute();
+            foreach ($data['sets'] as $index => $set) {
                 // Preserve a whole existing paper, including any author edits to its questions/keys.
                 if (ExamPaper::where('slug', $set['slug'])->exists()) {
                     continue;
@@ -31,7 +32,7 @@ class BcReadsPracticeSeeder extends Seeder
                 $paper = ExamPaper::create([
                     'learning_category_id' => $category->id, 'exam_collection_id' => $collection->id,
                     'title' => $set['title'], 'slug' => $set['slug'], 'skill' => 'reading',
-                    'duration_seconds' => $set['duration_seconds'], 'status' => 'published', 'published_at' => now(),
+                    'duration_seconds' => $set['duration_seconds'], 'status' => 'published', 'published_at' => (clone $baseTime)->subMinutes($index),
                     'description' => count($set['questions']).' câu, 1 điểm/câu. Bài luyện ngữ pháp/từ vựng, không quy đổi điểm IELTS/TOEIC. '
                         .$notice.' '.$data['source']['adaptation'],
                 ]);

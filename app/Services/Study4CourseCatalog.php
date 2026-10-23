@@ -9,7 +9,7 @@ class Study4CourseCatalog
 {
     public const GROUPS = [
         'combo' => 'Combo đặc biệt', 'toeic' => 'TOEIC', 'ielts-academic' => 'IELTS Academic',
-        'ielts-general' => 'IELTS General', 'english-foundation' => 'Tiếng Anh cơ bản', 'hsk' => 'HSK',
+        'ielts-general' => 'IELTS General', 'english-foundation' => 'Tiếng Anh cơ bản',
     ];
 
     public function all(): Collection

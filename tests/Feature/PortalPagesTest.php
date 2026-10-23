@@ -104,7 +104,7 @@ class PortalPagesTest extends TestCase
         unset($data['is_visible']); $this->patch(route('website.courses.update',$course),$data)->assertRedirect();
         $this->get('/khoa-hoc/course-15')->assertRedirect(route('shop.show',Course::where('catalog_key','course-15')->sole()->slug));
         $this->get('/courses/online')->assertDontSee('Listening đã chỉnh sửa');
-        $this->assertDatabaseCount('reference_pages',24); $this->assertDatabaseCount('public_teachers',3);
+        $this->assertDatabaseCount('reference_pages',18); $this->assertDatabaseCount('public_teachers',3);
     }
     public function test_admin_edits_teacher_and_home_and_changes_are_public(): void
     {
