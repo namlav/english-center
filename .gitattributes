@@ -9,3 +9,10 @@
 /.github export-ignore
 CHANGELOG.md export-ignore
 .styleci.yml export-ignore
+
+# Auto-collapse large data files & vendor libraries in GitHub PR review
+database/sql/* linguist-generated=true
+database/data/* linguist-generated=true
+composer.lock linguist-generated=true
+public/js/vendor/* linguist-generated=true
+
