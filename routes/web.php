@@ -50,6 +50,7 @@ Route::middleware('auth')->group(function (): void {
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function (): void {
     Route::get('/', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
     Route::get('/dashboard', [AdminDashboardController::class, 'index']);
+    Route::get('/revenue/export', [AdminDashboardController::class, 'exportRevenueCsv'])->name('admin.revenue.export');
 });
 
 Route::middleware(['auth','role:admin'])->prefix('admin/website/shop')->name('shop_admin.')->group(function(){

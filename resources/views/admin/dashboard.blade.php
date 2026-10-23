@@ -1,16 +1,25 @@
 @extends('layouts.admin')
 
-@section('title', 'Bảng Điều Khiển Tổng Quan — Metis Admin')
+@section('title', 'Tổng Quan & Báo Cáo Doanh Thu Khóa Học — Metis Admin')
 
 @section('content')
-<div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
+{{-- TIÊU ĐỀ TRANG & NÚT TÁC VỤ --}}
+<div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-3">
     <div>
-        <h2 class="fw-bold text-dark mb-1">Bảng Điều Khiển Quản Trị</h2>
-        <p class="text-secondary mb-0">Hệ thống quản lý trung tâm tiếng Anh & học trực tuyến E-Learning.</p>
+        <div class="d-flex align-items-center gap-2">
+            <span class="badge bg-success-subtle text-success px-2 py-1 fw-bold fs-8 text-uppercase">Báo cáo doanh số LMS</span>
+            <span class="text-muted fs-8">Cập nhật trực tiếp theo thời gian thực</span>
+        </div>
+        <h2 class="fw-bold text-dark mb-1 mt-1">Tổng Quan & Báo Cáo Doanh Thu Khóa Học</h2>
+        <p class="text-secondary mb-0 fs-7">Theo dõi chi tiết doanh số bán khóa học E-Learning, doanh thu thực thu và đối soát thanh toán VietQR.</p>
     </div>
-    <div class="d-flex gap-2">
-        <a href="{{ route('shop_admin.orders.index') }}" class="btn btn-warning text-dark fw-bold shadow-sm d-flex align-items-center gap-2">
-            <i class="bi bi-bell-fill"></i>
+    <div class="d-flex flex-wrap gap-2">
+        <a href="{{ route('admin.revenue.export') }}" class="btn btn-success fw-bold shadow-sm d-flex align-items-center gap-2">
+            <i class="bi bi-file-earmark-excel-fill"></i>
+            <span>Xuất Excel Doanh Thu Khóa Học</span>
+        </a>
+        <a href="{{ route('shop_admin.orders.index', ['status' => 'pending']) }}" class="btn btn-warning text-dark fw-bold shadow-sm d-flex align-items-center gap-2">
+            <i class="bi bi-qr-code-scan"></i>
             <span>Đơn chờ duyệt ({{ $pendingOrdersCount }})</span>
         </a>
         <a href="{{ route('shop_admin.courses.create') }}" class="btn btn-primary fw-bold shadow-sm d-flex align-items-center gap-2">
@@ -20,247 +29,284 @@
     </div>
 </div>
 
-{{-- 4 METRIC KPI CARDS PHONG CÁCH METIS --}}
+{{-- DẢI THỐNG KÊ PHỤ NHỎ GỌN (CÁC PHẦN KHÁC CHỈ LÀ PHẦN NHỎ) --}}
+<div class="d-flex flex-wrap align-items-center justify-content-between gap-2 p-3 bg-white rounded-3 border mb-4 shadow-sm" style="font-size: 13px;">
+    <div class="d-flex flex-wrap align-items-center gap-2">
+        <span class="text-muted fw-bold text-uppercase fs-8 me-1"><i class="bi bi-sliders me-1"></i> Quy mô hệ thống:</span>
+        <span class="badge bg-light text-dark border px-2 py-1"><i class="bi bi-people text-primary me-1"></i> <strong>{{ number_format($compactStats['students']) }}</strong> Học viên</span>
+        <span class="badge bg-light text-dark border px-2 py-1"><i class="bi bi-person-video3 text-success me-1"></i> <strong>{{ number_format($compactStats['teachers']) }}</strong> Giảng viên</span>
+        <span class="badge bg-light text-dark border px-2 py-1"><i class="bi bi-building text-info me-1"></i> <strong>{{ number_format($compactStats['classes']) }}</strong> Lớp học</span>
+        <span class="badge bg-light text-dark border px-2 py-1"><i class="bi bi-journal-bookmark text-danger me-1"></i> <strong>{{ number_format($compactStats['courses']) }}</strong> Khóa học ({{ $compactStats['forSaleCourses'] }} đang bán)</span>
+        <span class="badge bg-light text-dark border px-2 py-1"><i class="bi bi-collection-play text-warning me-1"></i> <strong>{{ number_format($compactStats['lessons']) }}</strong> Bài giảng LMS</span>
+        <span class="badge bg-light text-dark border px-2 py-1"><i class="bi bi-card-checklist text-secondary me-1"></i> <strong>{{ number_format($compactStats['exams']) }}</strong> Đề thi online</span>
+    </div>
+    @if($offlineRevenue > 0)
+        <div class="text-muted fs-8">
+            Học phí lớp truyền thống: <strong class="text-dark">{{ number_format($offlineRevenue, 0, ',', '.') }}đ</strong>
+        </div>
+    @endif
+</div>
+
+{{-- 4 THẺ CHỈ SỐ DOANH THU CHÍNH (HERO REVENUE METRICS) --}}
 <div class="row g-3 mb-4">
-    <!-- Doanh thu -->
+    <!-- Doanh thu thực thu -->
     <div class="col-sm-6 col-xl-3">
-        <div class="metis-metric-card h-100">
-            <div class="metis-metric-icon bg-success-subtle text-success">
-                <i class="bi bi-cash-stack"></i>
+        <div class="metis-metric-card h-100 border-start border-4 border-success">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+                <div class="metis-metric-title mb-0">Doanh thu bán khóa học</div>
+                <div class="metis-metric-icon bg-success-subtle text-success m-0" style="width: 40px; height: 40px; font-size: 1.15rem;">
+                    <i class="bi bi-cash-stack"></i>
+                </div>
             </div>
-            <div class="metis-metric-title">Doanh thu khóa học</div>
             <div class="metis-metric-value text-success">
-                {{ number_format($totalRevenue, 0, ',', '.') }}đ
+                {{ number_format($totalCourseRevenue, 0, ',', '.') }}đ
             </div>
-            <div class="metis-metric-trend text-secondary">
-                <i class="bi bi-check2-circle text-success"></i>
-                <span>{{ $paidOrdersCount }} đơn đã thanh toán thành công</span>
+            <div class="metis-metric-trend text-secondary mt-2">
+                <i class="bi bi-check-circle-fill text-success me-1"></i>
+                <span><strong>{{ $paidOrdersCount }}</strong> đơn đã thanh toán & kích hoạt</span>
             </div>
         </div>
     </div>
 
-    <!-- Đơn hàng -->
+    <!-- Doanh thu tháng này & hôm nay -->
     <div class="col-sm-6 col-xl-3">
-        <div class="metis-metric-card h-100">
-            <div class="metis-metric-icon bg-primary-subtle text-primary">
-                <i class="bi bi-cart-check-fill"></i>
+        <div class="metis-metric-card h-100 border-start border-4 border-primary">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+                <div class="metis-metric-title mb-0">Doanh thu Tháng {{ date('m/Y') }}</div>
+                <div class="metis-metric-icon bg-primary-subtle text-primary m-0" style="width: 40px; height: 40px; font-size: 1.15rem;">
+                    <i class="bi bi-calendar-check-fill"></i>
+                </div>
             </div>
-            <div class="metis-metric-title">Tổng đơn đặt mua</div>
             <div class="metis-metric-value text-primary">
-                {{ $totalOrders }} đơn
+                {{ number_format($thisMonthRevenue, 0, ',', '.') }}đ
             </div>
-            <div class="metis-metric-trend text-secondary">
+            <div class="metis-metric-trend text-secondary mt-2">
+                <i class="bi bi-clock-history text-primary me-1"></i>
+                <span>Hôm nay: <strong>{{ number_format($todayRevenue, 0, ',', '.') }}đ</strong></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chờ xác nhận chuyển khoản VietQR -->
+    <div class="col-sm-6 col-xl-3">
+        <div class="metis-metric-card h-100 border-start border-4 border-warning">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+                <div class="metis-metric-title mb-0">Chờ duyệt / VietQR</div>
+                <div class="metis-metric-icon bg-warning-subtle text-warning m-0" style="width: 40px; height: 40px; font-size: 1.15rem;">
+                    <i class="bi bi-hourglass-split"></i>
+                </div>
+            </div>
+            <div class="metis-metric-value text-warning-emphasis">
+                {{ number_format($pendingRevenue, 0, ',', '.') }}đ
+            </div>
+            <div class="metis-metric-trend text-secondary mt-2">
                 @if($pendingOrdersCount > 0)
-                    <span class="badge bg-warning text-dark"><i class="bi bi-clock"></i> {{ $pendingOrdersCount }} đơn chờ kích hoạt</span>
+                    <span class="badge bg-warning text-dark"><i class="bi bi-exclamation-circle-fill me-1"></i> {{ $pendingOrdersCount }} đơn cần duyệt ngay</span>
                 @else
-                    <span class="badge bg-success-subtle text-success">Đã đối soát hết</span>
+                    <span class="text-success"><i class="bi bi-check2-all me-1"></i> Đã kích hoạt 100% đơn</span>
                 @endif
             </div>
         </div>
     </div>
 
-    <!-- Học viên -->
+    <!-- Giá trị trung bình đơn (AOV) & Tổng đơn -->
     <div class="col-sm-6 col-xl-3">
-        <div class="metis-metric-card h-100">
-            <div class="metis-metric-icon bg-info-subtle text-info">
-                <i class="bi bi-mortarboard-fill"></i>
+        <div class="metis-metric-card h-100 border-start border-4 border-info">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+                <div class="metis-metric-title mb-0">Giá trị TB / Đơn (AOV)</div>
+                <div class="metis-metric-icon bg-info-subtle text-info m-0" style="width: 40px; height: 40px; font-size: 1.15rem;">
+                    <i class="bi bi-graph-up-arrow"></i>
+                </div>
             </div>
-            <div class="metis-metric-title">Học viên đăng ký</div>
             <div class="metis-metric-value text-dark">
-                {{ $totalStudents }} học viên
+                {{ number_format($averageOrderValue, 0, ',', '.') }}đ
             </div>
-            <div class="metis-metric-trend text-secondary">
-                <i class="bi bi-people"></i>
-                <span>{{ $totalTeachers }} giảng viên · {{ $totalUsers }} tài khoản</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- Hệ thống LMS -->
-    <div class="col-sm-6 col-xl-3">
-        <div class="metis-metric-card h-100">
-            <div class="metis-metric-icon bg-danger-subtle text-danger">
-                <i class="bi bi-play-btn-fill"></i>
-            </div>
-            <div class="metis-metric-title">Chương trình đào tạo</div>
-            <div class="metis-metric-value text-dark">
-                {{ $totalCourses }} khóa học
-            </div>
-            <div class="metis-metric-trend text-secondary">
-                <i class="bi bi-collection-play"></i>
-                <span>{{ number_format($totalLessons, 0, ',', '.') }} bài học · {{ $totalExams }} bộ đề</span>
+            <div class="metis-metric-trend text-secondary mt-2">
+                <i class="bi bi-receipt me-1"></i>
+                <span>Tổng <strong>{{ $totalOrders }}</strong> đơn đặt mua toàn hệ thống</span>
             </div>
         </div>
     </div>
 </div>
 
-{{-- TÁC VỤ NHANH (QUICK ACTIONS) --}}
+{{-- BẢNG BÁO CÁO DOANH THU CHI TIẾT THEO TỪNG KHÓA HỌC (THE MAIN FOCUS) --}}
 <div class="metis-card mb-4">
-    <div class="metis-card-header">
-        <h5 class="metis-card-title d-flex align-items-center gap-2">
-            <i class="bi bi-lightning-charge-fill text-warning"></i>
-            <span>Tác vụ quản trị nhanh</span>
-        </h5>
-        <span class="badge bg-light text-secondary border">1-Click</span>
-    </div>
-    <div class="metis-card-body p-3">
-        <div class="row g-2">
-            <div class="col-6 col-md-3">
-                <a href="{{ route('shop_admin.courses.create') }}" class="btn btn-outline-primary w-100 py-3 text-start d-flex align-items-center gap-2 rounded-3">
-                    <i class="bi bi-journal-plus fs-4"></i>
-                    <div>
-                        <strong class="d-block text-dark">Thêm Khóa học</strong>
-                        <small class="text-secondary">Tạo khóa & video</small>
-                    </div>
-                </a>
-            </div>
-            <div class="col-6 col-md-3">
-                <a href="{{ route('exam_admin.create') }}" class="btn btn-outline-success w-100 py-3 text-start d-flex align-items-center gap-2 rounded-3">
-                    <i class="bi bi-patch-question-fill fs-4"></i>
-                    <div>
-                        <strong class="d-block text-dark">Soạn Đề thi</strong>
-                        <small class="text-secondary">Ngân hàng đề online</small>
-                    </div>
-                </a>
-            </div>
-            <div class="col-6 col-md-3">
-                <a href="{{ route('shop_admin.orders.index', ['status' => 'pending']) }}" class="btn btn-outline-warning w-100 py-3 text-start d-flex align-items-center gap-2 rounded-3">
-                    <i class="bi bi-qr-code-scan fs-4 text-warning"></i>
-                    <div>
-                        <strong class="d-block text-dark">Duyệt Đơn VietQR</strong>
-                        <small class="text-secondary">Kích hoạt học ngay</small>
-                    </div>
-                </a>
-            </div>
-            <div class="col-6 col-md-3">
-                <a href="{{ route('users.create') }}" class="btn btn-outline-info w-100 py-3 text-start d-flex align-items-center gap-2 rounded-3">
-                    <i class="bi bi-person-plus-fill fs-4"></i>
-                    <div>
-                        <strong class="d-block text-dark">Thêm Tài khoản</strong>
-                        <small class="text-secondary">Admin/Giáo viên/HV</small>
-                    </div>
-                </a>
-            </div>
+    <div class="metis-card-header bg-white d-flex flex-wrap align-items-center justify-content-between gap-3 py-3">
+        <div>
+            <h5 class="metis-card-title d-flex align-items-center gap-2 mb-1">
+                <i class="bi bi-pie-chart-fill text-success fs-5"></i>
+                <span class="fw-bold">Báo Cáo Doanh Thu Bán Được Theo Từng Khóa Học</span>
+            </h5>
+            <small class="text-secondary">Chi tiết số lượng khóa học đã bán và tổng số tiền thu về từ mỗi khóa học.</small>
         </div>
+        <div class="d-flex align-items-center gap-2">
+            <span class="badge bg-success text-white px-3 py-2 fw-bold fs-7">
+                Tổng thực thu: {{ number_format($totalCourseRevenue, 0, ',', '.') }} ₫
+            </span>
+            <a href="{{ route('admin.revenue.export') }}" class="btn btn-sm btn-outline-success">
+                <i class="bi bi-download me-1"></i> Xuất CSV
+            </a>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+                <tr class="fs-8 text-uppercase text-secondary">
+                    <th class="ps-3 py-3" style="width: 40px;">#</th>
+                    <th>Tên Khóa Học E-Learning</th>
+                    <th class="text-center">Đơn Giá Bán</th>
+                    <th class="text-center">Số Lượt Đã Bán</th>
+                    <th class="text-end">Doanh Thu Thu Về</th>
+                    <th style="width: 250px;">Tỷ Lệ Đóng Góp (%)</th>
+                    <th class="text-center pe-3">Thao Tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($topCoursesWithRevenue as $i => $item)
+                    <tr>
+                        <td class="ps-3 fw-bold text-muted">{{ $i + 1 }}</td>
+                        <td>
+                            <strong class="text-dark d-block fs-7">{{ $item->course_name }}</strong>
+                            <small class="text-muted"><i class="bi bi-tag-fill text-primary me-1"></i> Khóa học trực tuyến LMS</small>
+                        </td>
+                        <td class="text-center font-monospace fs-7 text-dark fw-semibold">
+                            {{ number_format($item->unit_price, 0, ',', '.') }} ₫
+                        </td>
+                        <td class="text-center">
+                            <span class="badge bg-primary-subtle text-primary fs-7 px-3 py-2 rounded-pill fw-bold">
+                                {{ $item->total_sold }} lượt bán
+                            </span>
+                        </td>
+                        <td class="text-end">
+                            <span class="fs-6 fw-bold text-success font-monospace">
+                                {{ number_format($item->course_revenue, 0, ',', '.') }} ₫
+                            </span>
+                        </td>
+                        <td>
+                            <div class="d-flex align-items-center gap-2">
+                                <div class="progress flex-grow-1" style="height: 8px;">
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: {{ $item->percentage }}%;" aria-valuenow="{{ $item->percentage }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <span class="fs-8 fw-bold text-dark" style="min-width: 45px;">{{ $item->percentage }}%</span>
+                            </div>
+                        </td>
+                        <td class="text-center pe-3">
+                            <a href="{{ route('shop_admin.index') }}" class="btn btn-sm btn-light border" title="Xem danh sách khóa học">
+                                <i class="bi bi-eye"></i> Xem khóa
+                            </a>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="7" class="text-center py-5 text-muted">
+                            <i class="bi bi-cart-x fs-1 d-block mb-2 text-secondary"></i>
+                            Chưa có dữ liệu giao dịch khóa học nào được ghi nhận.
+                        </td>
+                    </tr>
+                @endforelse
+            </tbody>
+            @if($topCoursesWithRevenue->isNotEmpty())
+                <tfoot class="table-light fw-bold">
+                    <tr>
+                        <td colspan="3" class="ps-3 text-uppercase text-secondary fs-8">TỔNG CỘNG THỰC THU KHÓA HỌC:</td>
+                        <td class="text-center text-primary fs-7">{{ $topCoursesWithRevenue->sum('total_sold') }} lượt</td>
+                        <td class="text-end text-success fs-6 font-monospace">{{ number_format($totalCourseRevenue, 0, ',', '.') }} ₫</td>
+                        <td><span class="badge bg-success">100% Tổng doanh thu</span></td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            @endif
+        </table>
     </div>
 </div>
 
-<div class="row g-4">
-    {{-- ĐƠN HÀNG MỚI NHẤT CẦN ĐỐI SOÁT --}}
-    <div class="col-lg-7">
-        <div class="metis-card h-100 mb-0">
-            <div class="metis-card-header">
-                <h5 class="metis-card-title d-flex align-items-center gap-2">
-                    <i class="bi bi-receipt text-primary"></i>
-                    <span>Đơn hàng đặt mua gần đây</span>
-                </h5>
-                <a href="{{ route('shop_admin.orders.index') }}" class="btn btn-sm btn-outline-secondary">Xem tất cả</a>
-            </div>
-            <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0">
-                    <thead class="table-light">
-                        <tr>
-                            <th class="ps-3">Mã đơn / Người mua</th>
-                            <th>Tổng tiền</th>
-                            <th class="text-center">Trạng thái</th>
-                            <th class="text-end pe-3">Thao tác</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse($recentOrders as $order)
-                            <tr>
-                                <td class="ps-3">
-                                    <strong class="text-primary font-monospace">{{ $order->number }}</strong>
-                                    <div class="text-dark fw-semibold fs-7">{{ $order->buyer_name }}</div>
-                                    <small class="text-muted">{{ $order->created_at?->diffForHumans() }}</small>
-                                </td>
-                                <td>
-                                    <strong class="text-dark">{{ number_format($order->total, 0, ',', '.') }}đ</strong>
-                                    <div class="text-muted fs-8">{{ $order->payment?->method === 'bank_transfer' ? 'VietQR' : 'Mô phỏng' }}</div>
-                                </td>
-                                <td class="text-center">
-                                    @if($order->status === 'paid')
-                                        <span class="badge bg-success-subtle text-success rounded-pill px-2 py-1">Đã kích hoạt</span>
-                                    @else
-                                        <span class="badge bg-warning-subtle text-warning-emphasis rounded-pill px-2 py-1">Chờ xác nhận</span>
-                                    @endif
-                                </td>
-                                <td class="text-end pe-3">
-                                    <a href="{{ route('shop_admin.orders.show', $order->number) }}" class="btn btn-sm btn-light border">
-                                        Duyệt đơn
-                                    </a>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="4" class="text-center py-4 text-muted">Chưa có đơn hàng nào.</td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            </div>
+{{-- ĐƠN HÀNG ĐẶT MUA GẦN ĐÂY CẦN ĐỐI SOÁT & VIETQR --}}
+<div class="metis-card mb-0">
+    <div class="metis-card-header bg-white d-flex align-items-center justify-content-between py-3">
+        <div>
+            <h5 class="metis-card-title d-flex align-items-center gap-2 mb-1">
+                <i class="bi bi-receipt text-primary fs-5"></i>
+                <span class="fw-bold">Đơn Hàng Bán Khóa Học Gần Đây</span>
+            </h5>
+            <small class="text-secondary">Đối soát thanh toán chuyển khoản VietQR và trạng thái kích hoạt khóa học cho học viên.</small>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+            <a href="{{ route('shop_admin.orders.index') }}" class="btn btn-sm btn-primary">
+                Xem tất cả {{ $totalOrders }} đơn hàng →
+            </a>
         </div>
     </div>
-
-    {{-- KHÓA HỌC & HỌC VIÊN MỚI --}}
-    <div class="col-lg-5">
-        <!-- Khóa học nổi bật -->
-        <div class="metis-card mb-4">
-            <div class="metis-card-header">
-                <h5 class="metis-card-title d-flex align-items-center gap-2">
-                    <i class="bi bi-book text-success"></i>
-                    <span>Khóa học mới cập nhật</span>
-                </h5>
-                <a href="{{ route('shop_admin.index') }}" class="btn btn-sm btn-outline-secondary">Tất cả</a>
-            </div>
-            <ul class="list-group list-group-flush">
-                @foreach($topCourses as $c)
-                    <li class="list-group-item d-flex align-items-center justify-content-between py-3">
-                        <div class="d-flex align-items-center gap-3">
-                            <div class="bg-primary-subtle text-primary fw-bold rounded-2 p-2 text-center" style="width: 44px; height: 38px; font-size: 11px;">
-                                {{ $c->code }}
-                            </div>
-                            <div>
-                                <strong class="text-dark d-block fs-7 text-truncate" style="max-width: 220px;">{{ $c->name }}</strong>
-                                <small class="text-muted">{{ $c->lessons_count }} bài học · {{ number_format($c->sale_price ?? $c->price, 0, ',', '.') }}đ</small>
-                            </div>
-                        </div>
-                        <a href="{{ route('shop_admin.courses.edit', $c) }}" class="btn btn-sm btn-outline-primary">
-                            Sửa
-                        </a>
-                    </li>
-                @endforeach
-            </ul>
-        </div>
-
-        <!-- Học viên mới -->
-        <div class="metis-card mb-0">
-            <div class="metis-card-header">
-                <h5 class="metis-card-title d-flex align-items-center gap-2">
-                    <i class="bi bi-person-check text-info"></i>
-                    <span>Học viên mới đăng ký</span>
-                </h5>
-                <a href="{{ route('students.index') }}" class="btn btn-sm btn-outline-secondary">Tất cả</a>
-            </div>
-            <ul class="list-group list-group-flush">
-                @forelse($recentStudents as $st)
-                    <li class="list-group-item d-flex align-items-center justify-content-between py-2">
-                        <div class="d-flex align-items-center gap-2">
-                            <div class="metis-avatar" style="width: 32px; height: 32px; font-size: 12px;">
-                                {{ mb_strtoupper(mb_substr($st->name, 0, 1)) }}
-                            </div>
-                            <div>
-                                <span class="fw-semibold text-dark fs-7 d-block">{{ $st->name }}</span>
-                                <small class="text-muted">{{ $st->email }}</small>
-                            </div>
-                        </div>
-                        <small class="text-muted">{{ $st->created_at?->diffForHumans() }}</small>
-                    </li>
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+                <tr class="fs-8 text-uppercase text-secondary">
+                    <th class="ps-3 py-3" style="width: 140px;">Mã Đơn</th>
+                    <th>Người Mua & Liên Hệ</th>
+                    <th>Khóa Học Đặt Mua</th>
+                    <th>Tổng Tiền</th>
+                    <th>Hình Thức</th>
+                    <th class="text-center">Trạng Thái</th>
+                    <th class="text-end pe-3">Thao Tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($recentOrders as $order)
+                    <tr>
+                        <td class="ps-3">
+                            <a href="{{ route('shop_admin.orders.show', $order->number) }}" class="fw-bold text-primary font-monospace text-decoration-none">
+                                {{ $order->number }}
+                            </a>
+                            <div class="text-muted fs-8">{{ $order->created_at?->diffForHumans() }}</div>
+                        </td>
+                        <td>
+                            <strong class="text-dark d-block fs-7">{{ $order->buyer_name }}</strong>
+                            <small class="text-muted">{{ $order->buyer_email }}</small>
+                        </td>
+                        <td>
+                            @if($order->items && $order->items->isNotEmpty())
+                                @foreach($order->items as $item)
+                                    <div class="fs-7 text-dark text-truncate" style="max-width: 320px;">
+                                        <i class="bi bi-journal-check text-primary me-1"></i> {{ $item->course_name }}
+                                    </div>
+                                @endforeach
+                            @else
+                                <span class="text-muted fs-8">Gói học E-learning</span>
+                            @endif
+                        </td>
+                        <td>
+                            <strong class="text-dark fs-7 font-monospace">{{ number_format($order->total, 0, ',', '.') }} ₫</strong>
+                        </td>
+                        <td>
+                            @if($order->payment && $order->payment->method === 'bank_transfer')
+                                <span class="badge bg-info-subtle text-info border"><i class="bi bi-qr-code"></i> VietQR 24/7</span>
+                            @else
+                                <span class="badge bg-light text-secondary border">Mô phỏng</span>
+                            @endif
+                        </td>
+                        <td class="text-center">
+                            @if($order->status === 'paid')
+                                <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-3 py-1">
+                                    <i class="bi bi-check2-circle me-1"></i> Đã kích hoạt
+                                </span>
+                            @else
+                                <span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle rounded-pill px-3 py-1">
+                                    <i class="bi bi-hourglass-split me-1"></i> Chờ duyệt VietQR
+                                </span>
+                            @endif
+                        </td>
+                        <td class="text-end pe-3">
+                            <a href="{{ route('shop_admin.orders.show', $order->number) }}" class="btn btn-sm {{ $order->status === 'paid' ? 'btn-light border' : 'btn-warning text-dark fw-bold' }}">
+                                {{ $order->status === 'paid' ? 'Chi tiết' : 'Duyệt đơn ngay' }}
+                            </a>
+                        </td>
+                    </tr>
                 @empty
-                    <li class="list-group-item text-center text-muted py-3">Chưa có học viên.</li>
+                    <tr>
+                        <td colspan="7" class="text-center py-4 text-muted">Chưa có đơn hàng nào trong hệ thống.</td>
+                    </tr>
                 @endforelse
-            </ul>
-        </div>
+            </tbody>
+        </table>
     </div>
 </div>
 @endsection

@@ -64,11 +64,11 @@
 
         <!-- Sidebar Navigation Tree -->
         <nav class="metis-sidebar-nav">
-            <div class="metis-nav-heading">BẢNG ĐIỀU KHIỂN</div>
+            <div class="metis-nav-heading">BẢNG ĐIỀU KHIỂN & BÁO CÁO</div>
             <div class="metis-nav-item">
-                <a href="{{ route('admin.dashboard') }}" class="metis-nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-                    <i class="bi bi-grid-1x2-fill"></i>
-                    <span>Tổng quan (Dashboard)</span>
+                <a href="{{ route('admin.dashboard') }}" class="metis-nav-link {{ request()->routeIs('admin.dashboard') || request()->routeIs('reports.*') ? 'active' : '' }}">
+                    <i class="bi bi-graph-up-arrow"></i>
+                    <span>Tổng quan & Doanh thu</span>
                 </a>
             </div>
 
@@ -107,13 +107,7 @@
                 </a>
             </div>
 
-            <!-- Báo cáo -->
-            <div class="metis-nav-item">
-                <a href="{{ route('reports.index') }}" class="metis-nav-link {{ request()->routeIs('reports.*') ? 'active' : '' }}">
-                    <i class="bi bi-graph-up-arrow"></i>
-                    <span>Báo cáo doanh thu</span>
-                </a>
-            </div>
+
 
             <div class="metis-nav-heading">HỆ THỐNG & TÀI KHOẢN</div>
             <!-- Tài khoản người dùng -->
