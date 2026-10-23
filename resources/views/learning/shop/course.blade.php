@@ -33,18 +33,35 @@
     
     <section class="detail-panel" id="syllabus">
         <div class="syllabus-heading" style="margin-bottom: 20px;">
-            <h2 style="font-size: 22px; font-weight: 700; color: #0f172a; margin: 0;">Chương trình học</h2>
-            <span style="font-size: 14px; color: #64748b; font-weight: 500;">{{ $lessonCount }} bài đã công bố</span>
+            <h2 style="font-size: 24px; font-weight: 800; color: #0f172a; margin: 0;">Chương trình học</h2>
+            <span style="font-size: 15px; color: #64748b; font-weight: 600;">{{ $lessonCount }} bài đã công bố</span>
         </div>
 
+        @if($owned && $lessonCount > 0)
+            @php
+                $allL = $course->sections->flatMap->lessons;
+                $doneCount = $allL->filter(fn($l) => in_array($l->id, $done))->count();
+                $progressP = (int)round(($doneCount / $lessonCount) * 100);
+            @endphp
+            <div class="user-course-progress-banner" style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 16px 20px; margin-bottom: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.03);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                    <span style="font-size: 15px; font-weight: 700; color: #166534;">Tiến độ học tập của bạn:</span>
+                    <strong style="font-size: 15px; font-weight: 700; color: #059669;">{{ $doneCount }}/{{ $lessonCount }} bài đã hoàn thành ({{ $progressP }}%)</strong>
+                </div>
+                <div style="background: #dcfce7; border-radius: 10px; height: 10px; overflow: hidden;">
+                    <div style="background: linear-gradient(90deg, #10b981, #059669); height: 100%; width: {{ max(1, $progressP) }}%; border-radius: 10px; transition: width 0.3s ease;"></div>
+                </div>
+            </div>
+        @endif
+
         @if(count($course->curriculum_outline??[]))
-            <div class="course-curriculum-outline" style="margin-bottom: 20px;">
-                <h3 style="font-size: 16px; font-weight: 700; color: #1e293b; margin-bottom: 12px;">Các chủ đề trong lộ trình</h3>
+            <div class="course-curriculum-outline" style="margin-bottom: 24px;">
+                <h3 style="font-size: 17px; font-weight: 700; color: #1e293b; margin-bottom: 12px;">Các chủ đề trong lộ trình</h3>
                 <div class="syllabus-list">
                     @foreach($course->curriculum_outline as $topic)
-                        <div style="display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid #f1f5f9;">
-                            <span style="font-weight:700;color:#64748b;font-size:13px;">{{ str_pad((string)$loop->iteration,2,'0',STR_PAD_LEFT) }}</span>
-                            <h4 style="font-size:14px;font-weight:600;color:#334155;margin:0;">{{ $topic }}</h4>
+                        <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #f1f5f9;">
+                            <span style="font-weight:700;color:#64748b;font-size:14px;">{{ str_pad((string)$loop->iteration,2,'0',STR_PAD_LEFT) }}</span>
+                            <h4 style="font-size:15px;font-weight:600;color:#334155;margin:0;">{{ $topic }}</h4>
                         </div>
                     @endforeach
                 </div>
@@ -53,20 +70,20 @@
 
         {{-- Khối "Học thử miễn phí" chuẩn giao diện Study4 --}}
         @if($trials->isNotEmpty())
-            <div class="contentblock study4-trial-block" style="background:#ffffff;border:1px solid #e2e8f0;border-radius:8px;padding:18px 20px;margin-bottom:24px;box-shadow:0 1px 3px rgba(0,0,0,0.03);">
-                <h5 class="font-500" style="font-size:16px;font-weight:700;color:#1e293b;margin:0 0 14px 0;">Học thử miễn phí</h5>
+            <div class="contentblock study4-trial-block" style="background:#ffffff;border:1px solid #e2e8f0;border-radius:10px;padding:20px 24px;margin-bottom:28px;box-shadow:0 1px 3px rgba(0,0,0,0.03);">
+                <h5 class="font-500" style="font-size:17px;font-weight:700;color:#1e293b;margin:0 0 16px 0;">Học thử miễn phí</h5>
                 <table class="table table-sm table-borderless table-hover" style="width:100%;border-collapse:collapse;">
                     <tbody>
                         @foreach($trials as $trial)
                             <tr style="border-bottom:1px solid #f8fafc;">
-                                <td style="width:28px;padding:9px 4px;font-weight:700;color:#334155;font-size:14px;">{{ $loop->iteration }}.</td>
-                                <td style="padding:9px 8px;font-size:14px;color:#1e293b;">
+                                <td style="width:32px;padding:11px 4px;font-weight:700;color:#334155;font-size:15px;">{{ $loop->iteration }}.</td>
+                                <td style="padding:11px 10px;font-size:15px;color:#1e293b;">
                                     <a href="{{ route('learn.lesson',[$course->slug,$trial->id]) }}" style="color:#1e293b;text-decoration:none;font-weight:500;">
                                         {{ $trial->title }}
                                     </a>
                                 </td>
-                                <td style="width:75px;padding:9px 4px;text-align:right;">
-                                    <a href="{{ route('learn.lesson',[$course->slug,$trial->id]) }}" class="learncourse-trial-badge" style="background:#2563eb;color:#ffffff;font-size:12px;font-weight:700;padding:4px 10px;border-radius:4px;text-decoration:none;display:inline-block;">
+                                <td style="width:90px;padding:11px 4px;text-align:right;">
+                                    <a href="{{ route('learn.lesson',[$course->slug,$trial->id]) }}" class="learncourse-trial-badge" style="background:#2563eb;color:#ffffff;font-size:13px;font-weight:700;padding:5px 12px;border-radius:6px;text-decoration:none;display:inline-block;">
                                         Học thử
                                     </a>
                                 </td>
@@ -80,23 +97,24 @@
         {{-- Danh sách Accordion từng chuyên đề (Units) chuẩn Study4 --}}
         <div class="study4-units-accordion">
             @forelse($course->sections as $section)
-                <details class="learncourse-unit card mb-2" @if($loop->first) open @endif style="border:1px solid #e2e8f0;border-radius:8px;margin-bottom:10px;background:#ffffff;overflow:hidden;">
-                    <summary class="card-header sky-bg" style="background:#f0f7ff;padding:12px 18px;cursor:pointer;user-select:none;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e2e8f0;">
-                        <h3 class="learncourse-heading" style="font-size:15px;font-weight:600;color:#0f172a;margin:0;display:flex;align-items:center;gap:8px;">
-                            <span class="ph ph-caret-down" style="font-size:11px;color:#475569;">▾</span>
+                <details class="learncourse-unit card mb-2" @if($loop->first) open @endif style="border:1px solid #e2e8f0;border-radius:10px;margin-bottom:12px;background:#ffffff;overflow:hidden;">
+                    <summary class="card-header sky-bg" style="background:#f0f7ff;padding:14px 20px;cursor:pointer;user-select:none;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e2e8f0;">
+                        <h3 class="learncourse-heading" style="font-size:16px;font-weight:700;color:#0f172a;margin:0;display:flex;align-items:center;gap:10px;">
+                            <span class="ph ph-caret-down" style="font-size:13px;color:#475569;">▾</span>
                             <span>{{ $section->title }}</span>
                         </h3>
-                        <span class="unit-count-badge" style="font-size:13px;font-weight:600;color:#3b82f6;background:#e0f2fe;padding:2px 10px;border-radius:12px;">
+                        <span class="unit-count-badge" style="font-size:14px;font-weight:600;color:#2563eb;background:#e0f2fe;padding:3px 12px;border-radius:12px;">
                             {{ $section->lessons->count() }} bài
                         </span>
                     </summary>
-                    <div class="card-body" style="padding:4px 0;">
+                    <div class="card-body" style="padding:6px 0;">
                         <table class="table table-borderless table-hover" style="width:100%;border-collapse:collapse;">
                             <tbody>
                                 @foreach($section->lessons as $lesson)
+                                    @php($isDone = in_array($lesson->id, $done))
                                     <tr style="border-bottom:1px solid #f8fafc;">
-                                        <td style="width:35px;padding:9px 16px;font-weight:700;color:#64748b;font-size:13px;">{{ $loop->iteration }}.</td>
-                                        <td style="padding:9px 8px;font-size:14px;color:#1e293b;">
+                                        <td style="width:40px;padding:12px 18px;font-weight:700;color:#64748b;font-size:14px;">{{ $loop->iteration }}.</td>
+                                        <td style="padding:12px 10px;font-size:15px;color:#1e293b;">
                                             @if($lesson->is_preview)
                                                 <a href="{{ route('learn.lesson',[$course->slug,$lesson->id]) }}" style="color:#1e293b;text-decoration:none;font-weight:500;">
                                                     {{ $lesson->title }}
@@ -109,17 +127,23 @@
                                                 <span style="color:#475569;">{{ $lesson->title }}</span>
                                             @endif
                                         </td>
-                                        <td style="width:85px;padding:9px 16px;text-align:right;">
+                                        <td style="width:115px;padding:12px 18px;text-align:right;">
                                             @if($lesson->is_preview)
-                                                <a href="{{ route('learn.lesson',[$course->slug,$lesson->id]) }}" class="learncourse-trial-badge" style="background:#2563eb;color:#ffffff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:4px;text-decoration:none;display:inline-block;">
+                                                <a href="{{ route('learn.lesson',[$course->slug,$lesson->id]) }}" class="learncourse-trial-badge" style="background:#2563eb;color:#ffffff;font-size:12px;font-weight:700;padding:4px 10px;border-radius:5px;text-decoration:none;display:inline-block;">
                                                     Học thử
                                                 </a>
                                             @elseif($owned)
-                                                <a href="{{ route('learn.lesson',[$course->slug,$lesson->id]) }}" class="text-link" style="color:#059669;font-size:12px;font-weight:700;text-decoration:none;">
-                                                    Vào học →
-                                                </a>
+                                                @if($isDone)
+                                                    <a href="{{ route('learn.lesson',[$course->slug,$lesson->id]) }}" style="color:#059669;font-size:13px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:3px;">
+                                                        ✓ Đã học
+                                                    </a>
+                                                @else
+                                                    <a href="{{ route('learn.lesson',[$course->slug,$lesson->id]) }}" class="text-link" style="color:#2563eb;font-size:13px;font-weight:700;text-decoration:none;">
+                                                        Vào học →
+                                                    </a>
+                                                @endif
                                             @else
-                                                <span class="ph-lock" title="Cần mua khóa học để mở toàn bộ" style="color:#94a3b8;font-size:14px;">🔒</span>
+                                                <span class="ph-lock" title="Cần mua khóa học để mở toàn bộ" style="color:#94a3b8;font-size:15px;">🔒</span>
                                             @endif
                                         </td>
                                     </tr>
@@ -129,7 +153,7 @@
                     </div>
                 </details>
             @empty
-                <p class="course-content-status">Bài học đang được biên soạn. Chương trình sẽ mở đăng ký khi nội dung học được công bố.</p>
+                <p class="course-content-status" style="font-size: 15px; padding: 20px;">Bài học đang được biên soạn. Chương trình sẽ mở đăng ký khi nội dung học được công bố.</p>
             @endforelse
         </div>
     </section>

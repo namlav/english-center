@@ -48,34 +48,57 @@
     @php($course=$enrollment->course)
     @php($lessons=$course->sections->flatMap->lessons)
     @php($done=$lessons->filter(fn($lesson)=>$completedIds->has($lesson->id))->count())
-    <article class="enrolled-course">
-        <div class="enrolled-course-heading">
-            <span class="card-subject-icon"><x-study-icon name="book"/></span>
-            <div>
-                <h2>{{ $course->name }}</h2>
-                <span class="status-pill">{{ $enrollment->isCurrent() ? 'Đang có quyền học' : ($enrollment->status==='completed' ? 'Đã hoàn thành' : 'Quyền học không còn hiệu lực') }}</span>
+    @php($percent = $lessons->count() > 0 ? (int)round(($done / $lessons->count()) * 100) : 0)
+    <article class="enrolled-course" style="background:#ffffff;border:1px solid #e2e8f0;border-radius:12px;padding:26px 28px;margin-bottom:24px;box-shadow:0 1px 3px rgba(0,0,0,0.05);">
+        <div class="enrolled-course-heading" style="display:flex;align-items:center;gap:16px;margin-bottom:12px;">
+            <span class="card-subject-icon" style="background:#eff6ff;color:#2563eb;width:44px;height:44px;border-radius:10px;display:grid;place-items:center;"><x-study-icon name="book"/></span>
+            <div style="flex:1;">
+                <h2 style="font-size:20px;font-weight:700;color:#0f172a;margin:0 0 4px 0;line-height:1.4;">{{ $course->name }}</h2>
+                <span class="status-pill" style="font-size:12px;font-weight:700;padding:3px 10px;border-radius:12px;{{ $enrollment->isCurrent() ? 'background:#ecfdf5;color:#059669;' : 'background:#f1f5f9;color:#64748b;' }}">
+                    {{ $enrollment->isCurrent() ? '✓ Đang có quyền học' : ($enrollment->status==='completed' ? 'Đã hoàn thành' : 'Hết hạn truy cập') }}
+                </span>
             </div>
         </div>
-        <p>{{ $course->summary }}</p>
-        <p class="enrollment-date">Bắt đầu: {{ $enrollment->started_at->format('d/m/Y') }} · {{ $enrollment->expires_at ? 'Hết hạn: '.$enrollment->expires_at->format('d/m/Y') : 'Không giới hạn thời gian' }}</p>
-        <label>Tiến độ: {{ $done }}/{{ $lessons->count() }} bài học</label>
-        <progress max="{{ max(1,$lessons->count()) }}" value="{{ $done }}">{{ $done }}/{{ $lessons->count() }}</progress>
+        <p style="font-size:15px;line-height:1.6;color:#475569;margin:0 0 14px 0;">{{ $course->summary }}</p>
+        <p class="enrollment-date" style="font-size:13px;color:#64748b;margin:0 0 16px 0;">
+            Bắt đầu: {{ $enrollment->started_at->format('d/m/Y') }} · {{ $enrollment->expires_at ? 'Hết hạn: '.$enrollment->expires_at->format('d/m/Y') : 'Không giới hạn thời gian' }}
+        </p>
+
+        {{-- Thanh tiến độ thiết kế hiện đại --}}
+        <div class="course-progress-box" style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:14px 18px;margin-bottom:18px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                <span style="font-size:14px;font-weight:600;color:#334155;">Tiến độ học tập:</span>
+                <strong style="font-size:15px;font-weight:700;color:#059669;">{{ $done }} / {{ $lessons->count() }} bài học ({{ $percent }}%)</strong>
+            </div>
+            <div style="background:#e2e8f0;border-radius:10px;height:10px;overflow:hidden;">
+                <div style="background:linear-gradient(90deg, #10b981, #059669);height:100%;width:{{ max(1, $percent) }}%;border-radius:10px;transition:width 0.3s ease;"></div>
+            </div>
+        </div>
+
         @if($enrollment->isCurrent() && $course->slug)
-            <a class="button" href="{{ route('learn.start',$course->slug) }}" style="margin-top:10px;">Vào học ngay →</a>
+            <a class="button" href="{{ route('learn.start',$course->slug) }}" style="font-size:15px;font-weight:700;padding:10px 22px;border-radius:8px;text-decoration:none;display:inline-block;margin-right:12px;">
+                Vào học ngay →
+            </a>
         @endif
-        <details class="enrolled-syllabus" style="margin-top:14px;">
-            <summary>Xem chương trình học</summary>
-            @foreach($course->sections as $section)
-                <h3>{{ $section->title }}</h3>
-                <ul>
-                    @foreach($section->lessons as $lesson)
-                        <li>{{ $completedIds->has($lesson->id) ? '✓ ' : '' }}{{ $lesson->title }}</li>
-                    @endforeach
-                </ul>
-            @endforeach
-            @if($lessons->isEmpty())
-                <p>Nội dung khóa học đang được cập nhật.</p>
-            @endif
+        
+        <details class="enrolled-syllabus" style="margin-top:16px;">
+            <summary style="font-size:14px;font-weight:600;color:#2563eb;cursor:pointer;">Xem danh sách chuyên đề & bài học ({{ $lessons->count() }} bài)</summary>
+            <div style="margin-top:12px;padding-left:10px;">
+                @foreach($course->sections as $section)
+                    <h3 style="font-size:15px;font-weight:700;color:#1e293b;margin:14px 0 6px 0;">{{ $section->title }}</h3>
+                    <ul style="margin:0;padding-left:20px;font-size:14px;color:#475569;line-height:1.7;">
+                        @foreach($section->lessons as $lesson)
+                            <li>
+                                @if($completedIds->has($lesson->id))
+                                    <strong style="color:#059669;">✓ {{ $lesson->title }}</strong>
+                                @else
+                                    <span>○ {{ $lesson->title }}</span>
+                                @endif
+                            </li>
+                        @endforeach
+                    </ul>
+                @endforeach
+            </div>
         </details>
     </article>
 @empty

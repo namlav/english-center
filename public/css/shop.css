@@ -93,3 +93,103 @@ html{scroll-padding-top:150px;scroll-behavior:smooth}.own-course-hero .detail-he
 .learncourse-unit table tr:hover td {
     background: #f8fafc;
 }
+
+/* === ENHANCED TYPOGRAPHY & VISUAL POLISH === */
+.site-navigation > a {
+    font-size: 15px !important;
+    font-weight: 600;
+}
+.header-account a {
+    font-size: 14px !important;
+    font-weight: 600;
+}
+.page-heading h1 {
+    font-size: 32px !important;
+    letter-spacing: -0.02em;
+}
+.page-heading p {
+    font-size: 16px !important;
+    line-height: 1.7;
+    color: #475569;
+}
+.course-finder input {
+    font-size: 15px !important;
+}
+.course-category-tabs a {
+    font-size: 15px !important;
+    padding: 10px 20px !important;
+    font-weight: 600;
+}
+.course-catalog-group > h2 {
+    font-size: 26px !important;
+    font-weight: 800;
+}
+.detail-hero h1 {
+    font-size: 34px !important;
+    line-height: 1.35;
+}
+.detail-hero p {
+    font-size: 16px !important;
+    line-height: 1.75;
+}
+.detail-hero ul li {
+    font-size: 15px !important;
+}
+.detail-panel h2 {
+    font-size: 24px !important;
+    font-weight: 800;
+}
+.detail-panel h3 {
+    font-size: 18px !important;
+    font-weight: 700;
+}
+.detail-panel p, .detail-panel .lesson-text {
+    font-size: 16px !important;
+    line-height: 1.85 !important;
+}
+.course-outcomes li {
+    font-size: 15px !important;
+    line-height: 1.75;
+}
+.course-section-nav a {
+    font-size: 14px !important;
+    font-weight: 600;
+}
+.detail-price strong {
+    font-size: 26px !important;
+}
+.buy-facts p {
+    font-size: 14px !important;
+}
+.course-tile-body h3 {
+    font-size: 18px !important;
+    line-height: 1.45;
+}
+.course-tile-body .shop-summary {
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+    color: #475569 !important;
+}
+.learncourse-heading {
+    font-size: 16px !important;
+    font-weight: 700 !important;
+}
+.learncourse-unit table td {
+    font-size: 15px !important;
+    padding-block: 11px !important;
+}
+.study4-trial-block table td {
+    font-size: 15px !important;
+    padding-block: 10px !important;
+}
+.enrolled-course h2 {
+    font-size: 22px !important;
+    font-weight: 800 !important;
+}
+.enrolled-course p {
+    font-size: 15px !important;
+    line-height: 1.65 !important;
+}
+.account-sidebar nav > a {
+    font-size: 14px !important;
+}
