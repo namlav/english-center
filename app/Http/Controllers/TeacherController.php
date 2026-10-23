@@ -13,10 +13,23 @@ class TeacherController extends Controller
 {
     public function index()
     {
-        $teachers = Teacher::with('user')->orderBy('created_at', 'desc')->paginate(15);
+        $teachers = Teacher::with(['user', 'classRooms.course'])->orderBy('teacher_code')->paginate(15);
         $publicTeachers = \Illuminate\Support\Facades\Schema::hasTable('public_teachers') 
             ? \App\Models\PublicTeacher::orderBy('position')->get() 
             : collect();
+
+        $ptMap = $publicTeachers->keyBy('name');
+        foreach ($teachers as $teacher) {
+            $name = $teacher->user->name ?? '';
+            $pt = $ptMap->get($name);
+            if (! $pt) {
+                $pt = $publicTeachers->first(function ($item) use ($name) {
+                    return str_contains($name, $item->name) || str_contains($item->name, $name);
+                });
+            }
+            $teacher->publicTeacher = $pt;
+        }
+
         return view('teachers.index', compact('teachers', 'publicTeachers'));
     }
 

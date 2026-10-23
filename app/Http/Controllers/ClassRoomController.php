@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ClassRoom;
 use App\Models\Course;
+use App\Models\Student;
 use App\Models\Teacher;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
@@ -46,9 +47,15 @@ class ClassRoomController extends Controller
 
     public function show(ClassRoom $classRoom): View
     {
-        $classRoom->load(['course', 'teacher.user'])->loadCount('enrollments');
+        $classRoom->load(['course', 'teacher.user', 'enrollments.student.user'])->loadCount('enrollments');
 
-        return view('class_rooms.show', compact('classRoom'));
+        $enrolledStudentIds = $classRoom->enrollments->pluck('student_id')->filter()->all();
+        $availableStudents = Student::with('user')
+            ->whereNotIn('id', $enrolledStudentIds)
+            ->get()
+            ->sortBy(fn($s) => $s->user->name ?? $s->student_code);
+
+        return view('class_rooms.show', compact('classRoom', 'availableStudents'));
     }
 
     public function create(): View
