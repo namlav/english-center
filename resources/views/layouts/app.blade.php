@@ -58,8 +58,9 @@
 
                     @if(auth()->user()->isAdmin())
                         <li class="nav-item"><a class="nav-link" href="{{ route('website.index') }}">Quản lý website</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ route('courses.index') }}">Khóa học</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ route('teachers.index') }}">Giảng viên</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('shop_admin.index') }}">Khóa học &amp; Video</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('class_rooms.index') }}">Lớp học</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('teachers.index') }}">Giảng viên</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('students.index') }}">Học viên</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('users.index') }}">Tài khoản</a></li>
                         <li class="nav-item"><a class="nav-link fw-semibold text-warning" href="{{ route('reports.index') }}">Thống kê</a></li>
