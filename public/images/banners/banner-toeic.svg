@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300" width="800" height="300">
+  <defs>
+    <linearGradient id="bg-toeic" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#064e3b" />
+      <stop offset="45%" stop-color="#047857" />
+      <stop offset="100%" stop-color="#10b981" />
+    </linearGradient>
+    <linearGradient id="gold-toeic" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a" />
+      <stop offset="100%" stop-color="#fbbf24" />
+    </linearGradient>
+    <linearGradient id="score-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+    <filter id="shadow-toeic" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000" flood-opacity="0.3" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="300" rx="12" fill="url(#bg-toeic)" />
+
+  <!-- Geometric Accents -->
+  <circle cx="760" cy="50" r="130" fill="#34d399" opacity="0.18" />
+  <circle cx="560" cy="270" r="90" fill="#a7f3d0" opacity="0.15" />
+  <circle cx="50" cy="270" r="80" fill="#065f46" opacity="0.3" />
+
+  <!-- Brand Pill -->
+  <rect x="40" y="32" width="225" height="28" rx="14" fill="rgba(255, 255, 255, 0.15)" stroke="rgba(255, 255, 255, 0.25)" stroke-width="1" />
+  <circle cx="56" cy="46" r="5" fill="#fef08a" />
+  <text x="70" y="50" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#e2e8f0" letter-spacing="0.5">ENGLISH CENTER · THỰC CHIẾN</text>
+
+  <!-- Main Title -->
+  <text x="40" y="105" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="34" font-weight="900" fill="#ffffff" letter-spacing="-0.5">COMBO TOEIC</text>
+  <text x="290" y="105" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="34" font-weight="900" fill="url(#gold-toeic)" letter-spacing="-0.5">4 KỸ NĂNG</text>
+
+  <!-- Subtitle -->
+  <text x="40" y="140" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="500" fill="#e2e8f0">Chinh phục 800+ TOEIC · Bộ đề sát thật ETS &amp; Hacker mới nhất</text>
+
+  <!-- Features Pills -->
+  <g transform="translate(40, 165)">
+    <rect x="0" y="0" width="135" height="32" rx="6" fill="rgba(255, 255, 255, 0.15)" />
+    <text x="14" y="21" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#ffffff">⚡ Mẹo giải Listening</text>
+
+    <rect x="145" y="0" width="145" height="32" rx="6" fill="rgba(255, 255, 255, 0.15)" />
+    <text x="159" y="21" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#ffffff">⏱️ Quản lý giờ Part 7</text>
+
+    <rect x="300" y="0" width="130" height="32" rx="6" fill="rgba(255, 255, 255, 0.15)" />
+    <text x="314" y="21" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#ffffff">🎯 Thi thử bấm giờ</text>
+  </g>
+
+  <!-- Bottom CTA hint -->
+  <text x="40" y="245" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="600" fill="#a7f3d0">🎁 Tặng kho tài liệu 1000 từ vựng cốt lõi ra đề thường xuyên</text>
+
+  <!-- Right Visual / Target Badge -->
+  <g transform="translate(540, 45)" filter="url(#shadow-toeic)">
+    <!-- Main Glass Card -->
+    <rect x="0" y="0" width="220" height="210" rx="16" fill="rgba(255, 255, 255, 0.95)" />
+    
+    <!-- Header of Card -->
+    <rect x="0" y="0" width="220" height="48" rx="16" fill="#064e3b" />
+    <rect x="0" y="32" width="220" height="16" fill="#064e3b" />
+    <text x="110" y="30" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="800" fill="#ffffff" letter-spacing="1">MỤC TIÊU ĐIỂM SỐ</text>
+
+    <!-- Score Circle -->
+    <circle cx="110" cy="115" r="46" fill="url(#score-grad)" />
+    <circle cx="110" cy="115" r="41" fill="#ffffff" />
+    <text x="110" y="110" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#64748b">TARGET</text>
+    <text x="110" y="132" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="900" fill="#047857">850+</text>
+
+    <!-- Card Footer Tags -->
+    <rect x="25" y="172" width="170" height="24" rx="12" fill="#ecfdf5" />
+    <text x="110" y="188" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#059669">TỰ TIN ĐI LÀM / RA TRƯỜNG</text>
+  </g>
+</svg>

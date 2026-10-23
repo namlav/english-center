@@ -5,9 +5,17 @@
     $lessonCount = $course->sections->flatMap->lessons->count();
     $videoPath = \App\Services\CourseVideo::local($course->intro_video_path);
     $videoEmbed = \App\Services\CourseVideo::embed($course->intro_video_url);
+    $trials = $trialLessons ?? $course->sections->flatMap->lessons->where('is_preview', true);
 @endphp
 <section class="detail-hero own-course-hero"><div class="shell"><div class="detail-hero-copy">
     <nav class="detail-breadcrumb"><a href="{{ route('catalog.index') }}">Chương trình học</a> / {{ $course->learningCategory?->name }}</nav>
+    @if($owned)
+        <div style="margin-bottom: 8px;">
+            <span class="badge-owned" style="background: #059669; color: #ffffff; padding: 4px 12px; border-radius: 6px; font-size: 13px; font-weight: 700; display: inline-flex; align-items: center; gap: 5px;">
+                <x-study-icon name="check"/> Đã mua
+            </span>
+        </div>
+    @endif
     <h1>{{ $course->name }}</h1><span class="detail-provider">Học online · English Center</span><p>{{ $course->summary }}</p>
     <ul>@foreach(array_slice($course->learning_outcomes??[],0,3) as $outcome)<li><x-study-icon name="check"/>{{ $outcome }}</li>@endforeach</ul>
 </div></div></section>
@@ -22,15 +30,130 @@
         </div><p class="video-caption">Video giới thiệu chương trình</p>@endif
         <div class="lesson-text">{{ $course->description }}</div><div class="course-method-grid"><div><x-study-icon name="book"/><h3>Học theo chủ đề</h3><p>Xem nội dung, luyện tập và ôn lại từng phần trong lộ trình.</p></div><div><x-study-icon name="target"/><h3>Theo dõi tiến độ</h3><p>Đánh dấu bài đã hoàn thành trong khóa học của bạn.</p></div></div>
     </section>
-    <section class="detail-panel" id="syllabus"><div class="syllabus-heading"><h2>Chương trình học</h2><span>{{ $lessonCount }} bài đã công bố</span></div>
-    @if(count($course->curriculum_outline??[]))<h3>Các chủ đề trong lộ trình</h3><div class="syllabus-list">@foreach($course->curriculum_outline as $topic)<div><span>{{ str_pad((string)$loop->iteration,2,'0',STR_PAD_LEFT) }}</span><h3>{{ $topic }}</h3></div>@endforeach</div>@endif
-    @forelse($course->sections as $section)<details class="course-section-accordion" open><summary>{{ $section->title }} <span>{{ $section->lessons->count() }} bài</span></summary><div class="syllabus-list">@foreach($section->lessons as $lesson)<div><span>{{ str_pad((string)$loop->iteration,2,'0',STR_PAD_LEFT) }}</span><h3>{{ $lesson->title }}</h3>@if($owned)<a class="text-link" href="{{ route('learn.lesson',[$course->slug,$lesson->id]) }}">Vào học →</a>@else<x-study-icon name="book"/>@endif</div>@endforeach</div></details>
-    @empty<p class="course-content-status">Bài học đang được biên soạn. Chương trình sẽ mở đăng ký khi nội dung học được công bố.</p>@endforelse</section>
+    
+    <section class="detail-panel" id="syllabus">
+        <div class="syllabus-heading" style="margin-bottom: 20px;">
+            <h2 style="font-size: 22px; font-weight: 700; color: #0f172a; margin: 0;">Chương trình học</h2>
+            <span style="font-size: 14px; color: #64748b; font-weight: 500;">{{ $lessonCount }} bài đã công bố</span>
+        </div>
+
+        @if(count($course->curriculum_outline??[]))
+            <div class="course-curriculum-outline" style="margin-bottom: 20px;">
+                <h3 style="font-size: 16px; font-weight: 700; color: #1e293b; margin-bottom: 12px;">Các chủ đề trong lộ trình</h3>
+                <div class="syllabus-list">
+                    @foreach($course->curriculum_outline as $topic)
+                        <div style="display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid #f1f5f9;">
+                            <span style="font-weight:700;color:#64748b;font-size:13px;">{{ str_pad((string)$loop->iteration,2,'0',STR_PAD_LEFT) }}</span>
+                            <h4 style="font-size:14px;font-weight:600;color:#334155;margin:0;">{{ $topic }}</h4>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        @endif
+
+        {{-- Khối "Học thử miễn phí" chuẩn giao diện Study4 --}}
+        @if($trials->isNotEmpty())
+            <div class="contentblock study4-trial-block" style="background:#ffffff;border:1px solid #e2e8f0;border-radius:8px;padding:18px 20px;margin-bottom:24px;box-shadow:0 1px 3px rgba(0,0,0,0.03);">
+                <h5 class="font-500" style="font-size:16px;font-weight:700;color:#1e293b;margin:0 0 14px 0;">Học thử miễn phí</h5>
+                <table class="table table-sm table-borderless table-hover" style="width:100%;border-collapse:collapse;">
+                    <tbody>
+                        @foreach($trials as $trial)
+                            <tr style="border-bottom:1px solid #f8fafc;">
+                                <td style="width:28px;padding:9px 4px;font-weight:700;color:#334155;font-size:14px;">{{ $loop->iteration }}.</td>
+                                <td style="padding:9px 8px;font-size:14px;color:#1e293b;">
+                                    <a href="{{ route('learn.lesson',[$course->slug,$trial->id]) }}" style="color:#1e293b;text-decoration:none;font-weight:500;">
+                                        {{ $trial->title }}
+                                    </a>
+                                </td>
+                                <td style="width:75px;padding:9px 4px;text-align:right;">
+                                    <a href="{{ route('learn.lesson',[$course->slug,$trial->id]) }}" class="learncourse-trial-badge" style="background:#2563eb;color:#ffffff;font-size:12px;font-weight:700;padding:4px 10px;border-radius:4px;text-decoration:none;display:inline-block;">
+                                        Học thử
+                                    </a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        @endif
+
+        {{-- Danh sách Accordion từng chuyên đề (Units) chuẩn Study4 --}}
+        <div class="study4-units-accordion">
+            @forelse($course->sections as $section)
+                <details class="learncourse-unit card mb-2" @if($loop->first) open @endif style="border:1px solid #e2e8f0;border-radius:8px;margin-bottom:10px;background:#ffffff;overflow:hidden;">
+                    <summary class="card-header sky-bg" style="background:#f0f7ff;padding:12px 18px;cursor:pointer;user-select:none;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e2e8f0;">
+                        <h3 class="learncourse-heading" style="font-size:15px;font-weight:600;color:#0f172a;margin:0;display:flex;align-items:center;gap:8px;">
+                            <span class="ph ph-caret-down" style="font-size:11px;color:#475569;">▾</span>
+                            <span>{{ $section->title }}</span>
+                        </h3>
+                        <span class="unit-count-badge" style="font-size:13px;font-weight:600;color:#3b82f6;background:#e0f2fe;padding:2px 10px;border-radius:12px;">
+                            {{ $section->lessons->count() }} bài
+                        </span>
+                    </summary>
+                    <div class="card-body" style="padding:4px 0;">
+                        <table class="table table-borderless table-hover" style="width:100%;border-collapse:collapse;">
+                            <tbody>
+                                @foreach($section->lessons as $lesson)
+                                    <tr style="border-bottom:1px solid #f8fafc;">
+                                        <td style="width:35px;padding:9px 16px;font-weight:700;color:#64748b;font-size:13px;">{{ $loop->iteration }}.</td>
+                                        <td style="padding:9px 8px;font-size:14px;color:#1e293b;">
+                                            @if($lesson->is_preview)
+                                                <a href="{{ route('learn.lesson',[$course->slug,$lesson->id]) }}" style="color:#1e293b;text-decoration:none;font-weight:500;">
+                                                    {{ $lesson->title }}
+                                                </a>
+                                            @elseif($owned)
+                                                <a href="{{ route('learn.lesson',[$course->slug,$lesson->id]) }}" style="color:#0f172a;text-decoration:none;font-weight:500;">
+                                                    {{ $lesson->title }}
+                                                </a>
+                                            @else
+                                                <span style="color:#475569;">{{ $lesson->title }}</span>
+                                            @endif
+                                        </td>
+                                        <td style="width:85px;padding:9px 16px;text-align:right;">
+                                            @if($lesson->is_preview)
+                                                <a href="{{ route('learn.lesson',[$course->slug,$lesson->id]) }}" class="learncourse-trial-badge" style="background:#2563eb;color:#ffffff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:4px;text-decoration:none;display:inline-block;">
+                                                    Học thử
+                                                </a>
+                                            @elseif($owned)
+                                                <a href="{{ route('learn.lesson',[$course->slug,$lesson->id]) }}" class="text-link" style="color:#059669;font-size:12px;font-weight:700;text-decoration:none;">
+                                                    Vào học →
+                                                </a>
+                                            @else
+                                                <span class="ph-lock" title="Cần mua khóa học để mở toàn bộ" style="color:#94a3b8;font-size:14px;">🔒</span>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </details>
+            @empty
+                <p class="course-content-status">Bài học đang được biên soạn. Chương trình sẽ mở đăng ký khi nội dung học được công bố.</p>
+            @endforelse
+        </div>
+    </section>
+
     <section class="detail-panel course-faq" id="questions"><h2>Giải đáp trước khi bắt đầu</h2><details open><summary>Mua xong tôi học ở đâu?</summary><p>Sau khi admin xác nhận đã nhận chuyển khoản, mở menu tài khoản → Khóa học của tôi → Vào học ngay. Bài học mở ngay trên English Center.</p></details><details><summary>Tôi có thể luyện đề trước khi đăng ký?</summary><p>Có. Bạn có thể làm các bài luyện và kiểm tra đáp án trong <a href="{{ route('practice.index') }}">thư viện đề thi miễn phí</a>.</p></details><details><summary>Có thu tiền thật không?</summary><p>Bạn thanh toán bằng mã QR ngân hàng. Admin xác nhận giao dịch đã vào tài khoản trước khi cấp quyền học.</p></details></section>
 </div><aside class="detail-aside"><div class="detail-buy-card">
     @if($course->thumbnail_path)<img class="detail-buy-cover" src="{{ asset($course->thumbnail_path) }}" alt="{{ $course->name }}" width="800" height="300">@else<div class="shop-cover"><span class="shop-cover-brand">ENGLISH CENTER</span><strong>{{ $course->name }}</strong><span>HỌC ONLINE</span></div>@endif
     <div class="detail-buy-body"><p class="price-caption">Học phí chương trình</p><div class="detail-price"><strong>{{ number_format($shop->price($course),0,',','.') }}đ</strong>@if($course->sale_price!==null)<div><s>{{ number_format($course->price,0,',','.') }}đ</s><span>Tiết kiệm {{ number_format($course->price-$course->sale_price,0,',','.') }}đ</span></div>@endif</div>
-    @if($owned)<a class="button buy-button" href="{{ route('learn.start',$course->slug) }}">Vào học ngay</a>@elseif($buyable)<form action="{{ route('cart.add',$course) }}" method="POST">@csrf<button class="button buy-button" type="submit">Thêm vào giỏ hàng</button></form><a class="button button-outline buy-button" href="{{ route('cart.index') }}">Xem giỏ hàng</a>@else<p class="course-coming-soon">Đang chuẩn bị nội dung</p><a class="button button-outline buy-button" href="{{ route('practice.index') }}">Luyện tập miễn phí</a>@endif
+    @if($owned)
+        <div class="owned-notification" style="background: #ecfdf5; border: 1px solid #10b981; border-radius: 8px; padding: 12px 14px; margin-bottom: 14px; display: flex; align-items: center; gap: 10px; color: #065f46;">
+            <span style="display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; background:#059669; color:#fff; border-radius:50%; font-size:13px; font-weight:bold; flex-shrink: 0;">✓</span>
+            <div>
+                <strong style="display: block; font-size: 14px; color:#065f46;">Khóa học đã mua</strong>
+                <span style="font-size: 12px; color: #047857;">Tài khoản của bạn đã sở hữu khóa học này.</span>
+            </div>
+        </div>
+        <a class="button buy-button already-owned" href="{{ route('learn.start',$course->slug) }}" style="background:#059669;border-color:#059669;color:#ffffff;font-weight:700;"><x-study-icon name="check"/> Đã mua</a>
+    @elseif($buyable)
+        <form action="{{ route('cart.add',$course) }}" method="POST">@csrf<button class="button buy-button" type="submit">Thêm vào giỏ hàng</button></form>
+        <a class="button button-outline buy-button" href="{{ route('cart.index') }}">Xem giỏ hàng</a>
+    @else
+        <p class="course-coming-soon">Đang chuẩn bị nội dung</p>
+        <a class="button button-outline buy-button" href="{{ route('practice.index') }}">Luyện tập miễn phí</a>
+    @endif
     @if($videoPath || $videoEmbed)<a class="course-watch-link" href="#information">▷ Xem video giới thiệu</a>@endif
     <div class="buy-facts"><p><x-study-icon name="book"/>{{ $lessonCount }} bài học đã công bố</p>@if($lessonCount)<p><x-study-icon name="clock"/>{{ $course->duration_hours }} giờ học gợi ý</p>@endif<p><x-study-icon name="target"/>Truy cập {{ $course->access_days }} ngày sau khi mua</p><p><x-study-icon name="file"/>Quản lý bài học trong tài khoản</p></div>
     @if($buyable)<p class="provider-caption">Thanh toán qua QR chuyển khoản ngân hàng. Khóa học được cấp sau khi admin xác nhận đã nhận tiền.</p>@endif</div>

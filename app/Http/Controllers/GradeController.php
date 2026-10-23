@@ -49,6 +49,61 @@ class GradeController extends Controller
         return redirect()->route('grades.index', $classRoom)->with('success', 'Đã lưu bảng điểm.');
     }
 
+    public function exportCsv(ClassRoom $classRoom): \Symfony\Component\HttpFoundation\StreamedResponse
+    {
+        $this->authorizeClass($classRoom);
+        $classRoom->load(['course', 'enrollments.student.user']);
+
+        $filename = 'bang-diem-' . \Illuminate\Support\Str::slug($classRoom->code) . '-' . date('Ymd') . '.csv';
+
+        return response()->streamDownload(function () use ($classRoom) {
+            $handle = fopen('php://output', 'w');
+            fwrite($handle, "\xEF\xBB\xBF");
+
+            fputcsv($handle, ['STT', 'Mã Học Viên', 'Họ Và Tên', 'Email', 'Số Điện Thoại', 'Điểm Giữa Kỳ', 'Điểm Cuối Kỳ', 'Điểm TB', 'Kết Quả', 'Ghi Chú']);
+
+            $statusLabels = [
+                'studying' => 'Đang học',
+                'passed' => 'Đạt',
+                'failed' => 'Chưa đạt',
+            ];
+
+            $i = 1;
+            foreach ($classRoom->enrollments as $enrollment) {
+                $student = $enrollment->student;
+                $midterm = $enrollment->midterm_score !== null ? (float) $enrollment->midterm_score : null;
+                $final = $enrollment->final_score !== null ? (float) $enrollment->final_score : null;
+                $avg = ($midterm !== null && $final !== null) ? round(($midterm + $final) / 2, 2) : '';
+
+                fputcsv($handle, [
+                    $i++,
+                    $student->student_code ?? '',
+                    $student->user->name ?? '',
+                    $student->user->email ?? '',
+                    $student->user->phone ?? ($student->phone ?? ''),
+                    $midterm !== null ? $midterm : '',
+                    $final !== null ? $final : '',
+                    $avg,
+                    $statusLabels[$enrollment->result_status] ?? $enrollment->result_status,
+                    $enrollment->remarks ?? '',
+                ]);
+            }
+
+            fclose($handle);
+        }, $filename, [
+            'Content-Type' => 'text/csv; charset=UTF-8',
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+        ]);
+    }
+
+    public function print(ClassRoom $classRoom)
+    {
+        $this->authorizeClass($classRoom);
+        $classRoom->load(['course', 'teacher.user', 'enrollments.student.user']);
+
+        return view('grades.print', compact('classRoom'));
+    }
+
     private function authorizeClass(ClassRoom $classRoom): void
     {
         $user = Auth::user();

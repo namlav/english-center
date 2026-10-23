@@ -31,7 +31,7 @@
                 <a href="{{ route('account.courses') }}" @if(request()->routeIs('account.courses')) aria-current="page" @endif>Khóa học của tôi</a>
                 <a href="{{ route('cart.index') }}" @if(request()->routeIs('cart.*')) aria-current="page" @endif class="header-cart-link"><x-study-icon name="cart"/>Giỏ hàng<span class="cart-count-badge">{{ $headerCartCount }}</span></a><div class="mobile-account">
                     @auth <a href="{{ route('account.show') }}">Trang cá nhân</a>
-                    @else <a href="{{ route('login') }}">Đăng nhập</a> @endauth
+                    @else <a href="{{ route('login') }}">Đăng nhập</a> <a href="{{ route('register') }}">Đăng ký</a> @endauth
                 </div>
             </nav>
             <div class="header-account portal-header-account"><a class="mobile-cart-shortcut" href="{{ route('cart.index') }}" aria-label="Giỏ hàng"><x-study-icon name="cart"/><span>{{ $headerCartCount }}</span></a>
@@ -39,7 +39,7 @@
                     <div class="account-dropdown"><button class="account-trigger" type="button" aria-expanded="false" aria-controls="account-panel" aria-label="Mở menu tài khoản"><span class="account-avatar-small">{{ mb_strtoupper(mb_substr(auth()->user()->name,0,1)) }}</span><span class="account-trigger-name">{{ auth()->user()->name }}</span><span>⌄</span></button><div id="account-panel" class="account-panel" hidden><div class="account-panel-heading"><strong>{{ auth()->user()->name }}</strong><span>{{ auth()->user()->email }}</span></div><a href="{{ route('account.courses') }}">Khóa học của tôi</a><a href="{{ route('account.schedule') }}">Lịch học của tôi</a><a href="{{ route('orders.index') }}">Đơn hàng của tôi</a><a href="{{ route('account.show') }}">Trang cá nhân</a>@if(auth()->user()->isAdmin())<a href="{{ route('website.index') }}">Quản lý website</a>@endif<a href="{{ route('class_rooms.index') }}">Quản lý lớp học</a><form action="{{ route('logout') }}" method="POST">@csrf<button type="submit">Đăng xuất</button></form></div></div>
                 @else
                     <a class="login-link" href="{{ route('login') }}">Đăng nhập</a>
-                    <a class="button button-small" href="{{ route('practice.index') }}">Bắt đầu học <x-study-icon name="arrow" /></a>
+                    <a class="button button-small" href="{{ route('register') }}">Đăng ký</a>
                 @endauth
             </div>
         </div>

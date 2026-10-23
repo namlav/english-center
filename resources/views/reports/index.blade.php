@@ -18,7 +18,10 @@
         <h1 class="h2 fw-bold mb-2">Tổng quan hoạt động</h1>
         <p class="text-secondary mb-0">Theo dõi quy mô đào tạo và học phí đã thu theo từng lớp.</p>
     </div>
-    <span class="report-live"><i class="bi bi-arrow-repeat me-1"></i> Dữ liệu trực tiếp</span>
+    <div class="d-flex align-items-center gap-2">
+        <a href="{{ route('reports.export') }}" class="btn btn-outline-success"><i class="bi bi-file-earmark-excel me-1"></i> Xuất Excel Báo Cáo</a>
+        <span class="report-live"><i class="bi bi-arrow-repeat me-1"></i> Dữ liệu trực tiếp</span>
+    </div>
 </div>
 
 <div class="row g-3 mb-4">

@@ -21,6 +21,9 @@ Route::get('/khoa-hoc/{key}', [PublicCourseController::class, 'show'])->where('k
 Route::get('/luyen-tap/{slug}', [PracticeController::class, 'show'])->name('practice.show');
 Route::post('/luyen-tap/{slug}/kiem-tra', [PracticeController::class, 'check'])->middleware('throttle:20,1')->name('practice.check');
 
+Route::get('/hoc/{course:slug}',[ShopController::class,'learn'])->name('learn.start');
+Route::get('/hoc/{course:slug}/{lesson}',[ShopController::class,'lesson'])->name('learn.lesson');
+
 Route::middleware('auth')->group(function (): void {
     Route::get('/gio-hang',[ShopController::class,'cart'])->name('cart.index');
     Route::post('/gio-hang/{course}',[ShopController::class,'add'])->name('cart.add');
@@ -36,11 +39,10 @@ Route::middleware('auth')->group(function (): void {
     Route::post('/don-hang/{order:number}/report-transfer',[ShopController::class,'reportTransfer'])->middleware('throttle:10,1')->name('orders.report-transfer');
     Route::get('/don-hang/{order:number}/status',[ShopController::class,'status'])->name('orders.status');
     Route::post('/don-hang/{order:number}/confirm-demo',[ShopController::class,'confirm'])->middleware('throttle:10,1')->name('orders.confirm');
-    Route::get('/hoc/{course:slug}',[ShopController::class,'learn'])->name('learn.start');
-    Route::get('/hoc/{course:slug}/{lesson}',[ShopController::class,'lesson'])->name('learn.lesson');
     Route::post('/hoc/{course:slug}/{lesson}/complete',[ShopController::class,'complete'])->name('learn.complete');
     Route::get('/my-account', [LearningAccountController::class, 'show'])->name('account.show');
     Route::patch('/my-account', [LearningAccountController::class, 'update'])->name('account.update');
+    Route::post('/my-account/password', [LearningAccountController::class, 'updatePassword'])->name('account.password');
     Route::get('/my-account/courses', [LearningAccountController::class, 'courses'])->name('account.courses');
     Route::get('/my-account/schedule', [LearningAccountController::class, 'schedule'])->name('account.schedule');
 });
