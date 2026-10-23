@@ -151,28 +151,49 @@
                 <summary class="tree-branch-header">
                     <span class="branch-icon">👥</span>
                     <span class="branch-title">5. Hệ Thống & Tài Khoản</span>
-                    <span class="badge-count">3 mục</span>
+                    <span class="badge-count">6 mục cốt lõi</span>
                 </summary>
                 <ul class="tree-leaf-list">
-                    <li class="tree-leaf {{ str_starts_with($currentRoute, 'users.') ? 'active' : '' }}">
+                    <li class="tree-leaf {{ $currentRoute === 'users.index' ? 'active' : '' }}">
                         <a href="{{ route('users.index') }}">
                             <span class="leaf-icon">👤</span>
-                            <span class="leaf-name">Quản lý Tài khoản (Admin/GV/HV)</span>
+                            <span class="leaf-name">Danh sách Tài khoản</span>
                             <span class="badge-tag tag-keep">Cốt lõi</span>
                         </a>
                     </li>
-                    <li class="tree-leaf {{ str_starts_with($currentRoute, 'students.') ? 'active' : '' }}">
+                    <li class="tree-leaf {{ $currentRoute === 'users.create' ? 'active' : '' }}">
+                        <a href="{{ route('users.create') }}">
+                            <span class="leaf-icon">➕</span>
+                            <span class="leaf-name">Thêm Tài khoản mới</span>
+                            <span class="badge-tag tag-keep">Mới cập nhật</span>
+                        </a>
+                    </li>
+                    <li class="tree-leaf {{ $currentRoute === 'students.index' ? 'active' : '' }}">
                         <a href="{{ route('students.index') }}">
                             <span class="leaf-icon">🎓</span>
-                            <span class="leaf-name">Hồ sơ Học viên</span>
+                            <span class="leaf-name">Danh sách Học viên</span>
                             <span class="badge-tag tag-keep">Cốt lõi</span>
                         </a>
                     </li>
-                    <li class="tree-leaf {{ str_starts_with($currentRoute, 'teachers.') ? 'active' : '' }}">
-                        <a href="{{ route('teachers.index') }}" title="Đề xuất gộp bảng teachers nội bộ và public_teachers để tránh phân mảnh">
+                    <li class="tree-leaf {{ $currentRoute === 'students.create' ? 'active' : '' }}">
+                        <a href="{{ route('students.create') }}">
+                            <span class="leaf-icon">➕</span>
+                            <span class="leaf-name">Thêm Học viên mới</span>
+                            <span class="badge-tag tag-keep">Mới cập nhật</span>
+                        </a>
+                    </li>
+                    <li class="tree-leaf {{ $currentRoute === 'teachers.index' ? 'active' : '' }}">
+                        <a href="{{ route('teachers.index') }}">
                             <span class="leaf-icon">👨‍🏫</span>
-                            <span class="leaf-name">Đội ngũ Giáo viên nội bộ</span>
-                            <span class="badge-tag tag-warn">Cần gộp</span>
+                            <span class="leaf-name">Danh sách Giảng viên</span>
+                            <span class="badge-tag tag-keep">Cốt lõi</span>
+                        </a>
+                    </li>
+                    <li class="tree-leaf {{ $currentRoute === 'teachers.create' ? 'active' : '' }}">
+                        <a href="{{ route('teachers.create') }}">
+                            <span class="leaf-icon">➕</span>
+                            <span class="leaf-name">Thêm Giảng viên mới</span>
+                            <span class="badge-tag tag-keep">Mới cập nhật</span>
                         </a>
                     </li>
                 </ul>
