@@ -317,7 +317,7 @@ class MemberOneTest extends TestCase
         $this->seed(DatabaseSeeder::class);
 
         $this->post(route('login.post'), ['email' => 'admin@englishcenter.vn', 'password' => '123456'])
-            ->assertRedirectToRoute('class_rooms.index');
+            ->assertRedirectToRoute('admin.dashboard');
 
         $this->assertAuthenticatedAs(User::where('email', 'admin@englishcenter.vn')->sole());
     }

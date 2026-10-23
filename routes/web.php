@@ -7,6 +7,7 @@ use App\Http\Controllers\PublicCourseController;
 use App\Http\Controllers\PracticeLibraryController;
 use App\Http\Controllers\LearningAccountController;
 use App\Http\Controllers\AdminContentController;
+use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\PublicTeacherController;
 use App\Http\Controllers\{ShopController,AdminShopController,AdminExamController};
 
@@ -46,6 +47,11 @@ Route::middleware('auth')->group(function (): void {
     Route::get('/my-account/courses', [LearningAccountController::class, 'courses'])->name('account.courses');
     Route::get('/my-account/schedule', [LearningAccountController::class, 'schedule'])->name('account.schedule');
 });
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function (): void {
+    Route::get('/', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/dashboard', [AdminDashboardController::class, 'index']);
+});
+
 Route::middleware(['auth','role:admin'])->prefix('admin/website/shop')->name('shop_admin.')->group(function(){
     Route::get('/',[AdminShopController::class,'index'])->name('index');
     Route::get('/upgrade-sql',[AdminShopController::class,'upgrade'])->name('upgrade');

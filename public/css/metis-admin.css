@@ -1,0 +1,462 @@
+/* Metis Admin Theme for English Center */
+:root {
+    --metis-sidebar-width: 260px;
+    --metis-sidebar-collapsed-width: 72px;
+    --metis-header-height: 64px;
+    --metis-sidebar-bg: #0f172a;
+    --metis-sidebar-hover: #1e293b;
+    --metis-sidebar-active: #2563eb;
+    --metis-sidebar-text: #94a3b8;
+    --metis-sidebar-text-hover: #f8fafc;
+    --metis-body-bg: #f8fafc;
+    --metis-card-bg: #ffffff;
+    --metis-border-color: #e2e8f0;
+    --metis-primary: #2563eb;
+    --metis-success: #10b981;
+    --metis-warning: #f59e0b;
+    --metis-danger: #ef4444;
+}
+
+body.metis-admin-body {
+    background-color: var(--metis-body-bg);
+    color: #1e293b;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    min-height: 100vh;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+/* App Wrapper */
+.metis-wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar */
+.metis-sidebar {
+    width: var(--metis-sidebar-width);
+    background-color: var(--metis-sidebar-bg);
+    color: var(--metis-sidebar-text);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    border-right: 1px solid #1e293b;
+}
+
+.metis-sidebar.collapsed {
+    width: var(--metis-sidebar-collapsed-width);
+}
+
+.metis-sidebar.collapsed .metis-brand-text,
+.metis-sidebar.collapsed .metis-nav-heading,
+.metis-sidebar.collapsed .metis-nav-link span,
+.metis-sidebar.collapsed .metis-nav-arrow,
+.metis-sidebar.collapsed .metis-user-info,
+.metis-sidebar.collapsed .metis-badge {
+    display: none !important;
+}
+
+.metis-sidebar.collapsed .metis-nav-link {
+    justify-content: center;
+    padding: 12px 0;
+}
+
+.metis-sidebar.collapsed .metis-nav-link i {
+    margin-right: 0 !important;
+    font-size: 1.25rem;
+}
+
+/* Sidebar Brand */
+.metis-sidebar-header {
+    height: var(--metis-header-height);
+    display: flex;
+    align-items: center;
+    padding: 0 1.25rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.metis-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 1.1rem;
+    letter-spacing: -0.02em;
+}
+
+.metis-brand-logo {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #2563eb, #3b82f6);
+    display: grid;
+    place-items: center;
+    color: #ffffff;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+/* Sidebar User Info */
+.metis-sidebar-user {
+    padding: 1.25rem 1.25rem 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.metis-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: #ffffff;
+    display: grid;
+    place-items: center;
+    font-weight: 700;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.metis-user-name {
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 0.9rem;
+    line-height: 1.3;
+}
+
+.metis-user-role {
+    font-size: 0.75rem;
+    color: #64748b;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.metis-status-indicator {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #10b981;
+    display: inline-block;
+}
+
+/* Sidebar Navigation */
+.metis-sidebar-nav {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0.75rem 0.5rem;
+}
+
+.metis-nav-heading {
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #64748b;
+    padding: 1rem 0.85rem 0.4rem;
+}
+
+.metis-nav-item {
+    margin-bottom: 2px;
+}
+
+.metis-nav-link {
+    display: flex;
+    align-items: center;
+    padding: 0.6rem 0.85rem;
+    border-radius: 8px;
+    color: var(--metis-sidebar-text);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.15s ease;
+    border-left: 3px solid transparent;
+}
+
+.metis-nav-link:hover {
+    background-color: var(--metis-sidebar-hover);
+    color: var(--metis-sidebar-text-hover);
+}
+
+.metis-nav-link.active {
+    background-color: rgba(37, 99, 235, 0.15);
+    color: #60a5fa;
+    font-weight: 600;
+    border-left-color: var(--metis-sidebar-active);
+}
+
+.metis-nav-link i {
+    font-size: 1.1rem;
+    width: 22px;
+    margin-right: 0.75rem;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.metis-badge {
+    margin-left: auto;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 20px;
+}
+
+/* Submenu */
+.metis-submenu {
+    list-style: none;
+    padding-left: 2.2rem;
+    margin: 4px 0 6px;
+}
+
+.metis-submenu-link {
+    display: flex;
+    align-items: center;
+    padding: 0.45rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.825rem;
+    color: #94a3b8;
+    text-decoration: none;
+    transition: all 0.15s;
+}
+
+.metis-submenu-link:hover {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.metis-submenu-link.active {
+    color: #60a5fa;
+    font-weight: 600;
+}
+
+/* Main Content Area */
+.metis-main {
+    flex: 1;
+    margin-left: var(--metis-sidebar-width);
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    transition: margin-left 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.metis-sidebar.collapsed + .metis-main {
+    margin-left: var(--metis-sidebar-collapsed-width);
+}
+
+/* Topbar Header */
+.metis-topbar {
+    height: var(--metis-header-height);
+    background-color: #ffffff;
+    border-bottom: 1px solid var(--metis-border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1.75rem;
+    position: sticky;
+    top: 0;
+    z-index: 990;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.metis-topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.metis-toggle-btn {
+    background: transparent;
+    border: none;
+    font-size: 1.25rem;
+    color: #475569;
+    cursor: pointer;
+    padding: 6px 10px;
+    border-radius: 6px;
+    transition: background 0.15s;
+}
+
+.metis-toggle-btn:hover {
+    background: #f1f5f9;
+    color: #0f172a;
+}
+
+.metis-topbar-search {
+    position: relative;
+    width: 320px;
+}
+
+.metis-topbar-search input {
+    width: 100%;
+    padding: 0.45rem 1rem 0.45rem 2.4rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    background: #f8fafc;
+    transition: all 0.15s;
+}
+
+.metis-topbar-search input:focus {
+    background: #ffffff;
+    border-color: #3b82f6;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+.metis-topbar-search i {
+    position: absolute;
+    left: 0.85rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    pointer-events: none;
+}
+
+.metis-topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.metis-btn-client {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #475569;
+    text-decoration: none;
+    transition: all 0.15s;
+    background: #ffffff;
+}
+
+.metis-btn-client:hover {
+    background: #f8fafc;
+    color: #2563eb;
+    border-color: #cbd5e1;
+}
+
+/* Page Content Container */
+.metis-content {
+    flex: 1;
+    padding: 1.75rem;
+}
+
+/* Dashboard Metric Cards (Metis KPI Cards) */
+.metis-metric-card {
+    background: #ffffff;
+    border: 1px solid var(--metis-border-color);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.metis-metric-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+}
+
+.metis-metric-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    display: grid;
+    place-items: center;
+    font-size: 1.35rem;
+    margin-bottom: 1rem;
+}
+
+.metis-metric-title {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #64748b;
+    margin-bottom: 0.25rem;
+}
+
+.metis-metric-value {
+    font-size: 1.85rem;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.2;
+}
+
+.metis-metric-trend {
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Metis Tables */
+.metis-card {
+    background: #ffffff;
+    border: 1px solid var(--metis-border-color);
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+}
+
+.metis-card-header {
+    padding: 1.1rem 1.5rem;
+    border-bottom: 1px solid var(--metis-border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #ffffff;
+}
+
+.metis-card-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0;
+}
+
+.metis-card-body {
+    padding: 1.5rem;
+}
+
+/* Footer */
+.metis-footer {
+    padding: 1.25rem 1.75rem;
+    border-top: 1px solid var(--metis-border-color);
+    background: #ffffff;
+    font-size: 0.825rem;
+    color: #64748b;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Responsive */
+@media (max-width: 991.98px) {
+    .metis-sidebar {
+        transform: translateX(-100%);
+    }
+    .metis-sidebar.mobile-open {
+        transform: translateX(0);
+    }
+    .metis-main {
+        margin-left: 0 !important;
+    }
+    .metis-topbar-search {
+        display: none;
+    }
+}

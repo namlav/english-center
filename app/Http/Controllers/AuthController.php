@@ -114,6 +114,8 @@ class AuthController extends Controller
                 }
             } else {
                 $request->session()->forget('pending_cart_course');
+                return redirect()->route('admin.dashboard')
+                                 ->with('success', 'Đăng nhập thành công! Chào mừng Quản trị viên ' . $user->name);
             }
             return redirect()->intended(route('class_rooms.index'))
                              ->with('success', 'Đăng nhập thành công! Xin chào ' . $user->name);
