@@ -83,6 +83,56 @@ class AdminDashboardController extends Controller
             'classes' => Schema::hasTable('class_rooms') ? ClassRoom::count() : 0,
         ];
 
+        // 5. DỮ LIỆU SƠ ĐỒ & BIỂU ĐỒ TRỰC QUAN (CHARTS & DIAGRAMS)
+        // a. Xu hướng doanh thu 7 ngày gần nhất
+        $dailyData = collect();
+        if ($hasOrders) {
+            $dailyData = DB::table('orders')
+                ->where('status', 'paid')
+                ->where('created_at', '>=', now()->subDays(6)->startOfDay())
+                ->select(
+                    DB::raw('DATE(created_at) as order_date'),
+                    DB::raw('SUM(total) as daily_revenue'),
+                    DB::raw('COUNT(id) as daily_orders')
+                )
+                ->groupBy('order_date')
+                ->get()
+                ->keyBy('order_date');
+        }
+
+        $chartDates = [];
+        $chartDailyRevenues = [];
+        $chartDailyOrders = [];
+        for ($i = 6; $i >= 0; $i--) {
+            $dateObj = now()->subDays($i);
+            $dateStr = $dateObj->toDateString();
+            $chartDates[] = $dateObj->format('d/m');
+
+            $dayRecord = $dailyData->get($dateStr);
+            $chartDailyRevenues[] = $dayRecord ? (int) $dayRecord->daily_revenue : 0;
+            $chartDailyOrders[] = $dayRecord ? (int) $dayRecord->daily_orders : 0;
+        }
+
+        // b. Tỷ trọng doanh thu theo khóa học cho biểu đồ tròn (Donut Chart)
+        $chartCourseLabels = [];
+        $chartCourseRevenues = [];
+        $otherRevenue = 0;
+        foreach ($topCoursesWithRevenue as $idx => $item) {
+            if ($idx < 5) {
+                $shortName = mb_strlen($item->course_name) > 30 
+                    ? mb_substr($item->course_name, 0, 27) . '...' 
+                    : $item->course_name;
+                $chartCourseLabels[] = $shortName;
+                $chartCourseRevenues[] = (int) $item->course_revenue;
+            } else {
+                $otherRevenue += (int) $item->course_revenue;
+            }
+        }
+        if ($otherRevenue > 0) {
+            $chartCourseLabels[] = 'Các khóa học khác';
+            $chartCourseRevenues[] = $otherRevenue;
+        }
+
         return view('admin.dashboard', compact(
             'totalCourseRevenue',
             'paidOrdersCount',
@@ -96,7 +146,12 @@ class AdminDashboardController extends Controller
             'totalSystemRevenue',
             'topCoursesWithRevenue',
             'recentOrders',
-            'compactStats'
+            'compactStats',
+            'chartDates',
+            'chartDailyRevenues',
+            'chartDailyOrders',
+            'chartCourseLabels',
+            'chartCourseRevenues'
         ));
     }
 

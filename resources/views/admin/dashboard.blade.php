@@ -16,7 +16,7 @@
     <div class="d-flex flex-wrap gap-2">
         <a href="{{ route('admin.revenue.export') }}" class="btn btn-success fw-bold shadow-sm d-flex align-items-center gap-2">
             <i class="bi bi-file-earmark-excel-fill"></i>
-            <span>Xuất Excel Doanh Thu Khóa Học</span>
+            <span>Xuất Excel Doanh Thu</span>
         </a>
         <a href="{{ route('shop_admin.orders.index', ['status' => 'pending']) }}" class="btn btn-warning text-dark fw-bold shadow-sm d-flex align-items-center gap-2">
             <i class="bi bi-qr-code-scan"></i>
@@ -29,7 +29,7 @@
     </div>
 </div>
 
-{{-- DẢI THỐNG KÊ PHỤ NHỎ GỌN (CÁC PHẦN KHÁC CHỈ LÀ PHẦN NHỎ) --}}
+{{-- DẢI THỐNG KÊ PHỤ NHỎ GỌN (QUY MÔ HỆ THỐNG) --}}
 <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 p-3 bg-white rounded-3 border mb-4 shadow-sm" style="font-size: 13px;">
     <div class="d-flex flex-wrap align-items-center gap-2">
         <span class="text-muted fw-bold text-uppercase fs-8 me-1"><i class="bi bi-sliders me-1"></i> Quy mô hệ thống:</span>
@@ -129,13 +129,123 @@
     </div>
 </div>
 
+{{-- SƠ ĐỒ QUY TRÌNH LUỒNG BÁN HÀNG & CHUYỂN ĐỔI KHÓA HỌC (WORKFLOW / FUNNEL DIAGRAM) --}}
+<div class="card border-0 shadow-sm rounded-3 mb-4">
+    <div class="card-header bg-white py-3 border-bottom d-flex justify-content-between align-items-center">
+        <div>
+            <strong class="text-dark fs-7"><i class="bi bi-diagram-3-fill text-primary me-1"></i> Sơ đồ Quy Trình Bán Khóa Học & Đối Soát VietQR</strong>
+            <small class="text-muted d-block">Mô hình luồng giao dịch khép kín từ lúc học viên xem khóa đến khi kích hoạt vào học.</small>
+        </div>
+        <span class="badge bg-success-subtle text-success border px-2 py-1 fs-8">
+            <i class="bi bi-shield-check me-1"></i> Tự động hóa 100%
+        </span>
+    </div>
+    <div class="card-body p-4 bg-light bg-opacity-25">
+        <div class="row g-3 align-items-center text-center">
+            <!-- Bước 1 -->
+            <div class="col-md-3">
+                <div class="p-3 bg-white rounded-3 border shadow-xs h-100 position-relative">
+                    <div class="rounded-circle bg-primary bg-opacity-10 text-primary mx-auto mb-2 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; font-size: 1.3rem;">
+                        <i class="bi bi-collection-play"></i>
+                    </div>
+                    <span class="badge bg-primary-subtle text-primary mb-1 fs-8">Bước 1: Danh mục</span>
+                    <strong class="d-block text-dark fs-7">21 Khóa Học Mở Bán</strong>
+                    <small class="text-muted fs-8 d-block mt-1">IELTS, TOEIC, Giao tiếp trên sàn LMS</small>
+                </div>
+            </div>
+
+            <!-- Bước 2 -->
+            <div class="col-md-3">
+                <div class="p-3 bg-white rounded-3 border shadow-xs h-100 position-relative">
+                    <div class="rounded-circle bg-info bg-opacity-10 text-info mx-auto mb-2 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; font-size: 1.3rem;">
+                        <i class="bi bi-cart-check"></i>
+                    </div>
+                    <span class="badge bg-info-subtle text-info mb-1 fs-8">Bước 2: Chọn mua</span>
+                    <strong class="d-block text-dark fs-7">{{ $totalOrders }} Lượt Đặt Đơn</strong>
+                    <small class="text-muted fs-8 d-block mt-1">Giỏ hàng & Đăng ký gói học</small>
+                </div>
+            </div>
+
+            <!-- Bước 3 -->
+            <div class="col-md-3">
+                <div class="p-3 bg-white rounded-3 border shadow-xs h-100 position-relative">
+                    <div class="rounded-circle bg-warning bg-opacity-10 text-warning mx-auto mb-2 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; font-size: 1.3rem;">
+                        <i class="bi bi-qr-code"></i>
+                    </div>
+                    <span class="badge bg-warning-subtle text-warning mb-1 fs-8">Bước 3: Thanh toán</span>
+                    <strong class="d-block text-dark fs-7">Quét Mã VietQR 24/7</strong>
+                    <small class="text-muted fs-8 d-block mt-1">Tự động nhận diện nội dung chuyển khoản</small>
+                </div>
+            </div>
+
+            <!-- Bước 4 -->
+            <div class="col-md-3">
+                <div class="p-3 bg-white rounded-3 border shadow-xs h-100 position-relative border-success">
+                    <div class="rounded-circle bg-success bg-opacity-10 text-success mx-auto mb-2 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; font-size: 1.3rem;">
+                        <i class="bi bi-unlock-fill"></i>
+                    </div>
+                    <span class="badge bg-success text-white mb-1 fs-8">Bước 4: Hoàn tất</span>
+                    <strong class="d-block text-success fs-7">Kích Hoạt Học Ngay</strong>
+                    <small class="text-muted fs-8 d-block mt-1">{{ number_format($totalCourseRevenue, 0, ',', '.') }}đ đã thực thu</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{-- SƠ ĐỒ BIỂU ĐỒ TRỰC QUAN DOANH THU & TỶ TRỌNG (VISUAL CHARTS) --}}
+<div class="row g-4 mb-4">
+    <!-- Cột trái: Sơ đồ Biểu đồ Doanh thu theo ngày (Area Chart) -->
+    <div class="col-lg-8">
+        <div class="card border-0 shadow-sm rounded-3 h-100">
+            <div class="card-header bg-white py-3 border-bottom d-flex flex-wrap justify-content-between align-items-center gap-2">
+                <div>
+                    <strong class="text-dark fs-7"><i class="bi bi-bar-chart-line-fill text-primary me-1"></i> Sơ đồ Doanh Thu Bán Khóa Học (7 Ngày Gần Nhất)</strong>
+                    <small class="text-muted d-block">Xu hướng tăng trưởng doanh thu bán khóa học theo mốc thời gian.</small>
+                </div>
+                <div class="btn-group btn-group-sm" role="group">
+                    <button type="button" class="btn btn-outline-primary active" id="btnChartRevenue">
+                        <i class="bi bi-currency-dollar me-1"></i> Doanh thu (₫)
+                    </button>
+                    <button type="button" class="btn btn-outline-primary" id="btnChartOrders">
+                        <i class="bi bi-cart me-1"></i> Số đơn hàng
+                    </button>
+                </div>
+            </div>
+            <div class="card-body p-3">
+                <div style="height: 310px; position: relative;">
+                    <canvas id="revenueTrendChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cột phải: Sơ đồ Biểu đồ Tròn Cơ cấu Tỷ trọng Doanh thu (Donut Chart) -->
+    <div class="col-lg-4">
+        <div class="card border-0 shadow-sm rounded-3 h-100">
+            <div class="card-header bg-white py-3 border-bottom">
+                <strong class="text-dark fs-7"><i class="bi bi-pie-chart-fill text-success me-1"></i> Cơ Cấu Doanh Thu Theo Khóa Học</strong>
+                <small class="text-muted d-block">Tỷ trọng đóng góp doanh số giữa các khóa.</small>
+            </div>
+            <div class="card-body p-3 d-flex flex-column justify-content-between">
+                <div style="height: 230px; position: relative;" class="my-auto">
+                    <canvas id="courseShareChart"></canvas>
+                </div>
+                <div class="mt-3 pt-2 border-top fs-8 text-center text-muted">
+                    <i class="bi bi-info-circle me-1"></i> Tổng cộng <strong>{{ count($topCoursesWithRevenue) }}</strong> khóa học đã phát sinh doanh số thực tế.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 {{-- BẢNG BÁO CÁO DOANH THU CHI TIẾT THEO TỪNG KHÓA HỌC (THE MAIN FOCUS) --}}
 <div class="metis-card mb-4">
     <div class="metis-card-header bg-white d-flex flex-wrap align-items-center justify-content-between gap-3 py-3">
         <div>
             <h5 class="metis-card-title d-flex align-items-center gap-2 mb-1">
-                <i class="bi bi-pie-chart-fill text-success fs-5"></i>
-                <span class="fw-bold">Báo Cáo Doanh Thu Bán Được Theo Từng Khóa Học</span>
+                <i class="bi bi-table text-primary fs-5"></i>
+                <span class="fw-bold">Báo Cáo Chi Tiết Doanh Thu Bán Được Theo Từng Khóa Học</span>
             </h5>
             <small class="text-secondary">Chi tiết số lượng khóa học đã bán và tổng số tiền thu về từ mỗi khóa học.</small>
         </div>
@@ -309,4 +419,184 @@
         </table>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+{{-- Nạp Chart.js từ file cục bộ public/js/chart.min.js hoặc fallback CDN --}}
+<script src="{{ asset('js/chart.min.js') }}"></script>
+<script>
+    if (typeof Chart === 'undefined') {
+        const cdnScript = document.createElement('script');
+        cdnScript.src = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js';
+        document.head.appendChild(cdnScript);
+        cdnScript.onload = initCharts;
+    } else {
+        initCharts();
+    }
+
+    function initCharts() {
+        const chartDates = @json($chartDates);
+        const chartDailyRevenues = @json($chartDailyRevenues);
+        const chartDailyOrders = @json($chartDailyOrders);
+        const chartCourseLabels = @json($chartCourseLabels);
+        const chartCourseRevenues = @json($chartCourseRevenues);
+
+        // 1. BIỂU ĐỒ XU HƯỚNG DOANH THU THEO NGÀY (LINE/AREA CHART)
+        const revenueCtx = document.getElementById('revenueTrendChart')?.getContext('2d');
+        if (revenueCtx) {
+            let currentMode = 'revenue';
+            
+            // Gradient màu xanh ngọc
+            const gradientRevenue = revenueCtx.createLinearGradient(0, 0, 0, 300);
+            gradientRevenue.addColorStop(0, 'rgba(16, 185, 129, 0.4)');
+            gradientRevenue.addColorStop(1, 'rgba(16, 185, 129, 0.0)');
+
+            const gradientOrders = revenueCtx.createLinearGradient(0, 0, 0, 300);
+            gradientOrders.addColorStop(0, 'rgba(37, 99, 235, 0.4)');
+            gradientOrders.addColorStop(1, 'rgba(37, 99, 235, 0.0)');
+
+            const trendChart = new Chart(revenueCtx, {
+                type: 'line',
+                data: {
+                    labels: chartDates,
+                    datasets: [{
+                        label: 'Doanh thu (₫)',
+                        data: chartDailyRevenues,
+                        borderColor: '#10b981',
+                        backgroundColor: gradientRevenue,
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.35,
+                        pointBackgroundColor: '#10b981',
+                        pointBorderColor: '#ffffff',
+                        pointBorderWidth: 2,
+                        pointRadius: 5,
+                        pointHoverRadius: 7,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#1f2937',
+                            padding: 12,
+                            titleFont: { size: 13, weight: 'bold' },
+                            bodyFont: { size: 13 },
+                            callbacks: {
+                                label: function(context) {
+                                    if (currentMode === 'revenue') {
+                                        return 'Doanh thu: ' + new Intl.NumberFormat('vi-VN').format(context.raw) + ' ₫';
+                                    } else {
+                                        return 'Số đơn hàng: ' + context.raw + ' đơn';
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: '#f3f4f6' },
+                            ticks: {
+                                callback: function(value) {
+                                    if (currentMode === 'revenue') {
+                                        if (value >= 1000000) return (value / 1000000) + ' tr ₫';
+                                        if (value >= 1000) return (value / 1000) + ' k ₫';
+                                        return value + ' ₫';
+                                    }
+                                    return value;
+                                }
+                            }
+                        },
+                        x: {
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
+
+            // Toggle Doanh thu / Số đơn
+            const btnRevenue = document.getElementById('btnChartRevenue');
+            const btnOrders = document.getElementById('btnChartOrders');
+
+            btnRevenue?.addEventListener('click', function() {
+                currentMode = 'revenue';
+                btnRevenue.classList.add('active');
+                btnOrders.classList.remove('active');
+                trendChart.data.datasets[0].label = 'Doanh thu (₫)';
+                trendChart.data.datasets[0].data = chartDailyRevenues;
+                trendChart.data.datasets[0].borderColor = '#10b981';
+                trendChart.data.datasets[0].backgroundColor = gradientRevenue;
+                trendChart.data.datasets[0].pointBackgroundColor = '#10b981';
+                trendChart.update();
+            });
+
+            btnOrders?.addEventListener('click', function() {
+                currentMode = 'orders';
+                btnOrders.classList.add('active');
+                btnRevenue.classList.remove('active');
+                trendChart.data.datasets[0].label = 'Số đơn hàng';
+                trendChart.data.datasets[0].data = chartDailyOrders;
+                trendChart.data.datasets[0].borderColor = '#2563eb';
+                trendChart.data.datasets[0].backgroundColor = gradientOrders;
+                trendChart.data.datasets[0].pointBackgroundColor = '#2563eb';
+                trendChart.update();
+            });
+        }
+
+        // 2. BIỂU ĐỒ TRÒN TỶ TRỌNG DOANH THU THEO KHÓA HỌC (DONUT CHART)
+        const courseCtx = document.getElementById('courseShareChart')?.getContext('2d');
+        if (courseCtx && chartCourseLabels.length > 0) {
+            new Chart(courseCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: chartCourseLabels,
+                    datasets: [{
+                        data: chartCourseRevenues,
+                        backgroundColor: [
+                            '#10b981', // Emerald
+                            '#3b82f6', // Blue
+                            '#8b5cf6', // Purple
+                            '#f59e0b', // Amber
+                            '#ec4899', // Pink
+                            '#9ca3af'  // Gray
+                        ],
+                        borderWidth: 2,
+                        borderColor: '#ffffff',
+                        hoverOffset: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                boxWidth: 12,
+                                padding: 10,
+                                font: { size: 11 }
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: '#1f2937',
+                            padding: 10,
+                            callbacks: {
+                                label: function(context) {
+                                    const value = context.raw || 0;
+                                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                    const percent = total > 0 ? ((value / total) * 100).toFixed(1) : 0;
+                                    return context.label + ': ' + new Intl.NumberFormat('vi-VN').format(value) + ' ₫ (' + percent + '%)';
+                                }
+                            }
+                        }
+                    },
+                    cutout: '65%'
+                }
+            });
+        }
+    }
+</script>
 @endsection
