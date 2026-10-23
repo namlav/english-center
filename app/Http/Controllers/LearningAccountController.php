@@ -51,7 +51,8 @@ class LearningAccountController extends Controller
         $user = $request->user();
         $enrollments = $user->courseEnrollments()->with(['course.sections.lessons' => fn ($query) => $query->where('is_published', true)->orderBy('position')])->orderByDesc('started_at')->paginate(9);
         $completedIds = $user->lessonProgress()->whereNotNull('completed_at')->pluck('lesson_id')->flip();
-        return view('learning.account.courses', compact('user','enrollments','completedIds'));
+        $pendingOrders = \App\Models\Order::where('user_id', $user->id)->where('status', 'pending')->with(['items', 'payment'])->latest('id')->get();
+        return view('learning.account.courses', compact('user','enrollments','completedIds','pendingOrders'));
     }
     public function schedule(Request $request): View
     {

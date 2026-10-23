@@ -4,7 +4,9 @@ namespace Tests\Feature;
 
 use App\Models\Course;
 use App\Models\CourseEnrollment;
+use App\Models\Order;
 use App\Models\User;
+use App\Services\CourseShop;
 use Database\Seeders\WebsiteContentSeeder;
 use Database\Seeders\CourseShopSeeder;
 use Database\Seeders\CoursePresentationSeeder;
@@ -104,5 +106,84 @@ class CourseOwnershipAndCurriculumTest extends TestCase
             $lockedResponse = $this->get(route('learn.lesson', [$course->slug, $lockedLesson->id]));
             $lockedResponse->assertStatus(403);
         }
+    }
+
+    public function test_combo_purchase_grants_access_to_combo_and_included_courses(): void
+    {
+        $user = User::factory()->student()->create();
+        $admin = User::factory()->admin()->create();
+        $shop = app(CourseShop::class);
+
+        $combo = Course::where('catalog_key', 'series-2')->first();
+        $childCourse = Course::where('catalog_key', 'course-15')->first();
+
+        if ($combo && $childCourse) {
+            // Create and confirm order for the combo
+            $order = Order::create([
+                'number' => (string) \Illuminate\Support\Str::uuid(),
+                'checkout_token' => (string) \Illuminate\Support\Str::uuid(),
+                'user_id' => $user->id,
+                'buyer_name' => $user->name,
+                'buyer_email' => $user->email,
+                'total' => 1650000,
+                'status' => 'pending',
+            ]);
+            $order->items()->create([
+                'course_id' => $combo->id,
+                'course_name' => $combo->name,
+                'unit_price' => 1650000,
+                'access_days' => 365,
+            ]);
+            $payment = $order->payment()->create([
+                'reference' => 'DEMO-' . strtoupper(\Illuminate\Support\Str::random(20)),
+                'amount' => 1650000,
+                'method' => 'demo',
+                'status' => 'pending',
+            ]);
+
+            $shop->confirm($order, $payment->reference, $admin);
+
+            // User now owns both combo and child course
+            $this->assertTrue($shop->owned($user, $combo->id));
+            $this->assertTrue($shop->owned($user, $childCourse->id));
+
+            // Access child course detail shows "Đã mua"
+            $this->actingAs($user)->get(route('shop.show', $childCourse->slug))
+                ->assertOk()
+                ->assertSee('Đã mua');
+        }
+    }
+
+    public function test_cart_auto_removes_already_owned_courses(): void
+    {
+        $user = User::factory()->student()->create();
+        $course = Course::first();
+        $shop = app(CourseShop::class);
+
+        // Grant enrollment
+        CourseEnrollment::create([
+            'user_id' => $user->id,
+            'course_id' => $course->id,
+            'source' => 'purchase',
+            'status' => 'active',
+            'started_at' => now(),
+            'expires_at' => now()->addDays(365),
+        ]);
+
+        // Put into cart_items
+        \Illuminate\Support\Facades\DB::table('cart_items')->insert([
+            'user_id' => $user->id,
+            'course_id' => $course->id,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        // When accessing cart, it auto-removes the owned course
+        $response = $this->actingAs($user)->get(route('cart.index'));
+        $response->assertOk();
+        $this->assertDatabaseMissing('cart_items', [
+            'user_id' => $user->id,
+            'course_id' => $course->id,
+        ]);
     }
 }

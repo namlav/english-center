@@ -23,8 +23,20 @@
  @endif
  @endif
  <div class="qr-status" data-order-status-url="{{ $adminView?'':route('orders.status',$order->number) }}"><span class="qr-status-dot"></span>{{ $requests->whereNotNull('reported_at')->isNotEmpty()?'Đã báo chuyển khoản · Chờ admin đối soát':'Chờ chuyển khoản và admin đối soát' }}<p>Tạo hoặc quét QR chưa xác nhận tiền đã vào tài khoản. Các nội dung QR cũ vẫn được lưu để đối chiếu.</p></div>
- @if($adminView)
- <form method="POST" action="{{ route('shop_admin.orders.confirm',$order->number) }}">@csrf<label class="bank-verified"><input type="checkbox" name="verified" value="1" required> Tôi đã kiểm tra ngân hàng, nhận đủ {{ number_format($order->total,0,',','.') }}đ và khớp nội dung của đơn này.</label><button class="commerce-button" type="submit">Xác nhận đã nhận tiền và cấp quyền học</button></form>
+ @if($adminView || auth()->user()?->isAdmin())
+ <div class="admin-verification-card" style="margin-top:16px;background:#f0fdf4;border:1px solid #86efac;border-radius:8px;padding:14px;box-shadow:0 1px 2px rgba(0,0,0,0.05);">
+  <strong style="color:#166534;font-size:14px;display:block;margin-bottom:6px;">Quyền Quản trị viên (Admin):</strong>
+  <p style="color:#15803d;font-size:13px;margin:0 0 10px 0;">Bạn có thể đối soát và kích hoạt đơn hàng ngay lập tức mà không cần chuyển trang.</p>
+  <form method="POST" action="{{ route('shop_admin.orders.confirm',$order->number) }}">
+   @csrf
+   <label class="bank-verified" style="display:flex;align-items:center;gap:8px;color:#166534;font-size:13px;margin-bottom:10px;cursor:pointer;">
+    <input type="checkbox" name="verified" value="1" required checked> Tôi xác nhận đã nhận đủ tiền và cấp quyền học ngay.
+   </label>
+   <button class="commerce-button" type="submit" style="background:#059669;border-color:#059669;font-weight:700;">
+    Xác nhận đã nhận tiền & Kích hoạt học ngay
+   </button>
+  </form>
+ </div>
  @endif
  </section>
  <aside class="commerce-summary commerce-payment-details"><span class="commerce-gold-label">ĐỐI CHIẾU THÔNG TIN</span><h2>Thông tin chuyển khoản</h2>
