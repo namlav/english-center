@@ -17,6 +17,26 @@
 <body>
 @php($headerCartCount=auth()->check() && \Illuminate\Support\Facades\Schema::hasTable('cart_items') ? \Illuminate\Support\Facades\DB::table('cart_items')->where('user_id',auth()->id())->count() : 0)
     <a class="skip-link" href="#main-content">Đi đến nội dung chính</a>
+
+    @if(auth()->check() && auth()->user()->isAdmin())
+        <div class="admin-topbar" style="background: #0f172a; color: #f8fafc; font-size: 13px; padding: 8px 0; border-bottom: 2px solid #2563eb; position: relative; z-index: 30;">
+            <div class="shell" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span style="background: #dc2626; color: #ffffff; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 800; letter-spacing: 0.05em;">ADMIN CONTROL</span>
+                    <span>Xin chào, <strong>{{ auth()->user()->name }}</strong> (Toàn quyền Quản trị viên)</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 16px; font-weight: 600; font-size: 13px; flex-wrap: wrap;">
+                    <a href="{{ route('website.index') }}" style="color: #93c5fd; text-decoration: none;">⚙️ Quản lý Website</a>
+                    <a href="{{ route('shop_admin.index') }}" style="color: #cbd5e1; text-decoration: none;">📚 Khóa học &amp; Video</a>
+                    <a href="{{ route('shop_admin.orders.index') }}" style="color: #cbd5e1; text-decoration: none;">📦 Đơn hàng</a>
+                    <a href="{{ route('class_rooms.index') }}" style="color: #cbd5e1; text-decoration: none;">🏫 Lớp học</a>
+                    <a href="{{ route('users.index') }}" style="color: #cbd5e1; text-decoration: none;">👥 Người dùng</a>
+                    <a href="{{ route('reports.index') }}" style="color: #cbd5e1; text-decoration: none;">📊 Doanh thu</a>
+                </div>
+            </div>
+        </div>
+    @endif
+
     <header class="site-header">
         <div class="shell header-inner">
             <a class="brand" href="{{ route('home') }}" aria-label="English Center — Trang chủ">
@@ -29,12 +49,20 @@
                 <a href="{{ route('catalog.index') }}" @if(request()->routeIs('catalog.index','course_catalog.show','shop.show')) aria-current="page" @endif>Chương trình học</a>
                 <a href="{{ route('practice.index') }}" @if(request()->routeIs('practice.*')) aria-current="page" @endif>Đề thi online</a>
                 <a href="{{ route('account.courses') }}" @if(request()->routeIs('account.courses')) aria-current="page" @endif>Khóa học của tôi</a>
-                <a href="{{ route('cart.index') }}" @if(request()->routeIs('cart.*')) aria-current="page" @endif class="header-cart-link"><x-study-icon name="cart"/>Giỏ hàng<span class="cart-count-badge">{{ $headerCartCount }}</span></a><div class="mobile-account">
+                @if(auth()->check() && auth()->user()->isAdmin())
+                    <a href="{{ route('website.index') }}" style="color: #2563eb; font-weight: 700;">⚙️ Quản trị Admin</a>
+                @else
+                    <a href="{{ route('cart.index') }}" @if(request()->routeIs('cart.*')) aria-current="page" @endif class="header-cart-link"><x-study-icon name="cart"/>Giỏ hàng<span class="cart-count-badge">{{ $headerCartCount }}</span></a>
+                @endif
+                <div class="mobile-account">
                     @auth <a href="{{ route('account.show') }}">Trang cá nhân</a>
                     @else <a href="{{ route('login') }}">Đăng nhập</a> <a href="{{ route('register') }}">Đăng ký</a> @endauth
                 </div>
             </nav>
-            <div class="header-account portal-header-account"><a class="mobile-cart-shortcut" href="{{ route('cart.index') }}" aria-label="Giỏ hàng"><x-study-icon name="cart"/><span>{{ $headerCartCount }}</span></a>
+            <div class="header-account portal-header-account">
+                @if(!auth()->check() || !auth()->user()->isAdmin())
+                    <a class="mobile-cart-shortcut" href="{{ route('cart.index') }}" aria-label="Giỏ hàng"><x-study-icon name="cart"/><span>{{ $headerCartCount }}</span></a>
+                @endif
                 @auth
                     <div class="account-dropdown"><button class="account-trigger" type="button" aria-expanded="false" aria-controls="account-panel" aria-label="Mở menu tài khoản"><span class="account-avatar-small">{{ mb_strtoupper(mb_substr(auth()->user()->name,0,1)) }}</span><span class="account-trigger-name">{{ auth()->user()->name }}</span><span>⌄</span></button><div id="account-panel" class="account-panel" hidden><div class="account-panel-heading"><strong>{{ auth()->user()->name }}</strong><span>{{ auth()->user()->email }}</span></div><a href="{{ route('account.courses') }}">Khóa học của tôi</a><a href="{{ route('account.schedule') }}">Lịch học của tôi</a><a href="{{ route('orders.index') }}">Đơn hàng của tôi</a><a href="{{ route('account.show') }}">Trang cá nhân</a>@if(auth()->user()->isAdmin())<a href="{{ route('website.index') }}">Quản lý website</a>@endif<a href="{{ route('class_rooms.index') }}">Quản lý lớp học</a><form action="{{ route('logout') }}" method="POST">@csrf<button type="submit">Đăng xuất</button></form></div></div>
                 @else

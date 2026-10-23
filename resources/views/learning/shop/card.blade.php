@@ -2,8 +2,8 @@
     $cardShop=$shop??app(\App\Services\CourseShop::class);
     $publishedLessons=$course->lessons_count??$course->lessons()->where('is_published',true)->count();
     $canAdd=$course->is_for_sale && $publishedLessons>0;
-    $alreadyOwned=auth()->check() && $cardShop->owned(auth()->user(),$course->id);
-    $alreadyInCart=$canAdd && auth()->check() && \Illuminate\Support\Facades\Schema::hasTable('cart_items') && \Illuminate\Support\Facades\DB::table('cart_items')->where('user_id',auth()->id())->where('course_id',$course->id)->exists();
+    $alreadyOwned=auth()->check() && (auth()->user()->isAdmin() || $cardShop->owned(auth()->user(),$course->id));
+    $alreadyInCart=$canAdd && auth()->check() && !auth()->user()->isAdmin() && \Illuminate\Support\Facades\Schema::hasTable('cart_items') && \Illuminate\Support\Facades\DB::table('cart_items')->where('user_id',auth()->id())->where('course_id',$course->id)->exists();
     $currentPrice = $cardShop->price($course);
     $discountPct = ($course->sale_price !== null && $course->price > 0 && $course->price > $currentPrice)
         ? round((($course->price - $currentPrice) / $course->price) * 100)

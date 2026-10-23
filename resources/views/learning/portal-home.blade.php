@@ -31,12 +31,21 @@
                     </div>
                 </div>
                 <div class="study4-hero-actions">
-                    <a class="btn-study4-primary" href="{{ route('catalog.index') }}">
-                        Khám phá khóa học <x-study-icon name="arrow" />
-                    </a>
-                    <a class="btn-study4-secondary" href="{{ route('practice.index') }}">
-                        Luyện đề online miễn phí
-                    </a>
+                    @if(auth()->check() && auth()->user()->isAdmin())
+                        <a class="btn-study4-primary" href="{{ route('website.index') }}">
+                            ⚙️ Trang Quản Trị Website <x-study-icon name="arrow" />
+                        </a>
+                        <a class="btn-study4-secondary" href="{{ route('shop_admin.index') }}">
+                            📚 Quản lý Khóa học &amp; Video
+                        </a>
+                    @else
+                        <a class="btn-study4-primary" href="{{ route('catalog.index') }}">
+                            Khám phá khóa học <x-study-icon name="arrow" />
+                        </a>
+                        <a class="btn-study4-secondary" href="{{ route('practice.index') }}">
+                            Luyện đề online miễn phí
+                        </a>
+                    @endif
                 </div>
             </div>
             
@@ -312,12 +321,21 @@
                 Tham gia cùng hàng nghìn học viên đang tự tin luyện thi IELTS, TOEIC và tiếng Anh thực hành mỗi ngày trên nền tảng English Center.
             </p>
             <div class="study4-bottom-banner-actions">
-                <a class="btn-study4-primary" href="{{ route('catalog.index') }}" style="background: #ffffff; color: #1e3a8a !important; border-color: #ffffff; font-weight: 800;">
-                    Khám phá khóa học ngay <x-study-icon name="arrow" />
-                </a>
-                <a class="btn-study4-secondary" href="{{ route('practice.index') }}" style="background: transparent; color: #ffffff !important; border-color: rgba(255,255,255,0.4);">
-                    Luyện đề online miễn phí
-                </a>
+                @if(auth()->check() && auth()->user()->isAdmin())
+                    <a class="btn-study4-primary" href="{{ route('website.index') }}" style="background: #ffffff; color: #1e3a8a !important; border-color: #ffffff; font-weight: 800;">
+                        ⚙️ Bảng Quản Trị Trung Tâm <x-study-icon name="arrow" />
+                    </a>
+                    <a class="btn-study4-secondary" href="{{ route('shop_admin.orders.index') }}" style="background: transparent; color: #ffffff !important; border-color: rgba(255,255,255,0.4);">
+                        📦 Quản lý đơn hàng
+                    </a>
+                @else
+                    <a class="btn-study4-primary" href="{{ route('catalog.index') }}" style="background: #ffffff; color: #1e3a8a !important; border-color: #ffffff; font-weight: 800;">
+                        Khám phá khóa học ngay <x-study-icon name="arrow" />
+                    </a>
+                    <a class="btn-study4-secondary" href="{{ route('practice.index') }}" style="background: transparent; color: #ffffff !important; border-color: rgba(255,255,255,0.4);">
+                        Luyện đề online miễn phí
+                    </a>
+                @endif
             </div>
         </div>
     </div>

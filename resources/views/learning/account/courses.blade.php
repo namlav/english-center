@@ -8,6 +8,20 @@
 <h1>Khóa học của tôi</h1>
 <p>Các khóa học đã được cấp quyền trên English Center.</p>
 
+@if(auth()->check() && auth()->user()->isAdmin())
+    <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 12px; padding: 18px 22px; margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
+        <div>
+            <strong style="color: #1e40af; font-size: 15px; display: block; margin-bottom: 4px;">👑 Quyền Quản trị viên (Toàn quyền học & quản lý)</strong>
+            <span style="font-size: 13px; color: #3b82f6;">Bạn có toàn quyền vào học, kiểm tra đề thi và quản lý tất cả các khóa học trên hệ thống.</span>
+        </div>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <a href="{{ route('shop_admin.index') }}" class="button button-small" style="background: #2563eb; border-color: #2563eb; color: #fff; font-size: 13px; font-weight: 700; text-decoration: none;">⚙️ Quản lý Khóa học</a>
+            <a href="{{ route('shop_admin.orders.index') }}" class="button button-outline button-small" style="font-size: 13px; font-weight: 600; text-decoration: none;">📦 Quản lý Đơn hàng</a>
+            <a href="{{ route('class_rooms.index') }}" class="button button-outline button-small" style="font-size: 13px; font-weight: 600; text-decoration: none;">🏫 Quản lý Lớp học</a>
+        </div>
+    </div>
+@endif
+
 @if(isset($pendingOrders) && $pendingOrders->isNotEmpty())
     <div class="pending-orders-notice" style="background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:16px 20px;margin-bottom:24px;box-shadow:0 1px 3px rgba(0,0,0,0.04);">
         <h3 style="margin:0 0 8px 0;color:#92400e;font-size:16px;font-weight:700;display:flex;align-items:center;gap:8px;">

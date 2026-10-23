@@ -166,11 +166,26 @@
         <div class="owned-notification" style="background: #ecfdf5; border: 1px solid #10b981; border-radius: 8px; padding: 12px 14px; margin-bottom: 14px; display: flex; align-items: center; gap: 10px; color: #065f46;">
             <span style="display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; background:#059669; color:#fff; border-radius:50%; font-size:13px; font-weight:bold; flex-shrink: 0;">✓</span>
             <div>
-                <strong style="display: block; font-size: 14px; color:#065f46;">Khóa học đã mua</strong>
-                <span style="font-size: 12px; color: #047857;">Tài khoản của bạn đã sở hữu khóa học này.</span>
+                <strong style="display: block; font-size: 14px; color:#065f46;">
+                    @if(auth()->check() && auth()->user()->isAdmin())
+                        Quyền Quản trị viên
+                    @else
+                        Khóa học đã mua
+                    @endif
+                </strong>
+                <span style="font-size: 12px; color: #047857;">
+                    @if(auth()->check() && auth()->user()->isAdmin())
+                        Bạn có toàn quyền truy cập toàn bộ bài học và quản lý nội dung khóa học.
+                    @else
+                        Tài khoản của bạn đã sở hữu khóa học này.
+                    @endif
+                </span>
             </div>
         </div>
-        <a class="button buy-button already-owned" href="{{ route('learn.start',$course->slug) }}" style="background:#059669;border-color:#059669;color:#ffffff;font-weight:700;"><x-study-icon name="check"/> Đã mua</a>
+        <a class="button buy-button already-owned" href="{{ route('learn.start',$course->slug) }}" style="background:#059669;border-color:#059669;color:#ffffff;font-weight:700;"><x-study-icon name="check"/> Vào học ngay</a>
+        @if(auth()->check() && auth()->user()->isAdmin())
+            <a class="button button-outline buy-button" href="{{ route('shop_admin.courses.edit', $course) }}" style="margin-top: 8px; font-size: 13px;">⚙️ Quản lý khóa học trong Admin</a>
+        @endif
     @elseif($buyable)
         <form action="{{ route('cart.add',$course) }}" method="POST">@csrf<button class="button buy-button" type="submit">Thêm vào giỏ hàng</button></form>
         <a class="button button-outline buy-button" href="{{ route('cart.index') }}">Xem giỏ hàng</a>
