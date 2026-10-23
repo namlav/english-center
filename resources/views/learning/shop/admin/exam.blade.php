@@ -1,4 +1,4 @@
-@extends('layouts.learning')
+@extends('layouts.admin')
 @section('title', ($paper->exists ? 'Soạn đề: ' . $paper->title : 'Tạo đề thi mới'))
 @section('content')
 <section class="shell admin-page">

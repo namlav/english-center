@@ -1,4 +1,4 @@
-@extends('layouts.learning')
+@extends('layouts.admin')
 @section('title', 'Quản lý Đơn hàng & Kích hoạt Khóa học')
 @section('content')
 <section class="shell admin-page">

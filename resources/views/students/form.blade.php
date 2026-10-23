@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title', $student->exists ? 'Sửa học viên' : 'Thêm học viên')
 

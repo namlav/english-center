@@ -12,6 +12,8 @@
     
     <!-- Metis Admin Styles -->
     <link rel="stylesheet" href="{{ asset('css/metis-admin.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/portal.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/commerce.css') }}">
     
     <style>
         /* Metis Custom Utilities */
@@ -233,6 +235,21 @@
             <div class="alert alert-danger alert-dismissible fade show m-4 mb-0 rounded-3 shadow-sm border-0 d-flex align-items-center gap-2" role="alert">
                 <i class="bi bi-exclamation-triangle-fill text-danger fs-5"></i>
                 <div class="flex-grow-1">{{ session('error') }}</div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
+        @if($errors->any())
+            <div class="alert alert-danger alert-dismissible fade show m-4 mb-0 rounded-3 shadow-sm border-0" role="alert">
+                <div class="d-flex align-items-center gap-2 mb-1">
+                    <i class="bi bi-exclamation-triangle-fill text-danger fs-5"></i>
+                    <strong>Vui lòng kiểm tra lại thông tin:</strong>
+                </div>
+                <ul class="mb-0 ps-4">
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif

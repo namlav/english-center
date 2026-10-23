@@ -48,11 +48,7 @@
                 <a href="{{ route('catalog.index') }}" @if(request()->routeIs('catalog.index','course_catalog.show','shop.show')) aria-current="page" @endif>Chương trình học</a>
                 <a href="{{ route('practice.index') }}" @if(request()->routeIs('practice.*')) aria-current="page" @endif>Đề thi online</a>
                 <a href="{{ route('account.courses') }}" @if(request()->routeIs('account.courses')) aria-current="page" @endif>Khóa học của tôi</a>
-                @if(auth()->check() && auth()->user()->isAdmin())
-                    <a href="{{ route('website.index') }}" style="color: #2563eb; font-weight: 700;">⚙️ Quản trị Admin</a>
-                @else
-                    <a href="{{ route('cart.index') }}" @if(request()->routeIs('cart.*')) aria-current="page" @endif class="header-cart-link"><x-study-icon name="cart"/>Giỏ hàng<span class="cart-count-badge">{{ $headerCartCount }}</span></a>
-                @endif
+                <a href="{{ route('cart.index') }}" @if(request()->routeIs('cart.*')) aria-current="page" @endif class="header-cart-link"><x-study-icon name="cart"/>Giỏ hàng<span class="cart-count-badge">{{ $headerCartCount }}</span></a>
                 <div class="mobile-account">
                     @auth <a href="{{ route('account.show') }}">Trang cá nhân</a>
                     @else <a href="{{ route('login') }}">Đăng nhập</a> <a href="{{ route('register') }}">Đăng ký</a> @endauth
