@@ -112,6 +112,14 @@
                 </a>
             </div>
 
+            <!-- Hóa đơn học phí & khóa học -->
+            <div class="metis-nav-item">
+                <a href="{{ route('invoices.index') }}" class="metis-nav-link {{ request()->routeIs('invoices.*') ? 'active' : '' }}">
+                    <i class="bi bi-receipt-cutoff"></i>
+                    <span>Quản lý Hóa đơn</span>
+                </a>
+            </div>
+
 
 
             <div class="metis-nav-heading">HỆ THỐNG & TÀI KHOẢN</div>
