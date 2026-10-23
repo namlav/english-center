@@ -63,6 +63,7 @@
                         <li class="nav-item"><a class="nav-link" href="{{ route('teachers.index') }}">Giảng viên</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('students.index') }}">Học viên</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('users.index') }}">Tài khoản</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('invoices.index') }}">Hóa đơn</a></li>
                         <li class="nav-item"><a class="nav-link fw-semibold text-warning" href="{{ route('reports.index') }}">Thống kê</a></li>
                     @endif
 

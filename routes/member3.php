@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\GradeController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ReportController;
 
 // Chức năng dành cho Học viên: Đăng ký lớp & Xem lớp đã đăng ký
@@ -37,4 +38,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::get('/reports/dashboard', [ReportController::class, 'index'])->name('reports.index');
     Route::get('/reports/export', [ReportController::class, 'exportCsv'])->name('reports.export');
+
+    Route::get('/invoices', [InvoiceController::class, 'index'])->name('invoices.index');
+    Route::get('/invoices/{invoice}', [InvoiceController::class, 'show'])->name('invoices.show');
 });
