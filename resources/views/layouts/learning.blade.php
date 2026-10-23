@@ -31,6 +31,7 @@
                     <a href="{{ route('shop_admin.orders.index') }}" style="color: #cbd5e1; text-decoration: none;">📦 Đơn hàng</a>
                     <a href="{{ route('class_rooms.index') }}" style="color: #cbd5e1; text-decoration: none;">🏫 Lớp học</a>
                     <a href="{{ route('users.index') }}" style="color: #cbd5e1; text-decoration: none;">👥 Người dùng</a>
+                    <a href="{{ route('invoices.index') }}" style="color: #cbd5e1; text-decoration: none;">🧾 Hóa đơn</a>
                     <a href="{{ route('reports.index') }}" style="color: #cbd5e1; text-decoration: none;">📊 Doanh thu</a>
                 </div>
             </div>
