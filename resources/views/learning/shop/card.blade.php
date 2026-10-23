@@ -4,8 +4,12 @@
     $canAdd=$course->is_for_sale && $publishedLessons>0;
     $alreadyOwned=auth()->check() && $cardShop->owned(auth()->user(),$course->id);
     $alreadyInCart=$canAdd && auth()->check() && \Illuminate\Support\Facades\Schema::hasTable('cart_items') && \Illuminate\Support\Facades\DB::table('cart_items')->where('user_id',auth()->id())->where('course_id',$course->id)->exists();
+    $currentPrice = $cardShop->price($course);
+    $discountPct = ($course->sale_price !== null && $course->price > 0 && $course->price > $currentPrice)
+        ? round((($course->price - $currentPrice) / $course->price) * 100)
+        : 0;
 @endphp
-<article class="course-tile shop-course-card" style="position: relative; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 1px 3px rgba(0,0,0,0.05); transition: transform 0.15s ease, box-shadow 0.15s ease;">
+<article class="course-tile shop-course-card" style="position: relative; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 2px 6px rgba(0,0,0,0.04); transition: transform 0.2s ease, box-shadow 0.2s ease;">
     <a class="course-cover shop-cover" href="{{ route('shop.show',$course->slug) }}" style="position: relative; display: block; overflow: hidden; aspect-ratio: 16/9; background: #0f172a;">
         @if($alreadyOwned)
             <span class="badge-owned" style="position: absolute; top: 12px; right: 12px; z-index: 5; background: #059669; color: #ffffff; padding: 5px 12px; border-radius: 6px; font-size: 12px; font-weight: 700; box-shadow: 0 2px 6px rgba(0,0,0,0.25); display: inline-flex; align-items: center; gap: 5px;">
@@ -22,11 +26,26 @@
         @endif
     </a>
     <div class="course-tile-body" style="padding: 20px; display: flex; flex-direction: column; flex: 1;">
-        <h3 style="font-size: 17px; font-weight: 700; line-height: 1.45; margin: 0 0 10px 0; min-height: 50px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px;">
+            <span class="study4-card-tag">Phần mềm online</span>
+            <span style="font-size: 12px; color: #64748b; display: inline-flex; align-items: center; gap: 4px;">
+                <x-study-icon name="book"/> {{ $publishedLessons }} bài
+            </span>
+        </div>
+
+        <h3 style="font-size: 17px; font-weight: 700; line-height: 1.45; margin: 0 0 8px 0; min-height: 48px; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;">
             <a href="{{ route('shop.show',$course->slug) }}" style="color: #0f172a; text-decoration: none;">
                 {{ $course->name }}
             </a>
         </h3>
+
+        <div class="study4-rating-line">
+            <span class="study4-rating-stars">★★★★★</span>
+            <strong style="color: #0f172a; font-weight: 700;">4.9</strong>
+            <span>(260)</span>
+            <span>·</span>
+            <span>12.450 học viên</span>
+        </div>
         
         <p class="shop-summary" style="font-size: 14px; line-height: 1.6; color: #475569; margin: 0 0 14px 0; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; min-height: 44px;">
             {{ $course->summary }}
@@ -38,24 +57,27 @@
                     <x-study-icon name="check"/> Đã có trong tài khoản
                 </span>
             @elseif($canAdd)
-                <span><x-study-icon name="book"/> {{ $publishedLessons }} bài học</span>
-                <span>·</span>
                 <span>Truy cập {{ $course->access_days }} ngày</span>
+                <span>·</span>
+                <span style="color: #2563eb; font-weight: 600;">Luyện đề & Dictation</span>
             @else
                 <span style="color: #94a3b8;">Nội dung sắp mở bán</span>
             @endif
         </div>
 
-        <div class="course-tile-price" style="display: flex; align-items: baseline; gap: 10px; margin-top: auto; margin-bottom: 16px;">
-            <strong style="font-size: 20px; font-weight: 800; color: #0f172a;">
-                {{ number_format($cardShop->price($course),0,',','.') }}đ
-            </strong>
+        <div class="study4-price-row">
+            <span class="study4-price-current">
+                {{ number_format($currentPrice,0,',','.') }}đ
+            </span>
             @if($course->sale_price!==null)
-                <s style="font-size: 14px; color: #94a3b8;">{{ number_format($course->price,0,',','.') }}đ</s>
+                <span class="study4-price-old">{{ number_format($course->price,0,',','.') }}đ</span>
+                @if($discountPct > 0)
+                    <span class="study4-price-badge">-{{ $discountPct }}%</span>
+                @endif
             @endif
         </div>
 
-        <div class="course-purchase-actions" style="display: flex; align-items: center; gap: 10px; justify-content: space-between;">
+        <div class="course-purchase-actions" style="display: flex; align-items: center; gap: 10px; justify-content: space-between; margin-top: 10px;">
             <a class="course-details-link" href="{{ route('shop.show',$course->slug) }}" style="font-size: 14px; font-weight: 600; color: #2563eb; text-decoration: none; display: inline-flex; align-items: center; gap: 4px;">
                 Chi tiết <x-study-icon name="arrow"/>
             </a>
