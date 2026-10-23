@@ -38,13 +38,13 @@
         <table class="admin-table" id="coursesAdminTable">
             <thead>
                 <tr>
-                    <th style="width: 40px;">#</th>
-                    <th style="width: 38%;">Khóa học & Giáo trình</th>
-                    <th>Danh mục</th>
-                    <th style="text-align: center;">Bài học</th>
-                    <th>Học phí</th>
-                    <th style="text-align: center;">Trạng thái</th>
-                    <th style="text-align: right;">Thao tác</th>
+                    <th style="width: 50px; text-align: center;">#</th>
+                    <th>Khóa học & Giáo trình</th>
+                    <th style="width: 140px;">Danh mục</th>
+                    <th style="width: 90px; text-align: center;">Bài học</th>
+                    <th style="width: 120px;">Học phí</th>
+                    <th style="width: 110px; text-align: center;">Trạng thái</th>
+                    <th style="width: 160px; text-align: right;">Thao tác</th>
                 </tr>
             </thead>
             <tbody>

@@ -17,10 +17,20 @@
     --metis-danger: #ef4444;
 }
 
+body.metis-admin-body,
+.metis-wrapper,
+.metis-sidebar,
+.metis-main,
+.metis-content,
+button, input, select, textarea {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
 body.metis-admin-body {
     background-color: var(--metis-body-bg);
     color: #1e293b;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     min-height: 100vh;
     margin: 0;
     overflow-x: hidden;
@@ -563,8 +573,22 @@ body.metis-admin-body {
     color: #1e293b;
     vertical-align: middle;
 }
-.metis-content .admin-table tr:hover td {
-    background-color: #f8fafc;
+.metis-content .admin-table th:first-child,
+.metis-content .admin-table td:first-child,
+.admin-table th:first-child,
+.admin-table td:first-child {
+    width: 50px !important;
+    max-width: 60px !important;
+    min-width: 40px !important;
+    text-align: center !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    white-space: nowrap !important;
+}
+
+.metis-content .admin-table td:nth-child(2),
+.admin-table td:nth-child(2) {
+    width: auto !important;
 }
 .metis-content .admin-table td a {
     color: #2563eb;

@@ -6,6 +6,11 @@
     <title>@yield('title', 'Trung tâm Quản trị Admin — English Center')</title>
     <link rel="icon" type="image/svg+xml" href="{{ asset('images/english-center-mark.svg') }}">
     
+    <!-- Google Fonts Inter & JetBrains Mono (Hỗ trợ tiếng Việt sắc nét, chuẩn UTF-8) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
     <!-- Bootstrap 5 & Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
@@ -126,11 +131,11 @@
                 </a>
             </div>
 
-            <!-- Giảng viên -->
+            <!-- Giảng viên & Banner (Hợp nhất) -->
             <div class="metis-nav-item">
-                <a href="{{ route('teachers.index') }}" class="metis-nav-link {{ request()->routeIs('teachers.*') ? 'active' : '' }}">
+                <a href="{{ route('teachers.index') }}" class="metis-nav-link {{ request()->routeIs('teachers.*') || request()->routeIs('website.teachers.*') ? 'active' : '' }}">
                     <i class="bi bi-person-badge-fill"></i>
-                    <span>Đội ngũ Giảng viên</span>
+                    <span>Đội ngũ Giáo viên</span>
                 </a>
             </div>
 
@@ -148,12 +153,6 @@
                 <a href="{{ route('website.home.edit') }}" class="metis-nav-link {{ request()->routeIs('website.home.*') ? 'active' : '' }}">
                     <i class="bi bi-image-fill"></i>
                     <span>Banner & Trang chủ</span>
-                </a>
-            </div>
-            <div class="metis-nav-item">
-                <a href="{{ route('website.index') }}" class="metis-nav-link {{ request()->routeIs('website.index') || request()->routeIs('website.teachers.*') ? 'active' : '' }}">
-                    <i class="bi bi-person-lines-fill"></i>
-                    <span>Giáo viên Banner</span>
                 </a>
             </div>
         </nav>

@@ -14,7 +14,10 @@ class TeacherController extends Controller
     public function index()
     {
         $teachers = Teacher::with('user')->orderBy('created_at', 'desc')->paginate(15);
-        return view('teachers.index', compact('teachers'));
+        $publicTeachers = \Illuminate\Support\Facades\Schema::hasTable('public_teachers') 
+            ? \App\Models\PublicTeacher::orderBy('position')->get() 
+            : collect();
+        return view('teachers.index', compact('teachers', 'publicTeachers'));
     }
 
     public function create()

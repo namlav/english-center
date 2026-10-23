@@ -37,13 +37,13 @@
         <table class="admin-table" id="examsAdminTable">
             <thead>
                 <tr>
-                    <th style="width: 40px;">#</th>
-                    <th style="width: 45%;">Tên đề thi & Danh mục</th>
-                    <th>Kỹ năng</th>
-                    <th style="text-align: center;">Thời gian</th>
-                    <th style="text-align: center;">Số câu hỏi</th>
-                    <th style="text-align: center;">Trạng thái</th>
-                    <th style="text-align: right;">Thao tác</th>
+                    <th style="width: 50px; text-align: center;">#</th>
+                    <th>Tên đề thi & Danh mục</th>
+                    <th style="width: 110px;">Kỹ năng</th>
+                    <th style="width: 100px; text-align: center;">Thời gian</th>
+                    <th style="width: 100px; text-align: center;">Số câu</th>
+                    <th style="width: 110px; text-align: center;">Trạng thái</th>
+                    <th style="width: 190px; text-align: right;">Thao tác</th>
                 </tr>
             </thead>
             <tbody>

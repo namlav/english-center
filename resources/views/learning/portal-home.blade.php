@@ -50,9 +50,43 @@
             </div>
             
             <div class="study4-hero-mockup">
-                <div class="study4-hero-img-wrap">
-                    <img src="{{ asset('images/banners/banner-home-hero.jpg') }}" alt="Học viên luyện thi tiếng Anh tại English Center" width="800" height="480" fetchpriority="high">
+                <div class="study4-hero-slider" id="heroRealBannerSlider" style="position: relative; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 40px -15px rgba(0,0,0,0.22); border: 4px solid #ffffff;">
+                    @php
+                        $heroBanners = [
+                            ['img' => $home['image'] ?? 'images/banners/banner-home-hero.jpg', 'title' => 'Luyện thi chứng chỉ quốc tế', 'tag' => 'Chuẩn Quốc Tế'],
+                            ['img' => 'images/banners/banner-ielts-real.jpg', 'title' => 'IELTS Intensive 7.5+ bứt phá', 'tag' => 'IELTS 7.5+'],
+                            ['img' => 'images/banners/banner-toeic-real.jpg', 'title' => 'TOEIC 850+ & Giao tiếp phản xạ', 'tag' => 'TOEIC 850+'],
+                            ['img' => 'images/banners/banner-online-real.jpg', 'title' => 'Học E-Learning 24/7 linh hoạt', 'tag' => 'Online 24/7'],
+                            ['img' => 'images/banners/banner-speaking-real.jpg', 'title' => 'Luyện Phát Âm & Nói Bản Xứ 1-on-1', 'tag' => 'Speaking 1-on-1'],
+                        ];
+                    @endphp
+                    
+                    <div class="hero-slides-wrapper" style="position: relative; width: 100%; height: 380px;">
+                        @foreach($heroBanners as $idx => $b)
+                            <div class="hero-slide-item {{ $idx === 0 ? 'active' : '' }}" data-slide-index="{{ $idx }}" style="position: absolute; inset: 0; opacity: {{ $idx === 0 ? '1' : '0' }}; transition: opacity 0.6s ease-in-out; pointer-events: {{ $idx === 0 ? 'auto' : 'none' }};">
+                                <img src="{{ asset($b['img']) }}" alt="{{ $b['title'] }}" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                                <div style="position: absolute; inset: 0; background: linear-gradient(180deg, transparent 45%, rgba(15,23,42,0.85) 100%); display: flex; align-items: flex-end; padding: 20px 24px;">
+                                    <div>
+                                        <span style="background: #2563eb; color: #fff; font-size: 11px; font-weight: 800; padding: 3px 10px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.05em; display: inline-block; margin-bottom: 6px;">{{ $b['tag'] }}</span>
+                                        <h4 style="color: #ffffff; font-size: 17px; font-weight: 700; margin: 0; text-shadow: 0 1px 3px rgba(0,0,0,0.5);">{{ $b['title'] }}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+
+                    {{-- Slider Controls --}}
+                    <button type="button" class="hero-slide-prev" onclick="prevHeroBanner()" aria-label="Banner trước" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,0.9); border: none; color: #0f172a; font-size: 20px; font-weight: 700; line-height: 1; display: grid; place-items: center; cursor: pointer; z-index: 10; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">‹</button>
+                    <button type="button" class="hero-slide-next" onclick="nextHeroBanner()" aria-label="Banner kế tiếp" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,0.9); border: none; color: #0f172a; font-size: 20px; font-weight: 700; line-height: 1; display: grid; place-items: center; cursor: pointer; z-index: 10; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">›</button>
+
+                    {{-- Slider Dots --}}
+                    <div class="hero-slide-dots" style="position: absolute; bottom: 12px; right: 20px; display: flex; gap: 6px; z-index: 10;">
+                        @foreach($heroBanners as $idx => $b)
+                            <button type="button" class="hero-dot {{ $idx === 0 ? 'active' : '' }}" onclick="goToHeroBanner({{ $idx }})" aria-label="Đến slide {{ $idx + 1 }}" style="width: {{ $idx === 0 ? '20px' : '8px' }}; height: 8px; border-radius: 4px; border: none; background: {{ $idx === 0 ? '#38bdf8' : 'rgba(255,255,255,0.5)' }}; cursor: pointer; transition: all 0.25s; padding: 0;"></button>
+                        @endforeach
+                    </div>
                 </div>
+
                 <div class="study4-floating-badge study4-floating-top">
                     <span style="font-size: 20px;">⭐️</span>
                     <div>
@@ -341,4 +375,88 @@
     </div>
 </section>
 
+{{-- 8. REAL CAMPUS & LEARNING SPACES (ẢNH THẬT TRUNG TÂM) --}}
+<section class="study4-section" style="background: #f8fafc; border-top: 1px solid var(--study4-border); padding-block: 55px; margin-top: 40px;">
+    <div class="shell">
+        <div class="study4-section-header text-center" style="max-width: 650px; margin: 0 auto 36px; text-align: center;">
+            <span class="study4-eyebrow" style="display: block; margin-bottom: 6px;">KHÔNG GIAN HỌC TẬP THỰC TẾ</span>
+            <h2 class="study4-section-h2" style="font-size: 30px; font-weight: 800; color: #0f172a;">Môi trường học tập & Đào tạo chuyên nghiệp</h2>
+            <p class="study4-section-subtitle" style="color: #64748b; font-size: 14.5px;">
+                Cơ sở vật chất hiện đại, phòng thi máy tính chuẩn IDP/ETS và không gian học tập truyền cảm hứng.
+            </p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+            <div style="border-radius: 16px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.06); position: relative; height: 260px;">
+                <img src="{{ asset('images/catalog/study4/study-banner.jpg') }}" alt="Phòng máy luyện thi IELTS" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                <div style="position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40%, rgba(15,23,42,0.85) 100%); display: flex; align-items: flex-end; padding: 18px;">
+                    <div>
+                        <span style="background: #2563eb; color: #fff; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 4px; text-transform: uppercase;">Cơ sở vật chất</span>
+                        <h4 style="color: #ffffff; font-weight: 700; font-size: 15px; margin: 4px 0 0;">Phòng máy luyện thi máy tính chuẩn ETS & IDP</h4>
+                    </div>
+                </div>
+            </div>
+            <div style="border-radius: 16px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.06); position: relative; height: 260px;">
+                <img src="{{ asset('images/banners/banner-toeic-real.jpg') }}" alt="Lớp học tương tác" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                <div style="position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40%, rgba(15,23,42,0.85) 100%); display: flex; align-items: flex-end; padding: 18px;">
+                    <div>
+                        <span style="background: #059669; color: #fff; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 4px; text-transform: uppercase;">Lớp học thực tế</span>
+                        <h4 style="color: #ffffff; font-weight: 700; font-size: 15px; margin: 4px 0 0;">Lớp học sĩ số vàng & Giảng viên kèm cặp</h4>
+                    </div>
+                </div>
+            </div>
+            <div style="border-radius: 16px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.06); position: relative; height: 260px;">
+                <img src="{{ asset('images/banners/banner-speaking-real.jpg') }}" alt="Luyện Speaking 1-on-1" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                <div style="position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40%, rgba(15,23,42,0.85) 100%); display: flex; align-items: flex-end; padding: 18px;">
+                    <div>
+                        <span style="background: #d97706; color: #fff; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 4px; text-transform: uppercase;">Phản xạ bản ngữ</span>
+                        <h4 style="color: #ffffff; font-weight: 700; font-size: 15px; margin: 4px 0 0;">Luyện phát âm & Speaking tương tác 1 kèm 1</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Hero Real Banner Slider Script
+    (function() {
+        let currentIdx = 0;
+        const slides = document.querySelectorAll('.hero-slide-item');
+        const dots = document.querySelectorAll('.hero-dot');
+        if (!slides.length) return;
+        
+        let timer = setInterval(nextSlide, 4500);
+
+        function showSlide(n) {
+            currentIdx = (n + slides.length) % slides.length;
+            slides.forEach((s, i) => {
+                s.style.opacity = i === currentIdx ? '1' : '0';
+                s.style.pointerEvents = i === currentIdx ? 'auto' : 'none';
+            });
+            dots.forEach((d, i) => {
+                d.style.width = i === currentIdx ? '20px' : '8px';
+                d.style.background = i === currentIdx ? '#38bdf8' : 'rgba(255,255,255,0.5)';
+            });
+        }
+        function nextSlide() { showSlide(currentIdx + 1); }
+        function prevSlide() { showSlide(currentIdx - 1); }
+
+        window.nextHeroBanner = function() {
+            clearInterval(timer);
+            nextSlide();
+            timer = setInterval(nextSlide, 4500);
+        };
+        window.prevHeroBanner = function() {
+            clearInterval(timer);
+            prevSlide();
+            timer = setInterval(nextSlide, 4500);
+        };
+        window.goToHeroBanner = function(i) {
+            clearInterval(timer);
+            showSlide(i);
+            timer = setInterval(nextSlide, 4500);
+        };
+    })();
+</script>
 @endsection
