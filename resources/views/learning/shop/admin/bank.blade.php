@@ -11,8 +11,6 @@
         <a class="button button-outline" href="{{ route('shop_admin.orders.index') }}" style="text-decoration: none;">← Về danh sách đơn hàng</a>
     </div>
 
-    @include('learning.admin.nav')
-
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 28px; align-items: start;">
         {{-- Mô phỏng thẻ ngân hàng --}}
         <div>

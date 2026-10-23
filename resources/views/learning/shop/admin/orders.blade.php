@@ -13,8 +13,6 @@
         </a>
     </div>
 
-    @include('learning.admin.nav')
-
     {{-- Bộ lọc trạng thái --}}
     <div style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
         <a href="{{ route('shop_admin.orders.index') }}" 

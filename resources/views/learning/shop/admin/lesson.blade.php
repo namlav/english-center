@@ -10,8 +10,6 @@
         <a class="button button-outline" href="{{ route('shop_admin.courses.edit', $course) }}" style="text-decoration: none;">← Quay lại khóa học</a>
     </div>
 
-    @include('learning.admin.nav')
-
     <form class="portal-form admin-form" method="POST" action="{{ $lesson->exists ? route('shop_admin.lessons.update', [$course, $lesson]) : route('shop_admin.lessons.store', $course) }}">
         @csrf
         @if($lesson->exists) @method('PATCH') @endif

@@ -11,8 +11,6 @@
         <a class="button" href="{{ route('exam_admin.create') }}" style="font-weight: 700; padding: 10px 20px; text-decoration: none;">+ Thêm đề thi mới</a>
     </div>
 
-    @include('learning.admin.nav')
-
     {{-- Thống kê nhanh --}}
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px;">
         <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.02);">

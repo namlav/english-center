@@ -10,8 +10,6 @@
         <a class="button button-outline" href="{{ route('exam_admin.edit', $paper) }}" style="text-decoration: none;">← Quay lại đề thi</a>
     </div>
 
-    @include('learning.admin.nav')
-
     <form class="portal-form admin-form" method="POST" action="{{ $question->exists ? route('exam_admin.questions.update', [$paper, $question]) : route('exam_admin.questions.store', $paper) }}">
         @csrf
         @if($question->exists) @method('PATCH') @endif

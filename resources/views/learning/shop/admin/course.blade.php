@@ -15,8 +15,6 @@
         </div>
     </div>
 
-    @include('learning.admin.nav')
-
     <form class="portal-form admin-form" method="POST" enctype="multipart/form-data" action="{{ $course->exists ? route('shop_admin.courses.update', $course) : route('shop_admin.courses.store') }}">
         @csrf
         @if($course->exists) @method('PATCH') @endif

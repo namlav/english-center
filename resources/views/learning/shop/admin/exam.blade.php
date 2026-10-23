@@ -15,8 +15,6 @@
         </div>
     </div>
 
-    @include('learning.admin.nav')
-
     <form class="portal-form admin-form" action="{{ $paper->exists ? route('exam_admin.update', $paper) : route('exam_admin.store') }}" method="POST">
         @csrf
         @if($paper->exists) @method('PATCH') @endif
