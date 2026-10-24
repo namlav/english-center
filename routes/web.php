@@ -9,6 +9,7 @@ use App\Http\Controllers\LearningAccountController;
 use App\Http\Controllers\AdminContentController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\PublicTeacherController;
+use App\Http\Controllers\ClassRoomController;
 use App\Http\Controllers\{ShopController,AdminShopController,AdminExamController};
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
