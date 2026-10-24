@@ -80,8 +80,17 @@
                             @endif
                         </td>
                         <td style="text-align: right; white-space: nowrap;">
-                            <a href="{{ route('shop_admin.orders.show', $order->number) }}" class="button button-small" style="padding: 5px 12px; font-size: 12.5px; text-decoration: none;">
-                                Xem & Duyệt đơn →
+                            @if($order->status !== 'paid')
+                                <form method="POST" action="{{ route('shop_admin.orders.confirm', $order->number) }}" style="display: inline-block; margin-right: 6px;" onsubmit="return confirm('Xác nhận đã nhận đủ {{ number_format($order->total, 0, ',', '.') }}đ và DUYỆT ĐƠN NGAY cho học viên {{ $order->buyer_name }}? Khóa học sẽ được cấp ngay vào tài khoản.');">
+                                    @csrf
+                                    <input type="hidden" name="verified" value="1">
+                                    <button type="submit" class="button button-small" style="background: #059669; border-color: #059669; color: #ffffff; padding: 5px 12px; font-size: 12.5px; font-weight: 700; cursor: pointer; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                                        ✓ Duyệt đơn ngay
+                                    </button>
+                                </form>
+                            @endif
+                            <a href="{{ route('shop_admin.orders.show', $order->number) }}" class="button button-small button-outline" style="padding: 5px 12px; font-size: 12.5px; text-decoration: none;">
+                                Chi tiết →
                             </a>
                         </td>
                     </tr>
