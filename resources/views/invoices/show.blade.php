@@ -26,7 +26,10 @@
         </div>
         <p class="text-secondary mb-0 mt-2">Tạo lúc {{ $invoice->created_at?->format('H:i, d/m/Y') ?? '—' }}</p>
     </div>
-    <div class="d-flex gap-2">
+    <div class="d-flex gap-2 no-print">
+        <button type="button" class="btn btn-outline-dark" onclick="window.print()">
+            <i class="bi bi-printer me-1"></i> In hóa đơn / Xuất PDF
+        </button>
         @if($classRoom)
             <a href="{{ route('class_rooms.show', $classRoom) }}" class="btn btn-outline-primary"><i class="bi bi-journal-bookmark me-1"></i>Xem lớp học</a>
         @endif
@@ -171,5 +174,12 @@
     .invoice-status-note { border-radius:12px; padding:.8rem .9rem; font-size:.85rem; font-weight:600; }
     .invoice-status-note-paid { color:#17795a; background:#eefaf5; }
     .invoice-status-note-unpaid { color:#94610d; background:#fff8eb; }
+
+    @media print {
+        .no-print, header, nav, footer, .sidebar, .topbar, .admin-topbar, .btn { display: none !important; }
+        body { background: #fff !important; font-size: 12pt; }
+        .card { border: 1px solid #ccc !important; box-shadow: none !important; }
+        .page-heading { margin-bottom: 20px !important; }
+    }
 </style>
 @endsection

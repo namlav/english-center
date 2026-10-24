@@ -32,7 +32,7 @@
                     <a href="{{ route('class_rooms.index') }}" style="color: #cbd5e1; text-decoration: none;">🏫 Lớp học</a>
                     <a href="{{ route('users.index') }}" style="color: #cbd5e1; text-decoration: none;">👥 Người dùng</a>
                     <a href="{{ route('invoices.index') }}" style="color: #cbd5e1; text-decoration: none;">🧾 Hóa đơn</a>
-                    <a href="{{ route('reports.index') }}" style="color: #cbd5e1; text-decoration: none;">📊 Doanh thu</a>
+                    <a href="{{ route('admin.dashboard') }}" style="color: #cbd5e1; text-decoration: none;">📊 Báo cáo</a>
                 </div>
             </div>
         </div>
@@ -48,6 +48,7 @@
             <nav id="site-navigation" class="site-navigation" aria-label="Điều hướng chính">
                 <a href="{{ route('home') }}" @if(request()->routeIs('home')) aria-current="page" @endif>Trang chủ</a>
                 <a href="{{ route('catalog.index') }}" @if(request()->routeIs('catalog.index','course_catalog.show','shop.show')) aria-current="page" @endif>Chương trình học</a>
+                <a href="{{ route('class_rooms.index') }}" @if(request()->routeIs('class_rooms.*')) aria-current="page" @endif>Lớp học &amp; Khai giảng</a>
                 <a href="{{ route('practice.index') }}" @if(request()->routeIs('practice.*')) aria-current="page" @endif>Đề thi online</a>
                 <a href="{{ route('account.courses') }}" @if(request()->routeIs('account.courses')) aria-current="page" @endif>Khóa học của tôi</a>
                 <a href="{{ route('cart.index') }}" @if(request()->routeIs('cart.*')) aria-current="page" @endif class="header-cart-link"><x-study-icon name="cart"/>Giỏ hàng<span class="cart-count-badge">{{ $headerCartCount }}</span></a>
@@ -61,7 +62,7 @@
                     <a class="mobile-cart-shortcut" href="{{ route('cart.index') }}" aria-label="Giỏ hàng"><x-study-icon name="cart"/><span>{{ $headerCartCount }}</span></a>
                 @endif
                 @auth
-                    <div class="account-dropdown"><button class="account-trigger" type="button" aria-expanded="false" aria-controls="account-panel" aria-label="Mở menu tài khoản"><span class="account-avatar-small">{{ mb_strtoupper(mb_substr(auth()->user()->name,0,1)) }}</span><span class="account-trigger-name">{{ auth()->user()->name }}</span><span>⌄</span></button><div id="account-panel" class="account-panel" hidden><div class="account-panel-heading"><strong>{{ auth()->user()->name }}</strong><span>{{ auth()->user()->email }}</span></div><a href="{{ route('account.courses') }}">Khóa học của tôi</a><a href="{{ route('account.schedule') }}">Lịch học của tôi</a><a href="{{ route('orders.index') }}">Đơn hàng của tôi</a><a href="{{ route('account.show') }}">Trang cá nhân</a>@if(auth()->user()->isAdmin())<a href="{{ route('admin.dashboard') }}" style="color: #2563eb; font-weight: 700;">📊 Trang Quản Trị Metis</a>@endif<a href="{{ route('class_rooms.index') }}">Quản lý lớp học</a><form action="{{ route('logout') }}" method="POST">@csrf<button type="submit">Đăng xuất</button></form></div></div>
+                    <div class="account-dropdown"><button class="account-trigger" type="button" aria-expanded="false" aria-controls="account-panel" aria-label="Mở menu tài khoản"><span class="account-avatar-small">{{ mb_strtoupper(mb_substr(auth()->user()->name,0,1)) }}</span><span class="account-trigger-name">{{ auth()->user()->name }}</span><span>⌄</span></button><div id="account-panel" class="account-panel" hidden><div class="account-panel-heading"><strong>{{ auth()->user()->name }}</strong><span>{{ auth()->user()->email }}</span></div><a href="{{ route('account.courses') }}">Khóa học của tôi</a><a href="{{ route('enrollments.my_classes') }}">Lớp học đã đăng ký</a><a href="{{ route('account.schedule') }}">Lịch học của tôi</a><a href="{{ route('orders.index') }}">Đơn hàng của tôi</a><a href="{{ route('account.show') }}">Trang cá nhân</a>@if(auth()->user()->isAdmin())<a href="{{ route('admin.dashboard') }}" style="color: #2563eb; font-weight: 700;">📊 Trang Quản Trị Metis</a>@endif<a href="{{ route('class_rooms.index') }}">Quản lý lớp học</a><form action="{{ route('logout') }}" method="POST">@csrf<button type="submit">Đăng xuất</button></form></div></div>
                 @else
                     <a class="login-link" href="{{ route('login') }}">Đăng nhập</a>
                     <a class="button button-small" href="{{ route('register') }}">Đăng ký</a>

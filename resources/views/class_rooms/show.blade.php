@@ -13,13 +13,55 @@
         </div>
         <h2 class="fw-bold mb-0 text-dark">{{ $classRoom->name }}</h2>
     </div>
-    <div class="d-flex flex-wrap gap-2">
+    @php
+        $currentStudent = auth()->check() ? auth()->user()->student : null;
+        $isEnrolled = $currentStudent && $classRoom->enrollments->contains('student_id', $currentStudent->id);
+        $isFull = $classRoom->enrollments_count >= $classRoom->max_students;
+        $canEnroll = in_array($classRoom->status, ['upcoming', 'ongoing'], true);
+    @endphp
+    <div class="d-flex flex-wrap align-items-center gap-2">
         <a href="{{ route('class_rooms.index') }}" class="btn btn-outline-secondary">
             <i class="bi bi-arrow-left me-1"></i> Về danh sách lớp
         </a>
-        <a href="{{ route('enrollments.class_students', $classRoom) }}" class="btn btn-outline-primary">
-            <i class="bi bi-people me-1"></i> Sổ điểm danh & Kết quả
-        </a>
+
+        {{-- NÚT ĐĂNG KÝ HỌC CHO HỌC VIÊN --}}
+        @if($isEnrolled)
+            <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2 fs-7 fw-semibold">
+                <i class="bi bi-check-circle-fill me-1"></i> Bạn đã đăng ký lớp này
+            </span>
+            <a href="{{ route('enrollments.my_classes') }}" class="btn btn-outline-success">
+                Lớp của tôi →
+            </a>
+        @elseif(auth()->check() && auth()->user()->isStudent())
+            @if($isFull)
+                <button type="button" class="btn btn-secondary disabled" disabled>
+                    <i class="bi bi-x-circle me-1"></i> Lớp đã đủ học viên
+                </button>
+            @elseif(!$canEnroll)
+                <button type="button" class="btn btn-secondary disabled" disabled>
+                    Lớp không nhận đăng ký
+                </button>
+            @else
+                <form action="{{ route('enrollments.enroll', $classRoom) }}" method="POST" class="d-inline" onsubmit="return confirm('Xác nhận đăng ký tham gia lớp học {{ $classRoom->name }} (Học phí: {{ number_format($classRoom->tuition_fee, 0, ',', '.') }} ₫)?');">
+                    @csrf
+                    <button type="submit" class="btn btn-success fw-bold shadow-sm px-3">
+                        <i class="bi bi-pencil-square me-1"></i> Đăng ký tham gia lớp học này
+                    </button>
+                </form>
+            @endif
+        @elseif(!auth()->check())
+            <a href="{{ route('login') }}" class="btn btn-primary fw-bold">
+                <i class="bi bi-box-arrow-in-right me-1"></i> Đăng nhập để đăng ký
+            </a>
+        @endif
+
+        {{-- NÚT SỔ ĐIỂM DANH DÀNH CHO ADMIN VÀ GIÁO VIÊN PHỤ TRÁCH --}}
+        @if(auth()->check() && (auth()->user()->isAdmin() || (auth()->user()->isTeacher() && auth()->user()->teacher?->id === $classRoom->teacher_id)))
+            <a href="{{ route('enrollments.class_students', $classRoom) }}" class="btn btn-outline-primary">
+                <i class="bi bi-people me-1"></i> Sổ điểm danh & Kết quả
+            </a>
+        @endif
+
         @if(auth()->check() && auth()->user()->isAdmin())
             <a href="{{ route('class_rooms.edit', $classRoom) }}" class="btn btn-primary">
                 <i class="bi bi-pencil-square me-1"></i> Sửa lớp học

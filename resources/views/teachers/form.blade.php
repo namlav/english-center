@@ -46,7 +46,7 @@
                             <label for="teacher_code" class="form-label fw-semibold fs-7">Mã giảng viên <span class="text-danger">*</span></label>
                             <input id="teacher_code" name="teacher_code" class="form-control font-monospace" maxlength="30" 
                                    placeholder="Ví dụ: GV004"
-                                   value="{{ old('teacher_code', $teacher->teacher_code ?? 'GV' . sprintf('%03d', \App\Models\Teacher::count() + 1)) }}" required>
+                                   value="{{ old('teacher_code', $teacher->teacher_code ?? 'GV' . sprintf('%03d', ((int)\App\Models\Teacher::max('id')) + 1)) }}" required>
                         </div>
 
                         <div class="col-md-6">
