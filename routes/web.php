@@ -13,6 +13,8 @@ use App\Http\Controllers\{ShopController,AdminShopController,AdminExamController
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/courses/online', [ShopController::class, 'index'])->name('catalog.index');
+Route::get('/lop-hoc', [ClassRoomController::class, 'publicIndex'])->name('public_classes.index');
+Route::get('/lop-hoc/{classRoom}', [ClassRoomController::class, 'publicShow'])->name('public_classes.show');
 Route::get('/reference-courses', [PublicCourseController::class, 'index'])->name('reference_catalog.index');
 Route::get('/chuong-trinh/{course:slug}',[ShopController::class,'show'])->name('shop.show');
 Route::get('/chon-khoa-hoc/{course}',[ShopController::class,'selectCourse'])->name('cart.select');

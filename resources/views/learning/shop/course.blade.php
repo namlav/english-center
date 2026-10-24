@@ -165,7 +165,7 @@
                     <span class="eyebrow" style="color: #2563eb; font-weight: 700;">ĐÀO TẠO TRỰC TIẾP TẠI TRUNG TÂM</span>
                     <h2 style="font-size: 22px; font-weight: 800; color: #0f172a; margin: 4px 0 0;">Lớp học đang tuyển sinh của khóa này</h2>
                 </div>
-                <a href="{{ route('class_rooms.index') }}" class="text-link" style="font-size: 13.5px; font-weight: 600;">Xem tất cả lớp →</a>
+                <a href="{{ route('public_classes.index') }}" class="text-link" style="font-size: 13.5px; font-weight: 600;">Xem tất cả lớp →</a>
             </div>
 
             <div style="display: grid; gap: 12px;">
@@ -187,7 +187,7 @@
                                 <div style="font-size: 15px; font-weight: 800; color: #059669;">{{ number_format($class->tuition_fee, 0, ',', '.') }}đ</div>
                                 <small style="color: #64748b; font-size: 12px;">Sĩ số: {{ $class->enrollments()->count() }}/{{ $class->max_students }}</small>
                             </div>
-                            <a href="{{ route('class_rooms.show', $class) }}" class="button button-small" style="text-decoration: none; font-size: 13px; font-weight: 700;">
+                            <a href="{{ route('public_classes.show', $class) }}" class="button button-small" style="text-decoration: none; font-size: 13px; font-weight: 700;">
                                 Xem &amp; Đăng ký →
                             </a>
                         </div>

@@ -231,6 +231,61 @@
     </div>
 </section>
 
+{{-- 3.5. UPCOMING IN-PERSON CLASSES (LỚP HỌC TRỰC TIẾP KHAI GIẢNG) --}}
+@if(isset($upcomingClasses) && $upcomingClasses->isNotEmpty())
+<section class="study4-section" style="background: #ffffff; border-bottom: 1px solid var(--study4-border); padding: 48px 0;">
+    <div class="shell">
+        <div class="study4-section-header">
+            <div class="study4-section-header-title">
+                <span class="study4-eyebrow" style="color: #2563eb;">ĐÀO TẠO TRỰC TIẾP TẠI TRUNG TÂM</span>
+                <h2 class="study4-section-h2">Lớp học sắp khai giảng</h2>
+                <p class="study4-section-subtitle">
+                    Lớp học giới hạn sĩ số cùng đội ngũ giảng viên chuyên môn cao. Tương tác và kèm cặp trực tiếp trong từng buổi học.
+                </p>
+            </div>
+            <a class="study4-view-all-link" href="{{ route('public_classes.index') }}">
+                Xem lịch tất cả lớp học <x-study-icon name="arrow" />
+            </a>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px;">
+            @foreach($upcomingClasses as $class)
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px 22px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
+                    <div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                            <span style="background: #eff6ff; color: #1d4ed8; font-weight: 800; font-size: 11px; padding: 3px 8px; border-radius: 4px; font-family: monospace;">
+                                {{ $class->code }}
+                            </span>
+                            <span style="font-size: 12px; color: #059669; font-weight: 700;">
+                                Khai giảng {{ $class->start_date?->format('d/m/Y') }}
+                            </span>
+                        </div>
+                        <h3 style="font-size: 17px; font-weight: 800; color: #0f172a; margin: 0 0 6px 0;">
+                            {{ $class->name }}
+                        </h3>
+                        <p style="font-size: 13px; color: #64748b; margin: 0 0 14px 0;">
+                            Khóa: <strong style="color: #334155;">{{ $class->course->name ?? 'Chuẩn trung tâm' }}</strong>
+                        </p>
+                        <div style="font-size: 13px; color: #475569; display: grid; gap: 4px; margin-bottom: 16px;">
+                            <div>👨‍🏫 GV: <strong>{{ $class->teacher?->user?->name ?? 'Đang cập nhật' }}</strong></div>
+                            <div>📅 Lịch: <strong>{{ $class->schedule }}</strong></div>
+                        </div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 12px; border-top: 1px dashed #cbd5e1;">
+                        <strong style="color: #059669; font-size: 18px; font-weight: 800;">
+                            {{ number_format($class->tuition_fee, 0, ',', '.') }} ₫
+                        </strong>
+                        <a href="{{ route('public_classes.show', $class) }}" class="button button-small" style="text-decoration: none; font-size: 13px; font-weight: 700;">
+                            Chi tiết &amp; Đăng ký →
+                        </a>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+@endif
+
 {{-- 4. PRACTICE ZONE (STUDY4 HOME TESTS) --}}
 <section class="study4-section practice-section" style="background: #ffffff; border-bottom: 1px solid var(--study4-border);">
     <div class="shell">

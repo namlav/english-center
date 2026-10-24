@@ -19,6 +19,51 @@ use Illuminate\Validation\ValidationException;
 
 class ClassRoomController extends Controller
 {
+    /**
+     * Giao diện Khách hàng & Học viên: Xem danh sách Lớp học & Lịch khai giảng
+     */
+    public function publicIndex(Request $request): View
+    {
+        $filters = $request->validate([
+            'keyword' => ['nullable', 'string', 'max:100'],
+            'course_id' => ['nullable', 'integer', 'exists:courses,id'],
+            'teacher_id' => ['nullable', 'integer', 'exists:teachers,id'],
+            'status' => ['nullable', Rule::in(array_keys(ClassRoom::STATUSES))],
+        ]);
+        $filters['keyword'] = trim($filters['keyword'] ?? '');
+
+        $query = ClassRoom::with(['course', 'teacher.user'])->withCount('enrollments')
+            ->filter($filters);
+
+        if (empty($filters['status'])) {
+            $query->whereIn('status', ['upcoming', 'ongoing']);
+        }
+
+        $classRooms = $query->orderBy('start_date')->paginate(12)->withQueryString();
+        $courses = Course::has('classRooms')->orderBy('name')->get();
+        $teachers = Teacher::has('classRooms')->with('user')->orderBy('teacher_code')->get();
+        $statuses = ClassRoom::STATUSES;
+
+        return view('learning.classes.index', compact('classRooms', 'courses', 'teachers', 'statuses'));
+    }
+
+    /**
+     * Giao diện Khách hàng & Học viên: Xem chi tiết một lớp học
+     */
+    public function publicShow(ClassRoom $classRoom): View
+    {
+        $classRoom->load(['course', 'teacher.user', 'enrollments.student.user'])->loadCount('enrollments');
+        $relatedClasses = ClassRoom::where('course_id', $classRoom->course_id)
+            ->where('id', '!=', $classRoom->id)
+            ->whereIn('status', ['upcoming', 'ongoing'])
+            ->with(['teacher.user'])
+            ->withCount('enrollments')
+            ->limit(3)
+            ->get();
+
+        return view('learning.classes.show', compact('classRoom', 'relatedClasses'));
+    }
+
     public function index(Request $request): View|JsonResponse
     {
         $filters = $request->validate([

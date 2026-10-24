@@ -36,7 +36,8 @@ class HomeController extends Controller
             ->with('learningCategory')->withCount(['sections', 'questions'])
             ->orderByDesc('published_at')->orderBy('id')->limit(3)->get();
         $teachers = Schema::hasTable('public_teachers') ? PublicTeacher::visible()->get() : collect();
+        $upcomingClasses = \App\Models\ClassRoom::whereIn('status', ['upcoming', 'ongoing'])->with(['course', 'teacher.user'])->withCount('enrollments')->orderBy('start_date')->take(3)->get();
         $home = SiteSetting::home();
-        return view('learning.portal-home', compact('featuredPapers','featuredCourses','stats','catalogTotal','teachers','home'));
+        return view('learning.portal-home', compact('featuredPapers','featuredCourses','stats','catalogTotal','teachers','upcomingClasses','home'));
     }
 }
