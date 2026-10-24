@@ -56,7 +56,15 @@
                             <span class="badge text-bg-warning"><i class="bi bi-clock me-1"></i>Chưa thanh toán</span>
                         @endif
                     </td>
-                    <td class="text-end">
+                    <td class="text-end text-nowrap">
+                        @if($invoice->payment_status === 'unpaid')
+                            <form action="{{ route('invoices.mark_paid', $invoice) }}" method="POST" class="d-inline" onsubmit="return confirm('Xác nhận duyệt thu học phí cho học viên {{ $invoice->student?->user?->name }}?');">
+                                @csrf
+                                <button type="submit" class="btn btn-sm btn-success fw-bold text-nowrap me-1 shadow-sm">
+                                    <i class="bi bi-check-circle me-1"></i>Duyệt đơn
+                                </button>
+                            </form>
+                        @endif
                         <a href="{{ route('invoices.show', $invoice) }}" class="btn btn-sm btn-outline-primary text-nowrap">
                             <i class="bi bi-eye me-1"></i>Chi tiết
                         </a>

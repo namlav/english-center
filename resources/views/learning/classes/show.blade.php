@@ -138,33 +138,24 @@
                         <strong style="color: #065f46; font-size: 14.5px; display: block; margin-bottom: 4px;">✓ Bạn đã đăng ký lớp học này</strong>
                         <span style="color: #047857; font-size: 12.5px;">Theo dõi lịch học và kết quả trong trang cá nhân.</span>
                     </div>
-                    <a href="{{ route('enrollments.my_classes') }}" class="button" style="width: 100%; text-align: center; font-weight: 700; text-decoration: none; display: block; background: #059669; border-color: #059669;">
+                    <a href="{{ route('enrollments.my_classes') }}" class="button" style="width: 100%; text-align: center; font-weight: 700; text-decoration: none; display: block; background: #059669; border-color: #059669; color: #fff;">
                         Đến lớp học của tôi →
                     </a>
-                @elseif(auth()->check() && auth()->user()->isStudent())
-                    @if($isFull)
-                        <button type="button" class="button button-outline" style="width: 100%; opacity: 0.6; cursor: not-allowed;" disabled>
-                            Lớp đã đủ học viên
-                        </button>
-                    @elseif(!$canEnroll)
-                        <button type="button" class="button button-outline" style="width: 100%; opacity: 0.6; cursor: not-allowed;" disabled>
-                            Lớp không nhận đăng ký
-                        </button>
-                    @else
-                        <form action="{{ route('enrollments.enroll', $classRoom) }}" method="POST" onsubmit="return confirm('Xác nhận đăng ký tham gia lớp học {{ $classRoom->name }} (Học phí: {{ number_format($classRoom->tuition_fee, 0, ',', '.') }} ₫)?');">
-                            @csrf
-                            <button type="submit" class="button" style="width: 100%; font-size: 16px; font-weight: 800; padding: 13px; text-align: center; background: #2563eb; border-color: #2563eb; cursor: pointer; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);">
-                                Đăng ký lớp học ngay ➔
-                            </button>
-                        </form>
-                    @endif
-                @elseif(!auth()->check())
-                    <a href="{{ route('login') }}" class="button" style="width: 100%; text-align: center; font-size: 15px; font-weight: 800; padding: 12px; text-decoration: none; display: block; background: #2563eb; border-color: #2563eb;">
-                        Đăng nhập để đăng ký học ➔
+                @elseif($isFull)
+                    <button type="button" class="button button-outline" style="width: 100%; opacity: 0.6; cursor: not-allowed;" disabled>
+                        Lớp đã đủ học viên
+                    </button>
+                @elseif(!$canEnroll)
+                    <button type="button" class="button button-outline" style="width: 100%; opacity: 0.6; cursor: not-allowed;" disabled>
+                        Lớp không nhận đăng ký
+                    </button>
+                @else
+                    <a href="{{ route('public_classes.register', $classRoom) }}" class="button" style="width: 100%; font-size: 16px; font-weight: 800; padding: 14px; text-align: center; background: #2563eb; border-color: #2563eb; color: #ffffff; text-decoration: none; display: block; border-radius: 8px; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);">
+                        Đăng ký nhập học ngay ➔
                     </a>
-                    <p style="font-size: 12.5px; color: #64748b; text-align: center; margin-top: 8px;">
-                        Chưa có tài khoản? <a href="{{ route('register') }}" style="color: #2563eb; font-weight: 600;">Đăng ký ngay</a>
-                    </p>
+                    <span style="font-size: 12px; color: #64748b; text-align: center; display: block; margin-top: 8px;">
+                        Điền thông tin học viên & chọn phương thức giữ chỗ
+                    </span>
                 @endif
 
                 @if(auth()->check() && auth()->user()->isAdmin())
