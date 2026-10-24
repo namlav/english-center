@@ -104,14 +104,13 @@ class ClassRoomController extends Controller
             'address' => ['nullable', 'string', 'max:255'],
             'learning_goals' => ['nullable', 'string', 'max:255'],
             'notes' => ['nullable', 'string', 'max:500'],
-            'payment_method' => ['required', 'in:bank_transfer,center_payment'],
+            'payment_method' => ['nullable', 'string', 'in:bank_transfer,center_payment'],
         ], [
             'name.required' => 'Vui lòng nhập họ và tên học viên.',
             'phone.required' => 'Vui lòng nhập số điện thoại liên hệ.',
             'phone.regex' => 'Số điện thoại không đúng định dạng.',
             'email.required' => 'Vui lòng nhập email nhận phiếu đăng ký.',
             'email.email' => 'Địa chỉ email không hợp lệ.',
-            'payment_method.required' => 'Vui lòng chọn hình thức thanh toán / xác nhận.',
         ]);
 
         $enrollment = DB::transaction(function () use ($classRoom, $validated) {
@@ -180,7 +179,8 @@ class ClassRoomController extends Controller
                 throw ValidationException::withMessages(['class' => 'Bạn đã đăng ký tham gia lớp học này rồi.']);
             }
 
-            $remarks = 'PTTT: ' . ($validated['payment_method'] === 'bank_transfer' ? 'Chuyển khoản QR' : 'Nộp tại quầy trung tâm');
+            $method = $validated['payment_method'] ?? 'bank_transfer';
+            $remarks = 'PTTT: ' . ($method === 'center_payment' ? 'Nộp tại quầy trung tâm' : 'Chuyển khoản QR');
             if (! empty($validated['learning_goals'])) {
                 $remarks .= ' | Mục tiêu: ' . $validated['learning_goals'];
             }

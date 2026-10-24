@@ -53,11 +53,10 @@ class ClassRoomRegistrationFlowTest extends TestCase
         $response = $this->get(route('public_classes.register', $classRoom));
 
         $response->assertOk();
-        $response->assertSee('Phiếu đăng ký nhập học');
+        $response->assertSee('Thông tin học viên');
         $response->assertSee($classRoom->name);
         $response->assertSee(number_format($classRoom->tuition_fee, 0, ',', '.') . ' ₫');
-        $response->assertSee('Thông tin học viên');
-        $response->assertSee('Chuyển khoản Ngân hàng qua VietQR');
+        $response->assertSee('Chuyển khoản học phí');
     }
 
     public function test_guest_can_register_class_and_receives_unpaid_enrollment(): void
