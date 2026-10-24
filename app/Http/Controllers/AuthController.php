@@ -116,7 +116,7 @@ class AuthController extends Controller
                 return redirect()->route('admin.dashboard')
                                  ->with('success', 'Đăng nhập thành công! Chào mừng Quản trị viên ' . $user->name);
             }
-            return redirect()->intended(route('class_rooms.index'))
+            return redirect()->intended(route('home'))
                              ->with('success', 'Đăng nhập thành công! Xin chào ' . $user->name);
         }
 
