@@ -49,8 +49,8 @@
                 </div>
             </div>
             
-            <div class="study4-hero-mockup">
-                <div class="study4-hero-slider" id="heroRealBannerSlider" style="position: relative; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 40px -15px rgba(0,0,0,0.22); border: 4px solid #ffffff;">
+            <div class="study4-hero-mockup" style="position: relative; width: 100%; max-width: 540px; margin-left: auto;">
+                <div class="study4-hero-slider" id="heroRealBannerSlider" style="position: relative; width: 100%; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 40px -15px rgba(0,0,0,0.22); border: 4px solid #ffffff; background: #0f172a;">
                     @php
                         $heroBanners = [
                             ['img' => $home['image'] ?? 'images/banners/banner-home-hero.jpg', 'title' => 'Luyện thi chứng chỉ quốc tế', 'tag' => 'Chuẩn Quốc Tế'],
@@ -61,9 +61,9 @@
                         ];
                     @endphp
                     
-                    <div class="hero-slides-wrapper" style="position: relative; width: 100%; height: 380px;">
+                    <div class="hero-slides-wrapper" style="position: relative; width: 100%; height: 380px; overflow: hidden;">
                         @foreach($heroBanners as $idx => $b)
-                            <div class="hero-slide-item {{ $idx === 0 ? 'active' : '' }}" data-slide-index="{{ $idx }}" style="position: absolute; inset: 0; opacity: {{ $idx === 0 ? '1' : '0' }}; transition: opacity 0.6s ease-in-out; pointer-events: {{ $idx === 0 ? 'auto' : 'none' }};">
+                            <div class="hero-slide-item {{ $idx === 0 ? 'active' : '' }}" data-slide-index="{{ $idx }}" style="position: absolute; inset: 0; width: 100%; height: 100%; opacity: {{ $idx === 0 ? '1' : '0' }}; transition: opacity 0.6s ease-in-out; pointer-events: {{ $idx === 0 ? 'auto' : 'none' }};">
                                 <img src="{{ asset($b['img']) }}" alt="{{ $b['title'] }}" style="width: 100%; height: 100%; object-fit: cover; display: block;">
                                 <div style="position: absolute; inset: 0; background: linear-gradient(180deg, transparent 45%, rgba(15,23,42,0.85) 100%); display: flex; align-items: flex-end; padding: 20px 24px;">
                                     <div>
