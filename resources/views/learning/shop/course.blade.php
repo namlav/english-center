@@ -158,6 +158,45 @@
         </div>
     </section>
 
+    @if($course->classRooms && $course->classRooms->isNotEmpty())
+        <section class="detail-panel" id="classes" style="margin-top: 24px; border-left: 4px solid #2563eb;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 16px;">
+                <div>
+                    <span class="eyebrow" style="color: #2563eb; font-weight: 700;">ĐÀO TẠO TRỰC TIẾP TẠI TRUNG TÂM</span>
+                    <h2 style="font-size: 22px; font-weight: 800; color: #0f172a; margin: 4px 0 0;">Lớp học đang tuyển sinh của khóa này</h2>
+                </div>
+                <a href="{{ route('public_classes.index') }}" class="text-link" style="font-size: 13.5px; font-weight: 600;">Xem tất cả lớp →</a>
+            </div>
+
+            <div style="display: grid; gap: 12px;">
+                @foreach($course->classRooms as $class)
+                    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+                        <div>
+                            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                                <span style="background: #2563eb; color: #fff; font-size: 11px; font-weight: 700; padding: 2px 6px; border-radius: 4px;">{{ $class->code }}</span>
+                                <strong style="font-size: 15px; color: #0f172a;">{{ $class->name }}</strong>
+                            </div>
+                            <div style="font-size: 13px; color: #64748b;">
+                                <span>Giảng viên: <strong>{{ $class->teacher?->user?->name ?? 'Đang cập nhật' }}</strong></span> ·
+                                <span>Lịch: <strong>{{ $class->schedule }}</strong></span> ·
+                                <span>Khai giảng: <strong>{{ $class->start_date?->format('d/m/Y') }}</strong></span>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 14px;">
+                            <div style="text-align: right;">
+                                <div style="font-size: 15px; font-weight: 800; color: #059669;">{{ number_format($class->tuition_fee, 0, ',', '.') }}đ</div>
+                                <small style="color: #64748b; font-size: 12px;">Sĩ số: {{ $class->enrollments()->count() }}/{{ $class->max_students }}</small>
+                            </div>
+                            <a href="{{ route('public_classes.show', $class) }}" class="button button-small" style="text-decoration: none; font-size: 13px; font-weight: 700;">
+                                Xem &amp; Đăng ký →
+                            </a>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </section>
+    @endif
+
     <section class="detail-panel course-faq" id="questions"><h2>Giải đáp trước khi bắt đầu</h2><details open><summary>Mua xong tôi học ở đâu?</summary><p>Sau khi admin xác nhận đã nhận chuyển khoản, mở menu tài khoản → Khóa học của tôi → Vào học ngay. Bài học mở ngay trên English Center.</p></details><details><summary>Tôi có thể luyện đề trước khi đăng ký?</summary><p>Có. Bạn có thể làm các bài luyện và kiểm tra đáp án trong <a href="{{ route('practice.index') }}">thư viện đề thi miễn phí</a>.</p></details><details><summary>Có thu tiền thật không?</summary><p>Bạn thanh toán bằng mã QR ngân hàng. Admin xác nhận giao dịch đã vào tài khoản trước khi cấp quyền học.</p></details></section>
 </div><aside class="detail-aside"><div class="detail-buy-card">
     @if($course->thumbnail_path)<img class="detail-buy-cover" src="{{ asset($course->thumbnail_path) }}" alt="{{ $course->name }}" width="800" height="300">@else<div class="shop-cover"><span class="shop-cover-brand">ENGLISH CENTER</span><strong>{{ $course->name }}</strong><span>HỌC ONLINE</span></div>@endif

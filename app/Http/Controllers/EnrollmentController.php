@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ClassRoom;
 use App\Models\Attendance;
+use App\Models\ClassRoom;
 use App\Models\Enrollment;
+use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -153,6 +154,67 @@ class EnrollmentController extends Controller
             ->get()
             ->keyBy('student_id');
 
-        return view('enrollments.class_students', compact('classRoom', 'attendanceCounts'));
+        $enrolledStudentIds = $classRoom->enrollments->pluck('student_id')->filter()->all();
+        $availableStudents = $user->isAdmin()
+            ? Student::with('user')->whereNotIn('id', $enrolledStudentIds)->get()->sortBy(fn($s) => $s->user->name ?? $s->student_code)
+            : collect();
+
+        return view('enrollments.class_students', compact('classRoom', 'attendanceCounts', 'availableStudents'));
+    }
+
+    public function adminEnroll(Request $request, ClassRoom $classRoom)
+    {
+        $validated = $request->validate([
+            'student_id' => 'required|exists:students,id',
+            'paid_tuition' => 'nullable|numeric|min:0',
+        ]);
+
+        $student = Student::with('user')->findOrFail($validated['student_id']);
+
+        $message = DB::transaction(function () use ($classRoom, $student, $validated) {
+            $lockedClass = ClassRoom::query()->lockForUpdate()->findOrFail($classRoom->id);
+
+            if ($lockedClass->enrollments()->where('student_id', $student->id)->exists()) {
+                throw ValidationException::withMessages(['student_id' => 'Học viên này đã được ghi danh vào lớp rồi.']);
+            }
+
+            if ($lockedClass->enrollments()->count() >= $lockedClass->max_students) {
+                throw ValidationException::withMessages(['student_id' => 'Lớp học đã đạt sĩ số tối đa (' . $lockedClass->max_students . ' học viên).']);
+            }
+
+            $paidTuition = isset($validated['paid_tuition']) && $validated['paid_tuition'] !== ''
+                ? (float) $validated['paid_tuition']
+                : (float) $lockedClass->tuition_fee;
+
+            Enrollment::create([
+                'class_room_id' => $lockedClass->id,
+                'student_id' => $student->id,
+                'enrollment_date' => now()->toDateString(),
+                'paid_tuition' => $paidTuition,
+                'payment_status' => 'paid',
+                'result_status' => 'studying',
+            ]);
+
+            return 'Đã ghi danh học viên ' . ($student->user->name ?? $student->student_code) . ' vào lớp ' . $lockedClass->code . ' thành công!';
+        }, 3);
+
+        return back()->with('success', $message);
+    }
+
+    public function adminRemoveStudent(ClassRoom $classRoom, Enrollment $enrollment)
+    {
+        abort_unless($enrollment->class_room_id === $classRoom->id, 404);
+
+        $studentName = $enrollment->student?->user?->name ?? 'học viên';
+
+        DB::transaction(function () use ($classRoom, $enrollment) {
+            Attendance::where('class_room_id', $classRoom->id)
+                ->where('student_id', $enrollment->student_id)
+                ->delete();
+
+            $enrollment->delete();
+        }, 3);
+
+        return back()->with('success', 'Đã hủy ghi danh của ' . $studentName . ' khỏi lớp học.');
     }
 }

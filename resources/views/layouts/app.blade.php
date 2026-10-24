@@ -57,7 +57,7 @@
                     </li>
 
                     @if(auth()->user()->isAdmin())
-                        <li class="nav-item"><a class="nav-link" href="{{ route('website.index') }}">Quản lý website</a></li>
+                        <li class="nav-item"><a class="nav-link text-warning fw-bold" href="{{ route('admin.dashboard') }}">📊 Bảng Điều Khiển Admin</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('shop_admin.index') }}">Khóa học &amp; Video</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('class_rooms.index') }}">Lớp học</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('teachers.index') }}">Giảng viên</a></li>

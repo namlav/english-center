@@ -40,7 +40,17 @@ class DatabaseSeeder extends Seeder
             }
             $courses = [];
             foreach ([['KH-IELTS', 'Luyện thi IELTS Intensive (6.5+)', 'Nâng cao', 60], ['KH-TOEIC', 'Luyện thi TOEIC 650+ Cấp tốc', 'Trung cấp', 45], ['KH-TAGT', 'Tiếng Anh Giao Tiếp Công Sở', 'Cơ bản - Trung cấp', 36]] as [$code, $name, $level, $hours]) {
-                $courses[] = Course::firstOrCreate(['code' => $code], ['name' => $name, 'level' => $level, 'duration_hours' => $hours, 'description' => 'Chương trình đào tạo mẫu phục vụ đồ án.', 'is_active' => true]);
+                $c = Course::firstOrCreate(['code' => $code], ['name' => $name, 'level' => $level, 'duration_hours' => $hours, 'description' => 'Chương trình đào tạo mẫu phục vụ đồ án.', 'is_active' => true]);
+                if (\Illuminate\Support\Facades\Schema::hasColumn('courses', 'slug') && empty($c->slug)) {
+                    $slugs = ['KH-IELTS' => 'luyen-thi-ielts-intensive-offline', 'KH-TOEIC' => 'luyen-thi-toeic-650-cap-toc-offline', 'KH-TAGT' => 'tieng-anh-giao-tiep-cong-so-offline'];
+                    $c->slug = $slugs[$code] ?? '';
+                    if (\Illuminate\Support\Facades\Schema::hasColumn('courses', 'price')) {
+                        $prices = ['KH-IELTS' => 4500000, 'KH-TOEIC' => 3200000, 'KH-TAGT' => 2800000];
+                        $c->price = $prices[$code] ?? 0;
+                    }
+                    $c->save();
+                }
+                $courses[] = $c;
             }
             $today = now('Asia/Ho_Chi_Minh')->startOfDay();
             foreach (['ongoing', 'ongoing', 'upcoming', 'completed', 'upcoming', 'cancelled'] as $i => $status) {

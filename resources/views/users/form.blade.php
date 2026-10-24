@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends(auth()->check() && auth()->user()->isAdmin() ? 'layouts.admin' : 'layouts.app')
 
 @section('title', $user->exists ? 'Sửa tài khoản' : 'Thêm tài khoản')
 

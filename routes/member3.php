@@ -31,11 +31,15 @@ Route::middleware(['auth', 'role:admin,teacher'])->group(function () {
     Route::get('/class-rooms/{classRoom}/grades/print', [GradeController::class, 'print'])->name('grades.print');
 });
 
-// Chức năng Thống kê số học viên, số lớp, doanh thu học phí (Chỉ Admin)
+// Chức năng Thống kê số học viên, số lớp, doanh thu học phí & Đăng ký học viên vào lớp (Chỉ Admin)
 Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::post('/class-rooms/{classRoom}/admin-enroll', [EnrollmentController::class, 'adminEnroll'])->name('enrollments.admin_enroll');
+    Route::delete('/class-rooms/{classRoom}/remove-student/{enrollment}', [EnrollmentController::class, 'adminRemoveStudent'])->name('enrollments.admin_remove');
+
     Route::get('/reports/dashboard', [ReportController::class, 'index'])->name('reports.index');
     Route::get('/reports/export', [ReportController::class, 'exportCsv'])->name('reports.export');
 
     Route::get('/invoices', [InvoiceController::class, 'index'])->name('invoices.index');
     Route::get('/invoices/{invoice}', [InvoiceController::class, 'show'])->name('invoices.show');
+    Route::post('/invoices/{invoice}/mark-paid', [InvoiceController::class, 'markPaid'])->name('invoices.mark_paid');
 });

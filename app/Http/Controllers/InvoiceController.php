@@ -82,4 +82,20 @@ class InvoiceController extends Controller
 
         return view('invoices.show', compact('invoice'));
     }
+
+    public function markPaid(Request $request, Enrollment $invoice): \Illuminate\Http\RedirectResponse
+    {
+        abort_unless(auth()->check() && auth()->user()->isAdmin(), 403);
+
+        $classRoom = $invoice->classRoom;
+        $tuition = (float) ($classRoom?->tuition_fee ?? $invoice->paid_tuition);
+
+        $invoice->update([
+            'payment_status' => 'paid',
+            'paid_tuition' => $tuition > 0 ? $tuition : $invoice->paid_tuition,
+            'result_status' => 'studying',
+        ]);
+
+        return back()->with('success', 'Đã duyệt thanh toán thành công cho hồ sơ '.$invoice->invoice_code.' ('.number_format($tuition, 0, ',', '.').' ₫). Học viên đã được kích hoạt nhập học chính thức.');
+    }
 }

@@ -59,7 +59,6 @@ class AuthController extends Controller
             Student::create([
                 'user_id' => $user->id,
                 'student_code' => $code,
-                'phone' => $user->phone,
             ]);
 
             return $user;
@@ -114,8 +113,10 @@ class AuthController extends Controller
                 }
             } else {
                 $request->session()->forget('pending_cart_course');
+                return redirect()->route('admin.dashboard')
+                                 ->with('success', 'Đăng nhập thành công! Chào mừng Quản trị viên ' . $user->name);
             }
-            return redirect()->intended(route('class_rooms.index'))
+            return redirect()->intended(route('home'))
                              ->with('success', 'Đăng nhập thành công! Xin chào ' . $user->name);
         }
 

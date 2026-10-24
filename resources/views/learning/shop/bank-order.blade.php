@@ -4,6 +4,13 @@
  $qr=$requests->first();$bank=$qr?->bank_snapshot??[];
 @endphp
 <div class="commerce-surface"><section class="shell commerce-page">
+@if($adminView)
+<div style="margin-bottom: 16px;">
+    <a href="{{ route('shop_admin.orders.index') }}" class="button button-small button-outline" style="text-decoration: none; font-weight: 600;">
+        ← Quay lại Quản lý Đơn hàng Admin
+    </a>
+</div>
+@endif
 <span class="eyebrow">{{ $adminView?'QUẢN LÝ ĐƠN HÀNG':'ĐƠN HÀNG CỦA BẠN' }}</span>
 <h1>{{ $order->status==='paid'?'Đăng ký học thành công':'Thanh toán bằng QR ngân hàng' }}</h1>
 <p class="order-number">Mã đơn: {{ $order->number }}</p>
@@ -23,7 +30,7 @@
  @endif
  @endif
  <div class="qr-status" data-order-status-url="{{ $adminView?'':route('orders.status',$order->number) }}"><span class="qr-status-dot"></span>{{ $requests->whereNotNull('reported_at')->isNotEmpty()?'Đã báo chuyển khoản · Chờ admin đối soát':'Chờ chuyển khoản và admin đối soát' }}<p>Tạo hoặc quét QR chưa xác nhận tiền đã vào tài khoản. Các nội dung QR cũ vẫn được lưu để đối chiếu.</p></div>
- @if($adminView || auth()->user()?->isAdmin())
+ @if($adminView && auth()->user()?->isAdmin())
  <div class="admin-verification-card" style="margin-top:16px;background:#f0fdf4;border:1px solid #86efac;border-radius:8px;padding:14px;box-shadow:0 1px 2px rgba(0,0,0,0.05);">
   <strong style="color:#166534;font-size:14px;display:block;margin-bottom:6px;">Quyền Quản trị viên (Admin):</strong>
   <p style="color:#15803d;font-size:13px;margin:0 0 10px 0;">Bạn có thể đối soát và kích hoạt đơn hàng ngay lập tức mà không cần chuyển trang.</p>

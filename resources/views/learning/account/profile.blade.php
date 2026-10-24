@@ -23,7 +23,37 @@
             <label for="profile-occupation">Nghề nghiệp / Bạn đang là</label>
             <input id="profile-occupation" name="occupation" maxlength="100" value="{{ old('occupation',$user->learnerProfile?->occupation) }}" placeholder="Ví dụ: Sinh viên">
 
-            <button class="button" type="submit">Lưu thay đổi</button>
+            @if($user->isStudent() || $user->student)
+                @php($student = $user->student)
+                <div style="margin-top: 1.75rem; padding-top: 1.25rem; border-top: 1px dashed #cbd5e1;">
+                    <span class="eyebrow" style="color: #2563eb; font-weight: 700;">HỒ SƠ HỌC VIÊN / SINH VIÊN</span>
+                    <p style="font-size: 13px; color: #64748b; margin-top: 4px; margin-bottom: 12px;">Thông tin dùng để in hóa đơn học phí, ghi danh lớp học và cấp chứng chỉ đào tạo.</p>
+
+                    <label for="profile-student-code">Mã số học viên</label>
+                    <input id="profile-student-code" type="text" value="{{ $student?->student_code ?? 'Tự động cấp khi lưu' }}" readonly style="background-color: #f1f5f9; cursor: not-allowed; font-weight: 700; color: #1e3a8a;">
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-top: 8px;">
+                        <div>
+                            <label for="profile-dob">Ngày sinh</label>
+                            <input id="profile-dob" name="date_of_birth" type="date" value="{{ old('date_of_birth', $student?->date_of_birth?->format('Y-m-d')) }}">
+                        </div>
+                        <div>
+                            <label for="profile-gender">Giới tính</label>
+                            <select id="profile-gender" name="gender" style="width: 100%; padding: 0.65rem 0.85rem; border: 1px solid var(--border-color, #cbd5e1); border-radius: 6px; font-size: 0.95rem; background: #fff;">
+                                <option value="">-- Chọn giới tính --</option>
+                                <option value="male" @selected(old('gender', $student?->gender) === 'male')>Nam</option>
+                                <option value="female" @selected(old('gender', $student?->gender) === 'female')>Nữ</option>
+                                <option value="other" @selected(old('gender', $student?->gender) === 'other')>Khác</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <label for="profile-address" style="margin-top: 12px;">Địa chỉ thường trú</label>
+                    <input id="profile-address" name="address" type="text" maxlength="255" value="{{ old('address', $student?->address) }}" placeholder="Ví dụ: 123 Nguyễn Văn Cừ, Quận 5, TP. Hồ Chí Minh">
+                </div>
+            @endif
+
+            <button class="button" type="submit" style="margin-top: 1.5rem;">Lưu thay đổi hồ sơ</button>
         </form>
 
         <div style="margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--border-color, #e2e8f0);">

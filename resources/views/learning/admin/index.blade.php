@@ -1,11 +1,10 @@
-@extends('layouts.learning')
+@extends('layouts.admin')
 @section('title','Quản lý website — English Center')
 @section('content')
 <section class="shell admin-page">
     <span class="eyebrow">DÀNH CHO QUẢN TRỊ VIÊN</span>
     <h1>Quản lý Website & Đội ngũ</h1>
     <p>Chỉnh sửa nội dung trang chủ, danh sách giáo viên hiển thị trên banner và liên kết khóa học.</p>
-    @include('learning.admin.nav')
 
     <div class="import-panel">
         <div>

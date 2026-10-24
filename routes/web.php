@@ -7,11 +7,18 @@ use App\Http\Controllers\PublicCourseController;
 use App\Http\Controllers\PracticeLibraryController;
 use App\Http\Controllers\LearningAccountController;
 use App\Http\Controllers\AdminContentController;
+use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\PublicTeacherController;
+use App\Http\Controllers\ClassRoomController;
 use App\Http\Controllers\{ShopController,AdminShopController,AdminExamController};
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/courses/online', [ShopController::class, 'index'])->name('catalog.index');
+Route::get('/lop-hoc', [ClassRoomController::class, 'publicIndex'])->name('public_classes.index');
+Route::get('/lop-hoc/{classRoom}', [ClassRoomController::class, 'publicShow'])->name('public_classes.show');
+Route::get('/lop-hoc/{classRoom}/dang-ky', [ClassRoomController::class, 'registerForm'])->name('public_classes.register');
+Route::post('/lop-hoc/{classRoom}/dang-ky', [ClassRoomController::class, 'processRegistration'])->name('public_classes.submit_register');
+Route::get('/lop-hoc/{classRoom}/dang-ky-thanh-cong', [ClassRoomController::class, 'registrationConfirmation'])->name('public_classes.confirmation');
 Route::get('/reference-courses', [PublicCourseController::class, 'index'])->name('reference_catalog.index');
 Route::get('/chuong-trinh/{course:slug}',[ShopController::class,'show'])->name('shop.show');
 Route::get('/chon-khoa-hoc/{course}',[ShopController::class,'selectCourse'])->name('cart.select');
@@ -46,6 +53,12 @@ Route::middleware('auth')->group(function (): void {
     Route::get('/my-account/courses', [LearningAccountController::class, 'courses'])->name('account.courses');
     Route::get('/my-account/schedule', [LearningAccountController::class, 'schedule'])->name('account.schedule');
 });
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function (): void {
+    Route::get('/', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/dashboard', [AdminDashboardController::class, 'index']);
+    Route::get('/revenue/export', [AdminDashboardController::class, 'exportRevenueCsv'])->name('admin.revenue.export');
+});
+
 Route::middleware(['auth','role:admin'])->prefix('admin/website/shop')->name('shop_admin.')->group(function(){
     Route::get('/',[AdminShopController::class,'index'])->name('index');
     Route::get('/upgrade-sql',[AdminShopController::class,'upgrade'])->name('upgrade');

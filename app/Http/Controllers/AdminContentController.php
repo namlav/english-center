@@ -67,11 +67,22 @@ class AdminContentController extends Controller
     public function editHome() { return view('learning.admin.home',['home'=>SiteSetting::home()]); }
     public function updateHome(Request $request)
     {
-        $data=$request->validate(['title'=>['required','string','max:200'],'description'=>['required','string','max:1000'],'teacher_title'=>['required','string','max:200'],'teacher_description'=>['required','string','max:1000'],'image'=>['nullable','image','mimes:jpg,jpeg,png,webp','max:4096']]);
-        $home=array_replace(SiteSetting::home(),collect($data)->except('image')->all());
-        if($image=$this->upload($request)) $home['image']=$image['local_path'];
+        $data=$request->validate([
+            'title'=>['required','string','max:200'],
+            'description'=>['required','string','max:1000'],
+            'teacher_title'=>['required','string','max:200'],
+            'teacher_description'=>['required','string','max:1000'],
+            'image'=>['nullable','image','mimes:jpg,jpeg,png,webp','max:4096'],
+            'preset_image'=>['nullable','string','max:255']
+        ]);
+        $home=array_replace(SiteSetting::home(),collect($data)->except(['image','preset_image'])->all());
+        if($image=$this->upload($request)) {
+            $home['image']=$image['local_path'];
+        } elseif(!empty($data['preset_image'])) {
+            $home['image']=$data['preset_image'];
+        }
         SiteSetting::updateOrCreate(['key'=>'home'],['value'=>$home]);
-        return redirect()->route('website.index')->with('success','Đã cập nhật nội dung trang chủ.');
+        return redirect()->route('website.home.edit')->with('success','Đã cập nhật banner và nội dung trang chủ.');
     }
     private function lines(string $text): array { return array_slice(array_values(array_filter(array_map('trim',preg_split('/\R/u',$text)))),0,50); }
     private function upload(Request $request): ?array

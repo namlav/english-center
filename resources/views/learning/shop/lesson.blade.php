@@ -112,6 +112,14 @@
             Thời lượng gợi ý: {{ (int)ceil($lesson->duration_seconds/60) }} phút 
             @if($lesson->is_preview) · <strong style="color: #2563eb;">Bài học thử miễn phí</strong>@endif
         </p>
+
+        @if($lesson->media_path && $embedVideo = \App\Services\CourseVideo::embed($lesson->media_path))
+            <div class="lesson-video-box" style="margin: 0 0 32px 0; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.08); background: #000;">
+                <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+                    <iframe src="{{ $embedVideo }}" style="position: absolute; top:0; left: 0; width: 100%; height: 100%; border: 0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+        @endif
         
         <div class="lesson-text" style="font-size: 16px; line-height: 1.85; color: #1e293b; margin-bottom: 36px; white-space: pre-line;">{{ $lesson->content }}</div>
 

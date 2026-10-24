@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends(auth()->check() && auth()->user()->isAdmin() ? 'layouts.admin' : 'layouts.app')
 
 @section('title', 'Chi tiết hóa đơn '.$invoice->invoice_code)
 
@@ -26,12 +26,38 @@
         </div>
         <p class="text-secondary mb-0 mt-2">Tạo lúc {{ $invoice->created_at?->format('H:i, d/m/Y') ?? '—' }}</p>
     </div>
-    <div class="d-flex gap-2">
+    <div class="d-flex gap-2 no-print">
+        @if($invoice->payment_status === 'unpaid' && auth()->check() && auth()->user()->isAdmin())
+            <form action="{{ route('invoices.mark_paid', $invoice) }}" method="POST" class="d-inline">
+                @csrf
+                <button type="submit" class="btn btn-success fw-bold" onclick="return confirm('Xác nhận đã thu đủ {{ number_format($invoice->invoice_total, 0, ',', '.') }} ₫ và duyệt học viên vào lớp?');">
+                    <i class="bi bi-check-circle me-1"></i> Duyệt đơn ngay
+                </button>
+            </form>
+        @endif
+        <button type="button" class="btn btn-outline-dark" onclick="window.print()">
+            <i class="bi bi-printer me-1"></i> In hóa đơn / Xuất PDF
+        </button>
         @if($classRoom)
             <a href="{{ route('class_rooms.show', $classRoom) }}" class="btn btn-outline-primary"><i class="bi bi-journal-bookmark me-1"></i>Xem lớp học</a>
         @endif
     </div>
 </div>
+
+@if($invoice->payment_status === 'unpaid' && auth()->check() && auth()->user()->isAdmin())
+    <div class="alert alert-warning border-0 shadow-sm d-flex flex-wrap justify-content-between align-items-center gap-3 my-3 p-3 rounded-3 no-print">
+        <div>
+            <h6 class="fw-bold mb-1"><i class="bi bi-clock-history me-2"></i>Hồ sơ đăng ký đang chờ duyệt học phí</h6>
+            <p class="mb-0 small text-dark">Sau khi kiểm tra sao kê chuyển khoản hoặc nhận học phí tại quầy, bấm Duyệt đơn để kích hoạt học viên vào lớp.</p>
+        </div>
+        <form action="{{ route('invoices.mark_paid', $invoice) }}" method="POST">
+            @csrf
+            <button type="submit" class="btn btn-success fw-bold px-3 py-2 shadow-sm" onclick="return confirm('Xác nhận đã thu đủ {{ number_format($invoice->invoice_total, 0, ',', '.') }} ₫ và duyệt học viên vào lớp?');">
+                <i class="bi bi-check-circle me-1"></i> Duyệt đơn & Thu học phí
+            </button>
+        </form>
+    </div>
+@endif
 
 <div class="row g-4">
     <div class="col-lg-8">
@@ -171,5 +197,12 @@
     .invoice-status-note { border-radius:12px; padding:.8rem .9rem; font-size:.85rem; font-weight:600; }
     .invoice-status-note-paid { color:#17795a; background:#eefaf5; }
     .invoice-status-note-unpaid { color:#94610d; background:#fff8eb; }
+
+    @media print {
+        .no-print, header, nav, footer, .sidebar, .topbar, .admin-topbar, .btn { display: none !important; }
+        body { background: #fff !important; font-size: 12pt; }
+        .card { border: 1px solid #ccc !important; box-shadow: none !important; }
+        .page-heading { margin-bottom: 20px !important; }
+    }
 </style>
 @endsection
