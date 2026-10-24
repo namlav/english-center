@@ -57,6 +57,7 @@ class ClassRoomRegistrationFlowTest extends TestCase
         $response->assertSee($classRoom->name);
         $response->assertSee(number_format($classRoom->tuition_fee, 0, ',', '.') . ' ₫');
         $response->assertSee('Chuyển khoản học phí');
+        $response->assertSee('Thanh toán');
     }
 
     public function test_guest_can_register_class_and_receives_unpaid_enrollment(): void
