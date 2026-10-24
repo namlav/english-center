@@ -11,11 +11,11 @@
             ✓
         </div>
 
-        <h1 style="font-size: 22px; font-weight: 800; color: #0f172a; margin: 0 0 4px;">
-            Đăng ký giữ chỗ thành công!
+        <h1 style="font-size: 20px; font-weight: 800; color: #0f172a; margin: 0 0 4px;">
+            Đăng ký thành công
         </h1>
-        <p style="color: #64748b; font-size: 13.5px; margin: 0 0 20px;">
-            Hồ sơ mã <strong style="color: #2563eb; font-family: monospace;">{{ $enrollment->invoice_code }}</strong> cho lớp <strong>{{ $classRoom->name }}</strong>.
+        <p style="color: #64748b; font-size: 13px; margin: 0 0 16px;">
+            Mã hồ sơ: <strong style="color: #2563eb; font-family: monospace;">{{ $enrollment->invoice_code }}</strong>
         </p>
 
         {{-- Khối VietQR --}}
@@ -62,8 +62,8 @@
         </div>
 
         {{-- Trạng thái đơn --}}
-        <div style="background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px; padding: 10px 14px; margin-bottom: 22px; font-size: 12.5px; color: #92400e; text-align: left;">
-            ⏳ <strong>Trạng thái:</strong> Đang chờ Admin duyệt học phí. Sau khi bạn chuyển khoản, Admin sẽ kiểm tra và kích hoạt lớp học vào tài khoản của bạn.
+        <div style="background: #fffbeb; border: 1px solid #fde68a; border-radius: 6px; padding: 10px 14px; margin-bottom: 20px; font-size: 13px; color: #92400e; font-weight: 600;">
+            ⏳ Trạng thái: Đang chờ Admin duyệt học phí
         </div>
 
         {{-- Nút bấm điều hướng --}}

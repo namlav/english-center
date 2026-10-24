@@ -153,9 +153,6 @@
                     <a href="{{ route('public_classes.register', $classRoom) }}" class="button" style="width: 100%; font-size: 16px; font-weight: 800; padding: 14px; text-align: center; background: #2563eb; border-color: #2563eb; color: #ffffff; text-decoration: none; display: block; border-radius: 8px; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);">
                         Đăng ký nhập học ngay ➔
                     </a>
-                    <span style="font-size: 12px; color: #64748b; text-align: center; display: block; margin-top: 8px;">
-                        Điền thông tin học viên & chọn phương thức giữ chỗ
-                    </span>
                 @endif
 
                 @if(auth()->check() && auth()->user()->isAdmin())
@@ -165,12 +162,6 @@
                         </a>
                     </div>
                 @endif
-
-                <ul style="margin: 20px 0 0 0; padding-left: 18px; font-size: 13px; color: #64748b; line-height: 1.6;">
-                    <li>Cam kết đầu ra chuẩn quốc tế.</li>
-                    <li>Giảng viên theo sát tiến độ từng buổi.</li>
-                    <li>Phòng học trang bị đầy đủ máy lạnh, máy chiếu.</li>
-                </ul>
             </div>
         </div>
     </div>

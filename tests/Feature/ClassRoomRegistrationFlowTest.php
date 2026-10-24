@@ -56,7 +56,7 @@ class ClassRoomRegistrationFlowTest extends TestCase
         $response->assertSee('Thông tin học viên');
         $response->assertSee($classRoom->name);
         $response->assertSee(number_format($classRoom->tuition_fee, 0, ',', '.') . ' ₫');
-        $response->assertSee('Chuyển khoản học phí');
+        $response->assertSee('Chuyển khoản ngân hàng');
         $response->assertSee('Thanh toán');
     }
 
