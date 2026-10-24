@@ -12,17 +12,60 @@ class LearningAccountController extends Controller
 {
     public function show(Request $request): View
     {
-        $user = $request->user()->load('learnerProfile');
+        $user = $request->user()->load(['learnerProfile', 'student']);
+        if ($user->isStudent() && ! $user->student) {
+            $maxId = (int) \App\Models\Student::max('id');
+            $code = sprintf('HV%04d', $maxId + 1);
+            while (\App\Models\Student::where('student_code', $code)->exists()) {
+                $maxId++;
+                $code = sprintf('HV%04d', $maxId + 1);
+            }
+            $user->student()->create(['student_code' => $code]);
+            $user->load('student');
+        }
+
         return view('learning.account.profile', compact('user'));
     }
+
     public function update(Request $request): RedirectResponse
     {
-        $data = $request->validate(['name' => ['required','string','max:255'], 'phone' => ['nullable','string','max:20','regex:/^[0-9+().\s-]+$/'], 'occupation' => ['nullable','string','max:100']]);
+        $data = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'phone' => ['nullable', 'string', 'max:20', 'regex:/^[0-9+().\s-]+$/'],
+            'occupation' => ['nullable', 'string', 'max:100'],
+            'date_of_birth' => ['nullable', 'date'],
+            'gender' => ['nullable', 'in:male,female,other'],
+            'address' => ['nullable', 'string', 'max:255'],
+        ]);
+
         DB::transaction(function () use ($request, $data): void {
-            $request->user()->update(['name' => $data['name'], 'phone' => $data['phone'] ?? null]);
-            $request->user()->learnerProfile()->updateOrCreate([], ['occupation' => $data['occupation'] ?? null]);
+            $user = $request->user();
+            $user->update([
+                'name' => $data['name'],
+                'phone' => $data['phone'] ?? null,
+            ]);
+            $user->learnerProfile()->updateOrCreate([], ['occupation' => $data['occupation'] ?? null]);
+
+            if ($user->isStudent() || $user->student) {
+                $student = $user->student;
+                if (! $student) {
+                    $maxId = (int) \App\Models\Student::max('id');
+                    $code = sprintf('HV%04d', $maxId + 1);
+                    while (\App\Models\Student::where('student_code', $code)->exists()) {
+                        $maxId++;
+                        $code = sprintf('HV%04d', $maxId + 1);
+                    }
+                    $student = $user->student()->create(['student_code' => $code]);
+                }
+                $student->update([
+                    'date_of_birth' => $data['date_of_birth'] ?? null,
+                    'gender' => $data['gender'] ?? null,
+                    'address' => $data['address'] ?? null,
+                ]);
+            }
         });
-        return redirect()->route('account.show')->with('success', 'Đã lưu thông tin cá nhân.');
+
+        return redirect()->route('account.show')->with('success', 'Đã lưu thông tin cá nhân và hồ sơ học viên thành công.');
     }
     public function updatePassword(Request $request): RedirectResponse
     {

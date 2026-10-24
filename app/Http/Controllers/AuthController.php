@@ -59,7 +59,6 @@ class AuthController extends Controller
             Student::create([
                 'user_id' => $user->id,
                 'student_code' => $code,
-                'phone' => $user->phone,
             ]);
 
             return $user;
