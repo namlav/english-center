@@ -45,7 +45,11 @@
                                 @endswitch
                             </td>
                             <td>
-                                @if($user->is_active)
+                                @if($user->isAdmin())
+                                    <span class="badge bg-success" title="Tài khoản Quản trị viên luôn duy trì hoạt động">
+                                        <i class="bi bi-shield-check me-1"></i>Hoạt động
+                                    </span>
+                                @elseif($user->is_active)
                                     <span class="badge bg-success">Hoạt động</span>
                                 @else
                                     <span class="badge bg-secondary">Bị khóa</span>
@@ -53,16 +57,22 @@
                             </td>
                             <td class="text-center">
                                 <div class="btn-group btn-group-sm">
-                                    <a href="{{ route('users.edit', $user) }}" class="btn btn-outline-warning" title="Sửa">
+                                    <a href="{{ route('users.edit', $user) }}" class="btn btn-outline-warning" title="Sửa thông tin">
                                         <i class="bi bi-pencil"></i>
                                     </a>
-                                    <form action="{{ route('users.destroy', $user) }}" method="POST" class="d-inline" onsubmit="return confirm('Bạn có chắc chắn muốn xóa tài khoản này?');">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-outline-danger ms-1" title="Xóa">
-                                            <i class="bi bi-trash"></i>
+                                    @if($user->isAdmin())
+                                        <button type="button" class="btn btn-outline-secondary ms-1 disabled" style="opacity: 0.65; cursor: not-allowed;" title="Tài khoản Quản trị viên tối cao được bảo vệ — không thể xóa hoặc khóa">
+                                            <i class="bi bi-shield-lock-fill text-danger"></i>
                                         </button>
-                                    </form>
+                                    @else
+                                        <form action="{{ route('users.destroy', $user) }}" method="POST" class="d-inline" onsubmit="return confirm('Bạn có chắc chắn muốn xóa tài khoản này?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-outline-danger ms-1" title="Xóa">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </form>
+                                    @endif
                                 </div>
                             </td>
                         </tr>

@@ -92,10 +92,54 @@ class LearningAccountController extends Controller
     public function courses(Request $request): View
     {
         $user = $request->user();
-        $enrollments = $user->courseEnrollments()->with(['course.sections.lessons' => fn ($query) => $query->where('is_published', true)->orderBy('position')])->orderByDesc('started_at')->paginate(9);
+
+        // 1. Khóa học theo Lớp học trực tiếp (Classroom Courses)
+        $classroomEnrollments = $user->student
+            ? $user->student->enrollments()
+                ->where('payment_status', 'paid')
+                ->with(['classRoom.course.sections.lessons', 'classRoom.teacher.user'])
+                ->latest('enrollment_date')
+                ->get()
+            : collect();
+
+        if ($classroomEnrollments->isNotEmpty() && $user->student) {
+            $attendanceCounts = \App\Models\Attendance::query()
+                ->where('student_id', $user->student->id)
+                ->whereIn('class_room_id', $classroomEnrollments->pluck('class_room_id'))
+                ->selectRaw("class_room_id, SUM(CASE WHEN status = 'present' THEN 1 ELSE 0 END) as present_count, SUM(CASE WHEN status = 'absent' THEN 1 ELSE 0 END) as absent_count, COUNT(*) as attendance_count")
+                ->groupBy('class_room_id')
+                ->get()
+                ->keyBy('class_room_id');
+
+            foreach ($classroomEnrollments as $enr) {
+                $counts = $attendanceCounts->get($enr->class_room_id);
+                $enr->present_count = (int) ($counts?->present_count ?? 0);
+                $enr->absent_count = (int) ($counts?->absent_count ?? 0);
+                $enr->attendance_count = (int) ($counts?->attendance_count ?? 0);
+            }
+        }
+
+        // 2. Khóa học Video Trực tuyến (Online Video Course Enrollments)
+        $onlineEnrollments = $user->courseEnrollments()
+            ->where('source', '!=', 'classroom')
+            ->with(['course.sections.lessons' => fn ($query) => $query->where('is_published', true)->orderBy('position')])
+            ->orderByDesc('started_at')
+            ->get();
+
         $completedIds = $user->lessonProgress()->whereNotNull('completed_at')->pluck('lesson_id')->flip();
         $pendingOrders = \App\Models\Order::where('user_id', $user->id)->where('status', 'pending')->with(['items', 'payment'])->latest('id')->get();
-        return view('learning.account.courses', compact('user','enrollments','completedIds','pendingOrders'));
+        $paidOrders = \App\Models\Order::where('user_id', $user->id)->where('status', 'paid')->with(['items', 'payment'])->latest('id')->get();
+        $shop = app(\App\Services\CourseShop::class);
+
+        return view('learning.account.courses', compact(
+            'user',
+            'classroomEnrollments',
+            'onlineEnrollments',
+            'completedIds',
+            'pendingOrders',
+            'paidOrders',
+            'shop'
+        ));
     }
     public function schedule(Request $request): View
     {

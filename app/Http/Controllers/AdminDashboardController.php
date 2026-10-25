@@ -26,7 +26,7 @@ class AdminDashboardController extends Controller
         $hasExams = Schema::hasTable('exam_papers');
         $hasEnrollments = Schema::hasTable('enrollments');
 
-        // 1. CHỈ SỐ DOANH THU BÁN KHÓA HỌC (TRỌNG TÂM)
+        // 1. CHỈ SỐ DOANH THU BÁN KHÓA HỌC (TRỌNG TÂM TOÀN HỆ THỐNG)
         $totalCourseRevenue = $hasOrders ? (int) Order::where('status', 'paid')->sum('total') : 0;
         $paidOrdersCount = $hasOrders ? Order::where('status', 'paid')->count() : 0;
         $pendingOrdersCount = $hasOrders ? Order::where('status', 'pending')->count() : 0;
@@ -37,23 +37,27 @@ class AdminDashboardController extends Controller
         $thisMonthRevenue = $hasOrders ? (int) Order::where('status', 'paid')->whereMonth('created_at', now()->month)->whereYear('created_at', now()->year)->sum('total') : 0;
         $averageOrderValue = $paidOrdersCount > 0 ? (int) round($totalCourseRevenue / $paidOrdersCount) : 0;
 
-        // Doanh thu học phí lớp học offline nếu có
+        // Phân tách doanh thu lớp trực tiếp và khóa học online
         $offlineRevenue = $hasEnrollments ? (int) Enrollment::where('payment_status', 'paid')->sum('paid_tuition') : 0;
-        $totalSystemRevenue = $totalCourseRevenue + $offlineRevenue;
+        $onlineRevenue = $hasOrders ? (int) Order::where('status', 'paid')->whereNull('enrollment_id')->sum('total') : 0;
+        $totalSystemRevenue = $totalCourseRevenue > 0 ? $totalCourseRevenue : ($offlineRevenue + $onlineRevenue);
 
-        // 2. BÁO CÁO DOANH THU CHI TIẾT BÁN ĐƯỢC BAO NHIÊU THEO TỪNG KHÓA HỌC
+        // 2. BÁO CÁO DOANH THU CHI TIẾT BÁN ĐƯỢC THEO TỪNG KHÓA HỌC
         $courseSales = collect();
         if ($hasOrderItems && $hasOrders) {
             $courseSales = DB::table('order_items')
                 ->join('orders', 'order_items.order_id', '=', 'orders.id')
+                ->leftJoin('courses', 'order_items.course_id', '=', 'courses.id')
                 ->where('orders.status', 'paid')
                 ->select(
                     'order_items.course_name',
+                    'order_items.course_id',
+                    DB::raw('MAX(courses.delivery_mode) as delivery_mode'),
                     DB::raw('COUNT(order_items.id) as total_sold'),
                     DB::raw('SUM(order_items.unit_price) as course_revenue'),
                     DB::raw('MAX(order_items.unit_price) as unit_price')
                 )
-                ->groupBy('order_items.course_name')
+                ->groupBy('order_items.course_name', 'order_items.course_id')
                 ->orderByDesc('course_revenue')
                 ->get();
         }
@@ -68,7 +72,7 @@ class AdminDashboardController extends Controller
 
         // 3. ĐƠN HÀNG BÁN KHÓA HỌC GẦN ĐÂY CẦN ĐỐI SOÁT
         $recentOrders = $hasOrders 
-            ? Order::with(['items', 'payment'])->latest('id')->take(8)->get() 
+            ? Order::with(['items', 'payment', 'enrollment.classRoom'])->latest('id')->take(8)->get() 
             : collect();
 
         // 4. CÁC THÔNG SỐ PHỤ KHÁC (Học viên, Giảng viên, Lớp học, Đề thi, Bài giảng)
@@ -159,23 +163,31 @@ class AdminDashboardController extends Controller
     {
         $orders = Order::with(['items', 'payment'])
             ->where('status', 'paid')
+            ->whereNull('enrollment_id')
             ->latest('id')
             ->get();
 
-        $filename = 'bao-cao-doanh-thu-khoa-hoc-' . date('Ymd-His') . '.csv';
+        $enrollments = Enrollment::with(['student.user', 'classRoom.course', 'classRoom.teacher.user'])
+            ->where('payment_status', 'paid')
+            ->latest('id')
+            ->get();
 
-        return response()->streamDownload(function () use ($orders) {
+        $filename = 'bao-cao-doanh-thu-toan-he-thong-' . date('Ymd-His') . '.csv';
+
+        return response()->streamDownload(function () use ($orders, $enrollments) {
             $handle = fopen('php://output', 'w');
             fwrite($handle, "\xEF\xBB\xBF"); // UTF-8 BOM
 
+            // 1. PHẦN ĐƠN HÀNG KHÓA HỌC TRỰC TUYẾN (E-LEARNING & COMBO)
+            fputcsv($handle, ['=== DOANH THU ĐƠN HÀNG KHÓA HỌC ONLINE (E-LEARNING) ===']);
             fputcsv($handle, ['STT', 'Mã Đơn Hàng', 'Học Viên Mua', 'Email', 'Các Khóa Học Đã Mua', 'Số Khóa', 'Tổng Tiền (VNĐ)', 'Phương Thức', 'Ngày Thanh Toán', 'Trạng Thái']);
 
             $i = 1;
-            $totalRevenue = 0;
+            $onlineRevenue = 0;
 
             foreach ($orders as $order) {
                 $coursesList = $order->items->pluck('course_name')->implode('; ');
-                $totalRevenue += (int) $order->total;
+                $onlineRevenue += (int) $order->total;
 
                 fputcsv($handle, [
                     $i++,
@@ -187,12 +199,43 @@ class AdminDashboardController extends Controller
                     number_format($order->total, 0, ',', '.') . ' ₫',
                     $order->payment?->method === 'bank_transfer' ? 'VietQR Chuyển khoản' : 'Mô phỏng thanh toán',
                     $order->paid_at ? $order->paid_at->format('d/m/Y H:i') : $order->created_at->format('d/m/Y H:i'),
-                    'Đã thanh toán (Hoàn tất)'
+                    'Đã thanh toán'
                 ]);
             }
 
+            fputcsv($handle, ['', 'TỔNG DOANH THU KHÓA HỌC ONLINE', '', '', '', $orders->sum(fn($o) => $o->items->count()) . ' lượt khóa', number_format($onlineRevenue, 0, ',', '.') . ' ₫', '', '', '']);
             fputcsv($handle, []);
-            fputcsv($handle, ['', 'TỔNG DOANH THU THỰC THU', '', '', '', $orders->sum(fn($o) => $o->items->count()) . ' lượt khóa', number_format($totalRevenue, 0, ',', '.') . ' ₫', '', '', '']);
+
+            // 2. PHẦN HỌC PHÍ LỚP HỌC TRỰC TIẾP (OFFLINE)
+            fputcsv($handle, ['=== DOANH THU HỌC PHÍ LỚP HỌC TRỰC TIẾP (OFFLINE) ===']);
+            fputcsv($handle, ['STT', 'Mã Hóa Đơn', 'Học Viên', 'Mã Học Viên', 'Lớp Học', 'Giảng Viên Phụ Trách', 'Học Phí (VNĐ)', 'Ngày Thu', 'Trạng Thái']);
+
+            $j = 1;
+            $offlineRevenue = 0;
+
+            foreach ($enrollments as $enr) {
+                $tuition = (float) $enr->invoice_total;
+                $offlineRevenue += $tuition;
+
+                fputcsv($handle, [
+                    $j++,
+                    $enr->invoice_code,
+                    $enr->student?->user?->name ?? '—',
+                    $enr->student?->student_code ?? '—',
+                    $enr->classRoom?->name ?? '—',
+                    $enr->classRoom?->teacher?->user?->name ?? '—',
+                    number_format($tuition, 0, ',', '.') . ' ₫',
+                    $enr->created_at?->format('d/m/Y H:i') ?? '—',
+                    'Đã thanh toán'
+                ]);
+            }
+
+            fputcsv($handle, ['', 'TỔNG HỌC PHÍ LỚP TRỰC TIẾP', '', '', '', '', number_format($offlineRevenue, 0, ',', '.') . ' ₫', '', '']);
+            fputcsv($handle, []);
+
+            // 3. TỔNG KẾT TOÀN HỆ THỐNG
+            $totalSystemRevenue = $onlineRevenue + $offlineRevenue;
+            fputcsv($handle, ['=== TỔNG DOANH THU THỰC THU TOÀN TRUNG TÂM (ONLINE + OFFLINE) ===', number_format($totalSystemRevenue, 0, ',', '.') . ' ₫']);
 
             fclose($handle);
         }, $filename, [

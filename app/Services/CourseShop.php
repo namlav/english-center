@@ -1,6 +1,6 @@
 <?php
 namespace App\Services;
-use App\Models\{Course,CourseEnrollment,Order,Payment,User};
+use App\Models\{Course,CourseEnrollment,Enrollment,Order,Payment,User};
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
@@ -37,6 +37,9 @@ class CourseShop {
  public function owned(User $u,int $id):bool{
   $directly = $u->courseEnrollments()->where('course_id',$id)->where('status','active')->where('started_at','<=',now())->where(fn($q)=>$q->whereNull('expires_at')->orWhere('expires_at','>',now()))->exists();
   if ($directly) return true;
+  if ($u->student && $u->student->enrollments()->whereHas('classRoom', fn($q) => $q->where('course_id', $id))->where('payment_status', 'paid')->exists()) {
+   return true;
+  }
   $parents = $this->parentComboCourseIds($id);
   if (!empty($parents)) {
    return $u->courseEnrollments()->whereIn('course_id', $parents)->where('status','active')->where('started_at','<=',now())->where(fn($q)=>$q->whereNull('expires_at')->orWhere('expires_at','>',now()))->exists();
@@ -82,5 +85,78 @@ class CourseShop {
    }
    $payment->update(['status'=>'paid','confirmed_by'=>$actor->id,'confirmed_at'=>now()]);$order->update(['status'=>'paid','paid_at'=>now()]);return $order;
   },5);
+ }
+
+ public static function syncEnrollmentOrder(Enrollment $enrollment): ?Order {
+  $enrollment->loadMissing(['student.user', 'classRoom.course']);
+  $user = $enrollment->student?->user;
+  $course = $enrollment->classRoom?->course;
+  if (!$user || !$course) {
+   return null;
+  }
+
+  $amount = (int) $enrollment->invoice_total;
+  $isPaid = $enrollment->payment_status === 'paid';
+  $orderDate = $enrollment->created_at ?? now();
+
+  $order = Order::where('enrollment_id', $enrollment->id)->first();
+  if (!$order) {
+   $order = Order::create([
+    'number' => (string) Str::uuid(),
+    'user_id' => $user->id,
+    'enrollment_id' => $enrollment->id,
+    'checkout_token' => (string) Str::uuid(),
+    'buyer_name' => $user->name,
+    'buyer_email' => $user->email,
+    'total' => $amount,
+    'currency' => 'VND',
+    'status' => $isPaid ? 'paid' : 'pending',
+    'paid_at' => $isPaid ? ($enrollment->created_at ?? now()) : null,
+    'created_at' => $orderDate,
+    'updated_at' => $orderDate,
+   ]);
+
+   $order->items()->create([
+    'course_id' => $course->id,
+    'course_name' => $course->name,
+    'unit_price' => $amount,
+    'access_days' => 365,
+    'created_at' => $orderDate,
+    'updated_at' => $orderDate,
+   ]);
+
+   $order->payment()->create([
+    'reference' => 'HD-' . ($orderDate->format('Y')) . '-' . str_pad((string) $enrollment->id, 5, '0', STR_PAD_LEFT),
+    'method' => 'bank_transfer',
+    'status' => $isPaid ? 'paid' : 'pending',
+    'amount' => $amount,
+    'confirmed_by' => 1,
+    'confirmed_at' => $isPaid ? ($enrollment->created_at ?? now()) : null,
+    'created_at' => $orderDate,
+    'updated_at' => $orderDate,
+   ]);
+  } else {
+   $order->update([
+    'total' => $amount,
+    'status' => $isPaid ? 'paid' : 'pending',
+    'paid_at' => $isPaid ? ($order->paid_at ?? now()) : null,
+   ]);
+   if ($item = $order->items()->first()) {
+    $item->update([
+     'course_id' => $course->id,
+     'course_name' => $course->name,
+     'unit_price' => $amount,
+    ]);
+   }
+   if ($payment = $order->payment) {
+    $payment->update([
+     'amount' => $amount,
+     'status' => $isPaid ? 'paid' : 'pending',
+     'confirmed_at' => $isPaid ? ($payment->confirmed_at ?? now()) : null,
+    ]);
+   }
+  }
+
+  return $order;
  }
 }

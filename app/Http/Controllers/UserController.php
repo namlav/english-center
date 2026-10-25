@@ -53,13 +53,22 @@ class UserController extends Controller
 
     public function update(Request $request, User $user)
     {
-        $validated = $request->validate([
+        $rules = [
             'name' => 'required|string|max:255',
             'email' => ['required', 'email', Rule::unique('users')->ignore($user->id)],
             'password' => 'nullable|string|min:6|confirmed',
             'role' => 'required|in:admin,teacher,student',
             'phone' => 'nullable|string|max:20',
             'is_active' => 'boolean',
+        ];
+
+        // Nếu là tài khoản Admin, bảo vệ nghiêm ngặt: không cho phép thay đổi vai trò
+        if ($user->isAdmin()) {
+            $rules['role'] = ['required', Rule::in(['admin'])];
+        }
+
+        $validated = $request->validate($rules, [
+            'role.in' => 'Không thể thay đổi vai trò của tài khoản Quản trị viên hệ thống.',
         ]);
 
         if (!empty($validated['password'])) {
@@ -67,7 +76,14 @@ class UserController extends Controller
         } else {
             unset($validated['password']);
         }
-        $validated['is_active'] = $request->has('is_active');
+
+        // Tài khoản Admin luôn duy trì trạng thái hoạt động (không thể khóa)
+        if ($user->isAdmin()) {
+            $validated['is_active'] = true;
+            $validated['role'] = 'admin';
+        } else {
+            $validated['is_active'] = $request->has('is_active');
+        }
 
         $user->update($validated);
 
@@ -76,6 +92,11 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
+        // Chặn tuyệt đối xóa tài khoản Quản trị viên (Admin)
+        if ($user->isAdmin()) {
+            return redirect()->route('users.index')->with('error', 'Không thể xóa tài khoản Quản trị viên tối cao của hệ thống để tránh mất quyền điều hành.');
+        }
+
         return DB::transaction(function () use ($user) {
             $user = User::query()->lockForUpdate()->findOrFail($user->id);
             if ((Schema::hasTable('orders') && DB::table('orders')->where('user_id',$user->id)->exists())
