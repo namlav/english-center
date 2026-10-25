@@ -195,6 +195,18 @@ class EnrollmentController extends Controller
                 'result_status' => 'studying',
             ]);
 
+            if ($student->user_id && $lockedClass->course_id) {
+                \App\Models\CourseEnrollment::firstOrCreate(
+                    ['user_id' => $student->user_id, 'course_id' => $lockedClass->course_id],
+                    [
+                        'source' => 'classroom',
+                        'status' => 'active',
+                        'started_at' => $lockedClass->start_date ? \Carbon\Carbon::parse($lockedClass->start_date)->startOfDay() : now(),
+                        'expires_at' => $lockedClass->expected_end_date ? \Carbon\Carbon::parse($lockedClass->expected_end_date)->addMonth() : null,
+                    ]
+                );
+            }
+
             return 'Đã ghi danh học viên ' . ($student->user->name ?? $student->student_code) . ' vào lớp ' . $lockedClass->code . ' thành công!';
         }, 3);
 

@@ -62,8 +62,13 @@ class ReportController extends Controller
                 }
             }
 
+            $onlineRevenue = (float) \App\Models\Order::where('status', 'paid')->sum('total');
+            $onlineCount = (int) \App\Models\Order::where('status', 'paid')->count();
+
             fputcsv($handle, []);
-            fputcsv($handle, ['', 'TỔNG CỘNG', '', '', '', '', $totalStudents, number_format($totalRevenue, 0, ',', '.') . ' ₫']);
+            fputcsv($handle, ['', 'TỔNG DOANH THU LỚP HỌC TRỰC TIẾP', '', '', '', '', $totalStudents . ' học viên', number_format($totalRevenue, 0, ',', '.') . ' ₫']);
+            fputcsv($handle, ['', 'TỔNG DOANH THU KHÓA HỌC ONLINE', '', '', '', '', $onlineCount . ' đơn hàng', number_format($onlineRevenue, 0, ',', '.') . ' ₫']);
+            fputcsv($handle, ['', 'TỔNG DOANH THU TOÀN TRUNG TÂM', '', '', '', '', '', number_format($totalRevenue + $onlineRevenue, 0, ',', '.') . ' ₫']);
 
             fclose($handle);
         }, $filename, [

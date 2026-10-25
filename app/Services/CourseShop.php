@@ -37,6 +37,9 @@ class CourseShop {
  public function owned(User $u,int $id):bool{
   $directly = $u->courseEnrollments()->where('course_id',$id)->where('status','active')->where('started_at','<=',now())->where(fn($q)=>$q->whereNull('expires_at')->orWhere('expires_at','>',now()))->exists();
   if ($directly) return true;
+  if ($u->student && $u->student->enrollments()->whereHas('classRoom', fn($q) => $q->where('course_id', $id))->where('payment_status', 'paid')->exists()) {
+   return true;
+  }
   $parents = $this->parentComboCourseIds($id);
   if (!empty($parents)) {
    return $u->courseEnrollments()->whereIn('course_id', $parents)->where('status','active')->where('started_at','<=',now())->where(fn($q)=>$q->whereNull('expires_at')->orWhere('expires_at','>',now()))->exists();
