@@ -96,6 +96,7 @@ class InvoiceController extends Controller
         // 2. LẤY HÓA ĐƠN ĐƠN HÀNG KHÓA HỌC TRỰC TUYẾN (ONLINE COURSE ORDERS)
         if ($type === 'all' || $type === 'online_course') {
             $ordQuery = Order::with(['items', 'payment', 'user.student'])
+                ->whereNull('enrollment_id')
                 ->when($keyword !== '', function (Builder $query) use ($keyword): void {
                     $query->where(function (Builder $search) use ($keyword): void {
                         $search->where('buyer_name', 'like', '%'.$keyword.'%')
@@ -186,10 +187,10 @@ class InvoiceController extends Controller
         $unpaidOffline = Enrollment::where('payment_status', 'unpaid')->count();
         $offlineRevenue = (float) Enrollment::where('payment_status', 'paid')->sum('paid_tuition');
 
-        $totalOnline = Order::count();
-        $paidOnline = Order::where('status', 'paid')->count();
-        $unpaidOnline = Order::where('status', '!=', 'paid')->count();
-        $onlineRevenue = (float) Order::where('status', 'paid')->sum('total');
+        $totalOnline = Order::whereNull('enrollment_id')->count();
+        $paidOnline = Order::whereNull('enrollment_id')->where('status', 'paid')->count();
+        $unpaidOnline = Order::whereNull('enrollment_id')->where('status', '!=', 'paid')->count();
+        $onlineRevenue = (float) Order::whereNull('enrollment_id')->where('status', 'paid')->sum('total');
 
         $summary = [
             'total' => $totalOffline + $totalOnline,
@@ -273,6 +274,8 @@ class InvoiceController extends Controller
                 ]
             );
         }
+
+        \App\Services\CourseShop::syncEnrollmentOrder($invoice);
 
         return back()->with('success', 'Đã duyệt thanh toán thành công cho hồ sơ '.$invoice->invoice_code.' ('.number_format($tuition, 0, ',', '.').' ₫). Học viên đã được kích hoạt nhập học chính thức.');
     }

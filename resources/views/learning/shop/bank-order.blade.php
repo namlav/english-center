@@ -15,7 +15,25 @@
 <h1>{{ $order->status==='paid'?'Đăng ký học thành công':'Thanh toán bằng QR ngân hàng' }}</h1>
 <p class="order-number">Mã đơn: {{ $order->number }}</p>
 @if($order->status==='paid')
- <section class="commerce-paid-panel"><h2>Đã xác nhận thanh toán</h2><p>Khóa học đã được cấp vào tài khoản người mua.</p><a class="commerce-button" href="{{ route('account.courses') }}">Đến khóa học của tôi →</a></section>
+ <section class="commerce-paid-panel">
+  <h2>Đã xác nhận thanh toán</h2>
+  <p>Khóa học đã được cấp vào tài khoản người mua.</p>
+  @if($order->enrollment_id)
+    <p style="font-size: 13.5px; color: #15803d; margin-top: 4px;">
+      Hồ sơ đăng ký lớp trực tiếp · Mã hóa đơn: <strong>{{ $order->payment?->reference ?? ('HD-' . $order->enrollment_id) }}</strong>
+    </p>
+  @endif
+  <div style="display: flex; gap: 10px; justify-content: center; margin-top: 14px; flex-wrap: wrap;">
+    @if($adminView)
+      <a class="button button-outline" href="{{ route('shop_admin.orders.index') }}">← Quay lại Quản lý Đơn hàng</a>
+      @if($order->enrollment_id)
+        <a class="button" href="{{ route('invoices.show', $order->enrollment_id) }}" style="background: #0284c7; border-color: #0284c7; text-decoration: none;">Xem Hóa đơn học phí →</a>
+      @endif
+    @else
+      <a class="commerce-button" href="{{ route('account.courses') }}">Đến khóa học của tôi →</a>
+    @endif
+  </div>
+ </section>
 @else
  <div class="commerce-payment-grid">
  <section class="commerce-qr-panel">

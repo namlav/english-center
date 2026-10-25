@@ -263,7 +263,7 @@
             <thead class="table-light">
                 <tr class="fs-8 text-uppercase text-secondary">
                     <th class="ps-3 py-3" style="width: 40px;">#</th>
-                    <th>Tên Khóa Học E-Learning</th>
+                    <th>Tên Khóa Học</th>
                     <th class="text-center">Đơn Giá Bán</th>
                     <th class="text-center">Số Lượt Đã Bán</th>
                     <th class="text-end">Doanh Thu Thu Về</th>
@@ -277,7 +277,11 @@
                         <td class="ps-3 fw-bold text-muted">{{ $i + 1 }}</td>
                         <td>
                             <strong class="text-dark d-block fs-7">{{ $item->course_name }}</strong>
-                            <small class="text-muted"><i class="bi bi-tag-fill text-primary me-1"></i> Khóa học trực tuyến LMS</small>
+                            @if(isset($item->delivery_mode) && $item->delivery_mode === 'classroom')
+                                <small class="text-primary"><i class="bi bi-building me-1"></i> Lớp học trực tiếp tại trung tâm</small>
+                            @else
+                                <small class="text-muted"><i class="bi bi-laptop text-primary me-1"></i> Khóa học trực tuyến LMS</small>
+                            @endif
                         </td>
                         <td class="text-center font-monospace fs-7 text-dark fw-semibold">
                             {{ number_format($item->unit_price, 0, ',', '.') }} ₫
@@ -366,7 +370,14 @@
                             <a href="{{ route('shop_admin.orders.show', $order->number) }}" class="fw-bold text-primary font-monospace text-decoration-none">
                                 {{ $order->number }}
                             </a>
-                            <div class="text-muted fs-8">{{ $order->created_at?->diffForHumans() }}</div>
+                            <div class="d-flex align-items-center gap-2 mt-1">
+                                <span class="text-muted fs-8">{{ $order->created_at?->diffForHumans() }}</span>
+                                @if($order->enrollment_id)
+                                    <span class="badge bg-primary-subtle text-primary border border-primary-subtle fs-9 px-1 py-0">Lớp trực tiếp</span>
+                                @else
+                                    <span class="badge bg-info-subtle text-info border border-info-subtle fs-9 px-1 py-0">Online LMS</span>
+                                @endif
+                            </div>
                         </td>
                         <td>
                             <strong class="text-dark d-block fs-7">{{ $order->buyer_name }}</strong>

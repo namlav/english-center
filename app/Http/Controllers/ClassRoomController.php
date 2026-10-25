@@ -188,7 +188,7 @@ class ClassRoomController extends Controller
                 $remarks .= ' | Ghi chú: ' . $validated['notes'];
             }
 
-            return Enrollment::create([
+            $newEnr = Enrollment::create([
                 'class_room_id' => $lockedClass->id,
                 'student_id' => $student->id,
                 'enrollment_date' => now()->toDateString(),
@@ -197,6 +197,10 @@ class ClassRoomController extends Controller
                 'result_status' => 'studying',
                 'remarks' => $remarks,
             ]);
+
+            \App\Services\CourseShop::syncEnrollmentOrder($newEnr);
+
+            return $newEnr;
         }, 3);
 
         return redirect()->route('public_classes.confirmation', [
