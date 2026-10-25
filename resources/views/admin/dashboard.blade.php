@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Tổng Quan & Báo Cáo Doanh Thu Khóa Học — Metis Admin')
+@section('title', 'Tổng Quan & Báo Cáo Doanh Thu Khóa Học — Admin')
 
 @section('content')
 {{-- TIÊU ĐỀ TRANG & NÚT TÁC VỤ --}}
@@ -350,8 +350,8 @@
         <table class="table table-hover align-middle mb-0">
             <thead class="table-light">
                 <tr class="fs-8 text-uppercase text-secondary">
-                    <th class="ps-3 py-3" style="width: 140px;">Mã Đơn</th>
-                    <th>Người Mua & Liên Hệ</th>
+                    <th class="ps-3 py-3" style="width: 220px; min-width: 200px;">Mã Đơn</th>
+                    <th style="min-width: 180px;">Người Mua & Liên Hệ</th>
                     <th>Khóa Học Đặt Mua</th>
                     <th>Tổng Tiền</th>
                     <th>Hình Thức</th>

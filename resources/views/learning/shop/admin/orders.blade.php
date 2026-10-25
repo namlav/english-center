@@ -30,45 +30,61 @@
     </div>
 
     <div class="admin-table-wrap" style="box-shadow: 0 2px 8px rgba(0,0,0,0.03); border-radius: 10px;">
-        <table class="admin-table">
+        <table class="admin-table admin-orders-table">
             <thead>
                 <tr>
-                    <th style="width: 140px;">Mã đơn hàng</th>
-                    <th>Người mua & Liên hệ</th>
-                    <th>Số khóa</th>
-                    <th>Tổng tiền</th>
-                    <th>Hình thức</th>
-                    <th style="text-align: center;">Trạng thái</th>
-                    <th style="text-align: right;">Thao tác</th>
+                    <th style="width: 250px; min-width: 230px; text-align: left;">Mã đơn hàng</th>
+                    <th style="min-width: 210px; text-align: left;">Người mua & Liên hệ</th>
+                    <th style="width: 110px; text-align: center;">Số khóa</th>
+                    <th style="width: 130px;">Tổng tiền</th>
+                    <th style="width: 140px;">Hình thức</th>
+                    <th style="width: 130px; text-align: center;">Trạng thái</th>
+                    <th style="width: 170px; text-align: right;">Thao tác</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse($orders as $order)
                     <tr>
-                        <td>
-                            <strong style="color: #2563eb; font-size: 13.5px; font-family: monospace;">{{ $order->number }}</strong>
-                            <span style="font-size: 11.5px; color: #94a3b8; display: block;">
+                        <td style="text-align: left; vertical-align: middle;">
+                            <a href="{{ route('shop_admin.orders.show', $order->number) }}" 
+                               title="Xem chi tiết đơn hàng {{ $order->number }}"
+                               style="color: #2563eb; font-size: 13px; font-weight: 700; font-family: 'JetBrains Mono', monospace; text-decoration: none; word-break: break-all; display: block; line-height: 1.4;">
+                                {{ $order->number }}
+                            </a>
+                            <span style="font-size: 11.5px; color: #94a3b8; display: inline-flex; align-items: center; gap: 4px; margin-top: 4px;">
+                                <i class="bi bi-clock"></i>
                                 {{ $order->created_at?->copy()->timezone('Asia/Ho_Chi_Minh')->format('d/m/Y H:i') }}
                             </span>
                         </td>
-                        <td>
-                            <strong style="color: #0f172a; font-size: 14px; display: block;">{{ $order->buyer_name }}</strong>
-                            <span style="font-size: 12px; color: #64748b;">{{ $order->buyer_email }}</span>
+                        <td style="text-align: left; vertical-align: middle;">
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <div style="width: 36px; height: 36px; border-radius: 50%; background: #eff6ff; color: #2563eb; display: grid; place-items: center; font-weight: 700; font-size: 13px; flex-shrink: 0; border: 1px solid #dbeafe;">
+                                    {{ mb_strtoupper(mb_substr($order->buyer_name ?? 'U', 0, 1, 'UTF-8'), 'UTF-8') }}
+                                </div>
+                                <div style="min-width: 0;">
+                                    <strong style="color: #0f172a; font-size: 13.5px; display: block; line-height: 1.4; font-weight: 600;">
+                                        {{ $order->buyer_name }}
+                                    </strong>
+                                    <span style="font-size: 12px; color: #64748b; display: block; line-height: 1.4; word-break: break-all;">
+                                        {{ $order->buyer_email }}
+                                    </span>
+                                </div>
+                            </div>
                         </td>
-                        <td>
-                            <span style="background: #f1f5f9; color: #475569; font-size: 12px; font-weight: 600; padding: 3px 8px; border-radius: 4px;">
+                        <td style="text-align: center; vertical-align: middle;">
+                            <span style="background: #f1f5f9; color: #475569; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 6px; display: inline-block;">
                                 {{ $order->items_count }} khóa học
                             </span>
                         </td>
-                        <td>
-                            <strong style="color: #0f172a; font-size: 15px;">{{ number_format($order->total, 0, ',', '.') }}đ</strong>
+                        <td style="vertical-align: middle;">
+                            <strong style="color: #0f172a; font-size: 15px; font-weight: 700;">{{ number_format($order->total, 0, ',', '.') }}đ</strong>
                         </td>
-                        <td>
-                            <span style="font-size: 12.5px; color: #475569; display: flex; align-items: center; gap: 4px;">
+                        <td style="vertical-align: middle;">
+                            <span style="font-size: 12.5px; color: #475569; display: inline-flex; align-items: center; gap: 6px;">
                                 {{ $order->payment?->method === 'bank_transfer' ? '🏦 QR Ngân hàng' : 'Mô phỏng cũ' }}
                             </span>
                         </td>
-                        <td style="text-align: center;">
+                        <td style="text-align: center; vertical-align: middle;">
                             @if($order->status === 'paid')
                                 <span style="background: #dcfce7; color: #15803d; font-size: 11.5px; font-weight: 700; padding: 4px 10px; border-radius: 6px; display: inline-block;">
                                     ✓ Đã kích hoạt
@@ -79,7 +95,7 @@
                                 </span>
                             @endif
                         </td>
-                        <td style="text-align: right; white-space: nowrap;">
+                        <td style="text-align: right; white-space: nowrap; vertical-align: middle;">
                             @if($order->status !== 'paid')
                                 <form method="POST" action="{{ route('shop_admin.orders.confirm', $order->number) }}" style="display: inline-block; margin-right: 6px;" onsubmit="return confirm('Xác nhận đã nhận đủ {{ number_format($order->total, 0, ',', '.') }}đ và DUYỆT ĐƠN NGAY cho học viên {{ $order->buyer_name }}? Khóa học sẽ được cấp ngay vào tài khoản.');">
                                     @csrf
