@@ -16,8 +16,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
     
     <!-- Metis Admin Styles -->
-    <link rel="stylesheet" href="{{ asset('css/metis-admin.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/portal.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/metis-admin.css') }}?v={{ @filemtime(public_path('css/metis-admin.css')) ?: '1.0' }}">
+    <link rel="stylesheet" href="{{ asset('css/portal.css') }}?v={{ @filemtime(public_path('css/portal.css')) ?: '1.0' }}">
     <link rel="stylesheet" href="{{ asset('css/commerce.css') }}">
     
     <style>
@@ -48,7 +48,7 @@
                     <i class="bi bi-shield-lock-fill"></i>
                 </div>
                 <div class="metis-brand-text">
-                    <span>METIS ADMIN</span>
+                    <span>ADMIN</span>
                     <small style="display: block; font-size: 10px; color: #60a5fa; font-weight: 600;">ENGLISH CENTER</small>
                 </div>
             </a>
