@@ -45,7 +45,46 @@ class AdminShopController extends Controller {
   DB::transaction(function()use($r,$course,$section,$lesson,$d){$lesson->fill(collect($d)->except(['exam_ids','is_published','is_preview'])->all());if(!$lesson->exists){$lesson->course_section_id=$section->id;$lesson->type=!empty($d['media_path'])?'video':'text';}elseif(!empty($d['media_path'])){$lesson->type='video';}$lesson->is_published=$r->boolean('is_published');$lesson->is_preview=$r->boolean('is_preview');$lesson->media_path=$d['media_path']??null;$lesson->save();$links=[];foreach($d['exam_ids']??[] as $i=>$id)$links[$id]=['position'=>$i+1,'is_required'=>false];$lesson->examPapers()->sync($links);});
   return redirect()->route('shop_admin.courses.edit',$course)->with('success','Đã lưu bài học và các đề luyện gắn kèm.');
  }
- public function orders(Request $r){if(!Schema::hasTable('orders'))return view('learning.shop.setup');$d=$r->validate(['status'=>['nullable',Rule::in(['pending','paid'])]]);$orders=Order::with('payment')->withCount('items')->when($d['status']??null,fn($q,$s)=>$q->where('status',$s))->latest('id')->paginate(25)->withQueryString();return view('learning.shop.admin.orders',compact('orders'));}
+ public function orders(Request $r){
+  if(!Schema::hasTable('orders'))return view('learning.shop.setup');
+  $d=$r->validate([
+   'status'=>['nullable',Rule::in(['pending','paid'])],
+   'type'=>['nullable',Rule::in(['all','online','classroom'])],
+   'q'=>['nullable','string','max:100'],
+  ]);
+  $keyword = trim($d['q'] ?? '');
+  $type = $d['type'] ?? 'all';
+  $status = $d['status'] ?? null;
+
+  $orders = Order::with(['payment', 'items', 'enrollment.classRoom.teacher.user'])
+   ->withCount('items')
+   ->when($status, fn($q, $s) => $q->where('status', $s))
+   ->when($type === 'online', fn($q) => $q->whereNull('enrollment_id'))
+   ->when($type === 'classroom', fn($q) => $q->whereNotNull('enrollment_id'))
+   ->when($keyword !== '', function ($query) use ($keyword) {
+    $query->where(function ($q) use ($keyword) {
+     $q->where('number', 'like', "%{$keyword}%")
+      ->orWhere('buyer_name', 'like', "%{$keyword}%")
+      ->orWhere('buyer_email', 'like', "%{$keyword}%")
+      ->orWhereHas('items', fn($it) => $it->where('course_name', 'like', "%{$keyword}%"))
+      ->orWhereHas('payment', fn($p) => $p->where('reference', 'like', "%{$keyword}%"));
+    });
+   })
+   ->latest('id')
+   ->paginate(25)
+   ->withQueryString();
+
+  $stats = [
+   'all' => Order::count(),
+   'paid' => Order::where('status', 'paid')->count(),
+   'pending' => Order::where('status', 'pending')->count(),
+   'online' => Order::whereNull('enrollment_id')->count(),
+   'classroom' => Order::whereNotNull('enrollment_id')->count(),
+   'totalRevenue' => Order::where('status', 'paid')->sum('total'),
+  ];
+
+  return view('learning.shop.admin.orders', compact('orders', 'stats', 'type', 'keyword', 'status'));
+ }
  public function order(Order $order){$order->load(['items','payment']);return view('learning.shop.order',['order'=>$order,'adminView'=>true]);}
  public function confirm(Request $r,Order $order,CourseShop $shop){if($order->payment->method==='bank_transfer')$r->validate(['verified'=>['accepted']]);$shop->confirm($order,$order->payment->reference,$r->user());return back()->with('success','Admin đã xác nhận thanh toán và cấp quyền học.');}
 }

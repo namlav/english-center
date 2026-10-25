@@ -25,7 +25,7 @@ class ShopController extends Controller {
  public function orders(Request $r){
   if(!Schema::hasTable('orders'))return view('learning.shop.setup');
   $user=$r->user();
-  $orders=Order::where('user_id',$user->id)->with(['items','payment'])->latest('id')->paginate(15);
+  $orders=Order::where('user_id',$user->id)->whereNull('enrollment_id')->with(['items','payment'])->latest('id')->paginate(15);
   $classEnrollments=$user->student ? $user->student->enrollments()->with(['classRoom.course','classRoom.teacher.user'])->latest('id')->get() : collect();
   return view('learning.shop.orders',compact('orders','classEnrollments','user'));
  }

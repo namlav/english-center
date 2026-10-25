@@ -33,7 +33,7 @@ class EnrollmentController extends Controller
                 throw ValidationException::withMessages(['class' => 'Lớp đã đủ số lượng học viên.']);
             }
 
-            Enrollment::create([
+            $newEnr = Enrollment::create([
                 'class_room_id' => $lockedClass->id,
                 'student_id' => $student->id,
                 'enrollment_date' => now()->toDateString(),
@@ -41,6 +41,20 @@ class EnrollmentController extends Controller
                 'payment_status' => 'paid',
                 'result_status' => 'studying',
             ]);
+
+            \App\Services\CourseShop::syncEnrollmentOrder($newEnr);
+
+            if ($student->user_id && $lockedClass->course_id) {
+                \App\Models\CourseEnrollment::firstOrCreate(
+                    ['user_id' => $student->user_id, 'course_id' => $lockedClass->course_id],
+                    [
+                        'source' => 'classroom',
+                        'status' => 'active',
+                        'started_at' => $lockedClass->start_date ? \Carbon\Carbon::parse($lockedClass->start_date)->startOfDay() : now(),
+                        'expires_at' => $lockedClass->expected_end_date ? \Carbon\Carbon::parse($lockedClass->expected_end_date)->addMonth() : null,
+                    ]
+                );
+            }
 
             return 'Đăng ký thành công. Hệ thống đã ghi nhận thanh toán học phí '.number_format((float) $lockedClass->tuition_fee, 0, ',', '.').' ₫.';
         }, 3);
@@ -104,6 +118,12 @@ class EnrollmentController extends Controller
             $refundDetails = $lockedEnrollment->payment_status === 'paid'
                 ? ['class_name' => $classRoom->name, 'amount' => (float) $lockedEnrollment->paid_tuition]
                 : null;
+
+            if ($lockedEnrollment->order) {
+                $lockedEnrollment->order->items()->delete();
+                $lockedEnrollment->order->payment()->delete();
+                $lockedEnrollment->order->delete();
+            }
 
             $lockedEnrollment->delete();
 
@@ -186,7 +206,7 @@ class EnrollmentController extends Controller
                 ? (float) $validated['paid_tuition']
                 : (float) $lockedClass->tuition_fee;
 
-            Enrollment::create([
+            $newEnr = Enrollment::create([
                 'class_room_id' => $lockedClass->id,
                 'student_id' => $student->id,
                 'enrollment_date' => now()->toDateString(),
@@ -194,6 +214,8 @@ class EnrollmentController extends Controller
                 'payment_status' => 'paid',
                 'result_status' => 'studying',
             ]);
+
+            \App\Services\CourseShop::syncEnrollmentOrder($newEnr);
 
             if ($student->user_id && $lockedClass->course_id) {
                 \App\Models\CourseEnrollment::firstOrCreate(
@@ -223,6 +245,12 @@ class EnrollmentController extends Controller
             Attendance::where('class_room_id', $classRoom->id)
                 ->where('student_id', $enrollment->student_id)
                 ->delete();
+
+            if ($enrollment->order) {
+                $enrollment->order->items()->delete();
+                $enrollment->order->payment()->delete();
+                $enrollment->order->delete();
+            }
 
             $enrollment->delete();
         }, 3);

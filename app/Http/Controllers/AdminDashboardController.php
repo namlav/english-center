@@ -26,7 +26,7 @@ class AdminDashboardController extends Controller
         $hasExams = Schema::hasTable('exam_papers');
         $hasEnrollments = Schema::hasTable('enrollments');
 
-        // 1. CHỈ SỐ DOANH THU BÁN KHÓA HỌC (TRỌNG TÂM)
+        // 1. CHỈ SỐ DOANH THU BÁN KHÓA HỌC (TRỌNG TÂM TOÀN HỆ THỐNG)
         $totalCourseRevenue = $hasOrders ? (int) Order::where('status', 'paid')->sum('total') : 0;
         $paidOrdersCount = $hasOrders ? Order::where('status', 'paid')->count() : 0;
         $pendingOrdersCount = $hasOrders ? Order::where('status', 'pending')->count() : 0;
@@ -37,23 +37,27 @@ class AdminDashboardController extends Controller
         $thisMonthRevenue = $hasOrders ? (int) Order::where('status', 'paid')->whereMonth('created_at', now()->month)->whereYear('created_at', now()->year)->sum('total') : 0;
         $averageOrderValue = $paidOrdersCount > 0 ? (int) round($totalCourseRevenue / $paidOrdersCount) : 0;
 
-        // Doanh thu học phí lớp học offline nếu có
+        // Phân tách doanh thu lớp trực tiếp và khóa học online
         $offlineRevenue = $hasEnrollments ? (int) Enrollment::where('payment_status', 'paid')->sum('paid_tuition') : 0;
-        $totalSystemRevenue = $totalCourseRevenue + $offlineRevenue;
+        $onlineRevenue = $hasOrders ? (int) Order::where('status', 'paid')->whereNull('enrollment_id')->sum('total') : 0;
+        $totalSystemRevenue = $totalCourseRevenue > 0 ? $totalCourseRevenue : ($offlineRevenue + $onlineRevenue);
 
-        // 2. BÁO CÁO DOANH THU CHI TIẾT BÁN ĐƯỢC BAO NHIÊU THEO TỪNG KHÓA HỌC
+        // 2. BÁO CÁO DOANH THU CHI TIẾT BÁN ĐƯỢC THEO TỪNG KHÓA HỌC
         $courseSales = collect();
         if ($hasOrderItems && $hasOrders) {
             $courseSales = DB::table('order_items')
                 ->join('orders', 'order_items.order_id', '=', 'orders.id')
+                ->leftJoin('courses', 'order_items.course_id', '=', 'courses.id')
                 ->where('orders.status', 'paid')
                 ->select(
                     'order_items.course_name',
+                    'order_items.course_id',
+                    DB::raw('MAX(courses.delivery_mode) as delivery_mode'),
                     DB::raw('COUNT(order_items.id) as total_sold'),
                     DB::raw('SUM(order_items.unit_price) as course_revenue'),
                     DB::raw('MAX(order_items.unit_price) as unit_price')
                 )
-                ->groupBy('order_items.course_name')
+                ->groupBy('order_items.course_name', 'order_items.course_id')
                 ->orderByDesc('course_revenue')
                 ->get();
         }
@@ -68,7 +72,7 @@ class AdminDashboardController extends Controller
 
         // 3. ĐƠN HÀNG BÁN KHÓA HỌC GẦN ĐÂY CẦN ĐỐI SOÁT
         $recentOrders = $hasOrders 
-            ? Order::with(['items', 'payment'])->latest('id')->take(8)->get() 
+            ? Order::with(['items', 'payment', 'enrollment.classRoom'])->latest('id')->take(8)->get() 
             : collect();
 
         // 4. CÁC THÔNG SỐ PHỤ KHÁC (Học viên, Giảng viên, Lớp học, Đề thi, Bài giảng)
@@ -159,6 +163,7 @@ class AdminDashboardController extends Controller
     {
         $orders = Order::with(['items', 'payment'])
             ->where('status', 'paid')
+            ->whereNull('enrollment_id')
             ->latest('id')
             ->get();
 
