@@ -10,7 +10,7 @@
         <h2 class="fw-bold mb-1">{{ $user->name }}</h2>
         @switch($user->role)
             @case('admin')
-                <span class="badge bg-danger">Admin</span>
+                <span class="badge bg-danger"><i class="bi bi-shield-lock-fill me-1"></i>Admin</span>
                 @break
             @case('teacher')
                 <span class="badge bg-primary">Giảng viên</span>
@@ -18,7 +18,11 @@
             @default
                 <span class="badge bg-success">Học viên</span>
         @endswitch
-        <span class="badge {{ $user->is_active ? 'bg-success' : 'bg-secondary' }}">{{ $user->is_active ? 'Hoạt động' : 'Bị khóa' }}</span>
+        @if($user->isAdmin())
+            <span class="badge bg-success" title="Tài khoản Quản trị viên luôn hoạt động"><i class="bi bi-shield-check me-1"></i>Hoạt động (Được bảo vệ)</span>
+        @else
+            <span class="badge {{ $user->is_active ? 'bg-success' : 'bg-secondary' }}">{{ $user->is_active ? 'Hoạt động' : 'Bị khóa' }}</span>
+        @endif
     </div>
     <div class="d-flex gap-2">
         <a href="{{ route('users.index') }}" class="btn btn-outline-secondary">Về danh sách</a>
