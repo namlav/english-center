@@ -1,0 +1,18 @@
+* text=auto eol=lf
+
+*.blade.php diff=html
+*.css diff=css
+*.html diff=html
+*.md diff=markdown
+*.php diff=php
+
+/.github export-ignore
+CHANGELOG.md export-ignore
+.styleci.yml export-ignore
+
+# Auto-collapse large data files & vendor libraries in GitHub PR review
+database/sql/* linguist-generated=true
+database/data/* linguist-generated=true
+composer.lock linguist-generated=true
+public/js/vendor/* linguist-generated=true
+

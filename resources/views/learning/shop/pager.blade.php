@@ -1,0 +1,1 @@
+@if($records->hasPages())<nav class="catalog-pagination" aria-label="Phân trang">@if($records->previousPageUrl())<a href="{{ $records->previousPageUrl() }}">← Trang trước</a>@endif<span>Trang {{ $records->currentPage() }}/{{ $records->lastPage() }}</span>@if($records->nextPageUrl())<a href="{{ $records->nextPageUrl() }}">Trang sau →</a>@endif</nav>@endif

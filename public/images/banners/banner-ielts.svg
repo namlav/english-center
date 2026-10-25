@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300" width="800" height="300">
+  <defs>
+    <linearGradient id="bg-ielts" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="50%" stop-color="#1e3a8a" />
+      <stop offset="100%" stop-color="#2563eb" />
+    </linearGradient>
+    <linearGradient id="gold-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a" />
+      <stop offset="100%" stop-color="#f59e0b" />
+    </linearGradient>
+    <linearGradient id="badge-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000" flood-opacity="0.35" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="300" rx="12" fill="url(#bg-ielts)" />
+
+  <!-- Decorative circles / shapes -->
+  <circle cx="750" cy="40" r="140" fill="#3b82f6" opacity="0.18" />
+  <circle cx="580" cy="260" r="100" fill="#60a5fa" opacity="0.12" />
+  <circle cx="30" cy="270" r="80" fill="#1d4ed8" opacity="0.25" />
+
+  <!-- Brand Pill -->
+  <rect x="40" y="32" width="230" height="28" rx="14" fill="rgba(255, 255, 255, 0.15)" stroke="rgba(255, 255, 255, 0.25)" stroke-width="1" />
+  <circle cx="56" cy="46" r="5" fill="#f59e0b" />
+  <text x="70" y="50" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#e2e8f0" letter-spacing="0.5">ENGLISH CENTER · CHUẨN QUỐC TẾ</text>
+
+  <!-- Main Title -->
+  <text x="40" y="105" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="34" font-weight="900" fill="#ffffff" letter-spacing="-0.5">COMBO IELTS</text>
+  <text x="290" y="105" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="34" font-weight="900" fill="url(#gold-grad)" letter-spacing="-0.5">INTENSIVE</text>
+
+  <!-- Subtitle -->
+  <text x="40" y="140" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="500" fill="#cbd5e1">Lộ trình bứt phá 4 kỹ năng · Cam kết chuẩn đầu ra 7.0 - 7.5+</text>
+
+  <!-- Features Pills -->
+  <g transform="translate(40, 165)">
+    <rect x="0" y="0" width="135" height="32" rx="6" fill="rgba(255, 255, 255, 0.12)" />
+    <text x="14" y="21" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#ffffff">🎧 Listening Cam 19</text>
+
+    <rect x="145" y="0" width="135" height="32" rx="6" fill="rgba(255, 255, 255, 0.12)" />
+    <text x="160" y="21" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#ffffff">📖 Reading Mastery</text>
+
+    <rect x="290" y="0" width="145" height="32" rx="6" fill="rgba(255, 255, 255, 0.12)" />
+    <text x="304" y="21" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#ffffff">✍️ Chữa bài Writing 1-1</text>
+  </g>
+
+  <!-- Bottom CTA hint -->
+  <text x="40" y="245" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="600" fill="#93c5fd">🔥 Tặng kèm khóa luyện giải đề dự đoán quý mới nhất</text>
+
+  <!-- Right Visual / Target Badge -->
+  <g transform="translate(540, 45)" filter="url(#shadow)">
+    <!-- Main Glass Card -->
+    <rect x="0" y="0" width="220" height="210" rx="16" fill="rgba(255, 255, 255, 0.95)" />
+    
+    <!-- Header of Card -->
+    <rect x="0" y="0" width="220" height="48" rx="16" fill="#1e3a8a" />
+    <rect x="0" y="32" width="220" height="16" fill="#1e3a8a" />
+    <text x="110" y="30" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="800" fill="#ffffff" letter-spacing="1">MỤC TIÊU ĐẦU RA</text>
+
+    <!-- Score Circle -->
+    <circle cx="110" cy="115" r="46" fill="url(#badge-grad)" />
+    <circle cx="110" cy="115" r="41" fill="#ffffff" />
+    <text x="110" y="112" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#64748b">BAND</text>
+    <text x="110" y="132" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="26" font-weight="900" fill="#1e3a8a">7.5+</text>
+
+    <!-- Card Footer Tags -->
+    <rect x="25" y="172" width="170" height="24" rx="12" fill="#eff6ff" />
+    <text x="110" y="188" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#2563eb">CAM KẾT BẰNG VĂN BẢN</text>
+  </g>
+</svg>
